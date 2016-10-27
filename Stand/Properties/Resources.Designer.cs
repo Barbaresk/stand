@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Stand.Properties
+namespace VirtualStand.Properties
 {
 
 
