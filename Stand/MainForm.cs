@@ -49,5 +49,36 @@ namespace VirtualStand
             lDirectory.Text = StandPath;
             lStand.Text = StandName;
         }
+
+        private void newElement_Click(object sender, EventArgs e)
+        {
+            Form form = new NewElement();
+            form.ShowDialog();
+        }
+
+        private void openElement_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "Изображения |*.element";
+                dialog.Title = "Поиск элемента";
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    Form form = new NewElement(dialog.FileName);
+                    form.ShowDialog(); 
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка: " + ex.Message);
+            }
+        }
+
+        private void newObject_Click(object sender, EventArgs e)
+        {
+            Form form = new NewObject();
+            form.ShowDialog();
+        }
     }
 }

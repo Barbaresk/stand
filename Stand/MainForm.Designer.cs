@@ -37,10 +37,12 @@
             this.импортОбъектовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.элементыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.импортЭлементовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.создатьЭлементToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lDirectory = new System.Windows.Forms.Label();
             this.lStand = new System.Windows.Forms.Label();
+            this.создатьОбъектToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -88,7 +90,8 @@
             // объектыToolStripMenuItem
             // 
             this.объектыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.импортОбъектовToolStripMenuItem});
+            this.импортОбъектовToolStripMenuItem,
+            this.создатьОбъектToolStripMenuItem});
             this.объектыToolStripMenuItem.Name = "объектыToolStripMenuItem";
             this.объектыToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
             this.объектыToolStripMenuItem.Text = "Объекты";
@@ -96,13 +99,14 @@
             // импортОбъектовToolStripMenuItem
             // 
             this.импортОбъектовToolStripMenuItem.Name = "импортОбъектовToolStripMenuItem";
-            this.импортОбъектовToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.импортОбъектовToolStripMenuItem.Text = "Импорт объектов";
+            this.импортОбъектовToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.импортОбъектовToolStripMenuItem.Text = "Открыть объект";
             // 
             // элементыToolStripMenuItem
             // 
             this.элементыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.импортЭлементовToolStripMenuItem});
+            this.импортЭлементовToolStripMenuItem,
+            this.создатьЭлементToolStripMenuItem});
             this.элементыToolStripMenuItem.Name = "элементыToolStripMenuItem";
             this.элементыToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
             this.элементыToolStripMenuItem.Text = "Элементы";
@@ -110,8 +114,16 @@
             // импортЭлементовToolStripMenuItem
             // 
             this.импортЭлементовToolStripMenuItem.Name = "импортЭлементовToolStripMenuItem";
-            this.импортЭлементовToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.импортЭлементовToolStripMenuItem.Text = "Импорт элементов";
+            this.импортЭлементовToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.импортЭлементовToolStripMenuItem.Text = "Открыть элемент";
+            this.импортЭлементовToolStripMenuItem.Click += new System.EventHandler(this.openElement_Click);
+            // 
+            // создатьЭлементToolStripMenuItem
+            // 
+            this.создатьЭлементToolStripMenuItem.Name = "создатьЭлементToolStripMenuItem";
+            this.создатьЭлементToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.создатьЭлементToolStripMenuItem.Text = "Создать элемент";
+            this.создатьЭлементToolStripMenuItem.Click += new System.EventHandler(this.newElement_Click);
             // 
             // label1
             // 
@@ -149,6 +161,13 @@
             this.lStand.TabIndex = 4;
             this.lStand.Text = "нет";
             // 
+            // создатьОбъектToolStripMenuItem
+            // 
+            this.создатьОбъектToolStripMenuItem.Name = "создатьОбъектToolStripMenuItem";
+            this.создатьОбъектToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.создатьОбъектToolStripMenuItem.Text = "Создать объект";
+            this.создатьОбъектToolStripMenuItem.Click += new System.EventHandler(this.newObject_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -185,6 +204,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lDirectory;
         private System.Windows.Forms.Label lStand;
+        private System.Windows.Forms.ToolStripMenuItem создатьЭлементToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem создатьОбъектToolStripMenuItem;
     }
 }
 

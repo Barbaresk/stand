@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,5 +19,48 @@ namespace VirtualStand
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
         }
+
+        public static string GetFile(string title, string filter)
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = filter;
+                dialog.Title = title;
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                    return dialog.FileName;
+                else
+                    return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        //загрузка изображения
+        public static Image Loadimage(ref string name)
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "Изображения |*.png";
+                dialog.Title = "Поиск изображения";
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    name = dialog.FileName;
+                    return Image.FromFile(dialog.FileName);
+                }
+                return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+
     }
 }
