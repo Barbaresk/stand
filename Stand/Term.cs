@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace VirtualStand
 {
@@ -37,21 +39,22 @@ namespace VirtualStand
             }
         }
 
-        public bool Correct(string value)
+        public static string ToStr(Actions action)
+        {
+            switch(action)
+            {
+                case Actions.Equal: return "=";
+                case Actions.Less: return "<";
+                case Actions.More: return ">";
+                default: return "";
+            }
+        }
+
+        public bool Correct(List<bool> list)
         {
             int v = 0;
-
-            Regex reg16 = new Regex("^0[xX]([0-9a-fA-F]+)$");
-            Regex reg10 = new Regex("^([0-9]+)$");
-            Regex reg2 = new Regex("^([01]+)b$");
-            if (reg16.IsMatch(value))
-                v = Convert.ToInt32(reg16.Match(value).Groups[1].Value, 16);
-            else if (reg10.IsMatch(value))
-                v = Convert.ToInt32(reg10.Match(value).Groups[1].Value, 10);
-            else if (reg2.IsMatch(value))
-                v = Convert.ToInt32(reg2.Match(value).Groups[1].Value, 2);
-            else
-                return false;
+            foreach (bool b in list)
+                v = (v + (b ? 1 : 0)) * 10;
 
             string con = new string(this.value.ToLower().ToCharArray());
             Regex con16 = new Regex("^0[xX][0-9a-fA-FuU]+$");
@@ -119,6 +122,15 @@ namespace VirtualStand
                     return false;
             }
             return true;
+        }
+
+        public void Write(XmlTextWriter writer)
+        {
+            writer.WriteStartElement("condition");
+            writer.WriteAttributeString("name", pin.Name);
+            writer.WriteAttributeString("value", value);
+            writer.WriteAttributeString("action", ToStr(action));
+            writer.WriteEndElement();
         }
     }
 }

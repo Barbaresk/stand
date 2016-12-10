@@ -670,7 +670,7 @@ namespace VirtualStand
 
                 if (folder.ShowDialog() == DialogResult.OK)
                 {
-                    path = folder.SelectedPath + "\\" + tbName.Text;
+                    path = folder.SelectedPath + @"\" + tbName.Text;
                 }
                 else
                 {
@@ -698,7 +698,7 @@ namespace VirtualStand
                 }
 
                 XmlTextWriter writer;
-                if(File.Exists(path + "\\" + tbName.Text + ".element"))
+                if(File.Exists(path + @"\" + tbName.Text + ".element"))
                 {
                     if (MessageBox.Show("Файл " + tbName.Text + ".element существует в директории " + path , "Предупреждение", 
                         MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
@@ -756,7 +756,7 @@ namespace VirtualStand
         {
             List<string> errors = new List<string>();
             for (int i = 0; i < lines.Count; ++i)
-                errors.AddRange(lines[i].CheckSave(path, i+1));
+                errors.AddRange(lines[i].CheckSave(path));
             if (File.Exists(path + @"\" + tbBackground.Text + ".png"))
                 errors.Add(tbBackground.Text + ".png");
             return errors;

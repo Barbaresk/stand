@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -10,27 +11,22 @@ namespace VirtualStand
 {
     class Element : Item
     {
-        private List<OutPin> outPins;
-        private List<InPin> inPins;
         private List<Condition> conditions;
         private Value defaultValue;
 
-        public Element(string path)
+        public Element(string path) : this(path, 0, 0, "") { }
+
+        public Element(string path, int x, int y, string id) : base(path, x, y, id)
         {
-            this.path = path;
-            background = null;
-            outPins = new List<OutPin>();
-            inPins = new List<InPin>();
             conditions = new List<Condition>();
-            Location = new Point(0, 0);
             Read();
             defaultValue = new Value();
             foreach (InPin pin in inPins)
-                defaultValue.Add(pin.Name, pin.Default);
+                defaultValue[pin.Name] = pin.Default;
             size = GetSize();
         }
 
-        public void Read()
+        public override void Read()
         {
             Regex regexPath = new Regex(@"(.*\\)[^\\]*");                //выделение папки из пути к файлу
 
@@ -53,6 +49,7 @@ namespace VirtualStand
                                             try
                                             {
                                                 background = Image.FromFile(regexPath.Match(Path).Groups[1].Value + "\\" + reader.Value);
+                                                backgroundName = reader.Value;
                                             }
                                             catch (Exception ex)
                                             {
@@ -61,6 +58,12 @@ namespace VirtualStand
                                             break;
                                         case "xmlns":
                                             name = reader.Value;
+                                            break;
+                                        case "x":
+                                            X = Convert.ToInt32(reader.Value);
+                                            break;
+                                        case "y":
+                                            Y = Convert.ToInt32(reader.Value);
                                             break;
                                     }
                                 }
@@ -76,10 +79,10 @@ namespace VirtualStand
                                     switch (reader.Name)
                                     {
                                         case "x":
-                                            y = Convert.ToInt32(reader.Value);
+                                            x = Convert.ToInt32(reader.Value);
                                             break;
                                         case "y":
-                                            x = Convert.ToInt32(reader.Value);
+                                            y = Convert.ToInt32(reader.Value);
                                             break;
                                         case "type":
                                             type = reader.Value;
@@ -113,7 +116,7 @@ namespace VirtualStand
                                             break;
                                     }
                                 }
-                                inPins.Add(new InPin(inRadix, inName, defaultValue));
+                                inPins.Add(new InPin(inRadix, inName, defaultValue, this));
                                 break;
                             case "line":
                                 while (reader.MoveToNextAttribute())
@@ -123,7 +126,7 @@ namespace VirtualStand
                                         try
                                         {
                                             Image image = Image.FromFile(regexPath.Match(Path).Groups[1].Value + "\\" + reader.Value);
-                                            conditions.Add(new Condition(image));
+                                            conditions.Add(new Condition(image, reader.Value));
                                         }
                                         catch (Exception ex)
                                         {
@@ -159,15 +162,21 @@ namespace VirtualStand
             }
         }
 
-        public override void Draw(Graphics g, Value value)
+        public override void Draw(Graphics graphics, Value value, int x, int yED23EVN;)
         {
             if (background != null)
-                g.DrawImage(background, Location);
+                graphics.DrawImage(background, Location);
             foreach (Condition c in conditions)
-                c.Draw(g, Location, value);
+                c.Draw(graphics, Location, value);
             foreach (OutPin o in outPins)
-                o.Draw(g, Location);
-            g.DrawString(Id, new Font("Arial black", 10), new SolidBrush(Color.Black), X, Y);
+                o.Draw(graphics, Location);
+        }
+
+        public override void DrawEditor(Graphics graphics, Value value)
+        {
+            Draw(graphics, value);
+            graphics.DrawRectangle(new Pen(new SolidBrush(Color.Red), 2), X, Y, Width, Height);
+            graphics.DrawString(Id, new Font("Arial black", 10), new SolidBrush(Color.Black), X, Y);
         }
 
         public override Value GetDefault()
@@ -192,6 +201,76 @@ namespace VirtualStand
                     height = c.Height;
             }
             return new Size(width, height);
+        }
+
+        public override List<string> CheckSave(string folderPath, string subPath)
+        {
+            string path = folderPath + @"\" + subPath + @"\" + name;
+            List<string> names = new List<string>();
+            if (!Directory.Exists(path))
+                return names;
+            if (backgroundName != null)
+                if (File.Exists(path + @"\" + backgroundName))
+                {
+                    Bitmap bFile = new Bitmap(Image.FromFile(path + @"\" + backgroundName));
+                    Bitmap bThis = new Bitmap(background);
+                    if (!bFile.Size.Equals(bThis.Size))
+                        names.Add(path + @"\" + background);
+                    else
+                    {
+                        for (int i = 0; i < bFile.Width; i += 3)
+                            for (int j = 0; j < bFile.Height; j += 3)
+                                if (!bFile.GetPixel(i, j).Equals(bThis.GetPixel(i, j)))
+                                {
+                                    names.Add(subPath + @"\" + name + @"\" + background);
+                                    break;
+                                }
+                    }
+                }
+
+            return new List<string>();
+        }
+
+        public override void Save(string path, string subPath)
+        {
+            path = path + @"\" + subPath + @"\" + name;
+            if (Directory.Exists(path))
+                return;
+            Directory.CreateDirectory(path);
+
+            XmlTextWriter writer;
+
+            writer = new XmlTextWriter(path + "\\" + name + ".element", null);
+            writer.Formatting = Formatting.Indented;
+            writer.Indentation = 4;
+            writer.WriteStartDocument();
+            writer.WriteStartElement("element", name);
+            if (background != null)
+            {
+                writer.WriteAttributeString("background", backgroundName);
+                WriteImage(path + @"\" + backgroundName, background);
+            }
+            foreach (OutPin o in outPins)
+                o.Write(writer);
+            foreach (InPin i in inPins)
+                i.Write(writer);
+            foreach (Condition c in conditions)
+                c.Write(writer, path);
+
+            writer.WriteEndElement();
+            writer.Close();
+            MessageBox.Show("Элемент успешно сохранён");
+        }
+
+        public static void WriteImage(string name, Image image)
+        {
+            if (!File.Exists(name) || Line.GetHash(image) != Line.GetHash(Image.FromFile(name)))
+                image.Save(name);
+        }
+
+        public override string GetItemType()
+        {
+            return "item_element";
         }
     }
 }

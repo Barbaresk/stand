@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace VirtualStand
 {
@@ -21,14 +22,28 @@ namespace VirtualStand
             this.type = type;
         }
 
+        public OutPin(string name) : this(0, name, 0, 0, null) { }
+
         public void Draw(Graphics graphics, Point location)
         {
             if (type.Equals("Поле"))
-                graphics.FillRectangle(new SolidBrush(Color.Pink), new Rectangle(new Point(location.X + X, location.Y + Y), new Size(80, 20)));
+                graphics.DrawImage(VirtualStand.Properties.Resources.textboxBuffer, new Point(location.X + X, location.Y + Y));
             else
                 for (int i = 0; i < radix; ++i)
-                    graphics.FillRectangle(new SolidBrush(Color.Yellow), new Rectangle(location.X + X + i * 20, location.Y + Y, 20, 20));
-            //graphics.DrawString(Name, new Font("Arial Black", 10), Brushes.Black, new PointF(location.X + X, location.Y + Y - 10));
+                    if (type.Equals("Кнопки"))
+                        graphics.DrawImage(VirtualStand.Properties.Resources.buttonBuffer, new Point(location.X + X + i * 20, Y + location.Y));
+                    else
+                        graphics.DrawImage(VirtualStand.Properties.Resources.checkboxBuffer, new Point(location.X + X + i * 20, Y + location.Y));
+        }
+
+        public override void Write(XmlTextWriter writer)
+        {
+            writer.WriteStartElement("out", Name);
+            writer.WriteAttributeString("x", X.ToString());
+            writer.WriteAttributeString("y", Y.ToString());
+            writer.WriteAttributeString("type", type);
+            writer.WriteAttributeString("radix", radix.ToString());
+            writer.WriteEndElement();
         }
     }
 }

@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using System.Xml;
 
 namespace VirtualStand
 {
@@ -7,6 +10,7 @@ namespace VirtualStand
     {
         private Image Image { get; set; }
         private List<Term> terms;
+        private string imageName; 
 
         public int Height
         {
@@ -30,9 +34,10 @@ namespace VirtualStand
             }
         }
 
-        public Condition(Image image)
+        public Condition(Image image, string imageName)
         {
             Image = image;
+            this.imageName = imageName;
             terms = new List<Term>();
         }
 
@@ -48,5 +53,50 @@ namespace VirtualStand
                     return;
             graphics.DrawImage(Image, location);
         }
+
+        public void Write(XmlTextWriter writer, string path)
+        {
+            path += @"\" + imageName;
+            if (!File.Exists(path))
+                Image.Save(path);
+            else if (Line.GetHash(Image) != Line.GetHash(Image.FromFile(path)))
+            {
+                File.Delete(path);
+                Image.Save(path);
+            }
+            writer.WriteStartElement("line");
+            writer.WriteAttributeString("image", imageName);
+            foreach (Term t in terms)
+                t.Write(writer);
+            writer.WriteEndElement();
+        }
+
+        //public List<string> CheckSave(string folderPath, string subPath)
+        //{
+        //    try
+        //    {
+        //        string path = folderPath + @"\" + subPath;
+        //        if (File.Exists(path + @"\" + imageName))
+        //        {
+        //            Bitmap bFile = new Bitmap(Image.FromFile(path + @"\" + imageName));
+        //            Bitmap bThis = new Bitmap(Image);
+        //            if (!bFile.Size.Equals(bThis.Size))
+        //                return new List<string>(new string[] { subPath + @"\" + imageName });
+        //            else
+        //            {
+        //                for (int i = 0; i < bFile.Width; i += 3)
+        //                    for (int j = 0; j < bFile.Height; j += 3)
+        //                        if (!bFile.GetPixel(i, j).Equals(bThis.GetPixel(i, j)))
+        //                            return new List<string>(new string[] { subPath + @"\" + imageName });
+        //            }
+        //            return new List<string>();
+        //        }
+        //        return new List<string>();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return new List<string>();
+        //    }
+        //}
     }
 }

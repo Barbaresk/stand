@@ -158,7 +158,7 @@ namespace VirtualStand
             return hash;
         }
 
-        public List<string> CheckSave(string path, int num)
+        public List<string> CheckSave(string path)
         {
             try {
                 if (File.Exists(path + @"\" + Name + ".png"))

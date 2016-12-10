@@ -33,7 +33,12 @@
             this.bBackground = new System.Windows.Forms.Button();
             this.pbBackground = new System.Windows.Forms.PictureBox();
             this.dgvOut = new System.Windows.Forms.DataGridView();
+            this.NameOut = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RadixOut = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvIn = new System.Windows.Forms.DataGridView();
+            this.NameIn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RadixIn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DefaultIn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bAddIn = new System.Windows.Forms.Button();
             this.pLines = new System.Windows.Forms.Panel();
             this.pButtons = new System.Windows.Forms.Panel();
@@ -48,11 +53,6 @@
             this.lWarnings = new System.Windows.Forms.Label();
             this.tbBackground = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.NameIn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RadixIn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DefaultIn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameOut = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RadixOut = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pbBackground)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIn)).BeginInit();
@@ -91,6 +91,7 @@
             // 
             // pbBackground
             // 
+            this.pbBackground.BackColor = System.Drawing.Color.LightCyan;
             this.pbBackground.Location = new System.Drawing.Point(727, 2);
             this.pbBackground.Name = "pbBackground";
             this.pbBackground.Size = new System.Drawing.Size(565, 295);
@@ -114,6 +115,18 @@
             this.dgvOut.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOut_CellValueChanged);
             this.dgvOut.ColumnRemoved += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvOut_ColumnRemoved);
             // 
+            // NameOut
+            // 
+            this.NameOut.HeaderText = "Имя выхода";
+            this.NameOut.Name = "NameOut";
+            this.NameOut.Width = 80;
+            // 
+            // RadixOut
+            // 
+            this.RadixOut.HeaderText = "Разрядность";
+            this.RadixOut.Name = "RadixOut";
+            this.RadixOut.Width = 80;
+            // 
             // dgvIn
             // 
             this.dgvIn.BackgroundColor = System.Drawing.Color.LightCyan;
@@ -128,6 +141,25 @@
             this.dgvIn.TabIndex = 11;
             this.dgvIn.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvIn_CellValueChanged);
             this.dgvIn.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvIn_UserAddedRow);
+            // 
+            // NameIn
+            // 
+            this.NameIn.DataPropertyName = "nn";
+            this.NameIn.HeaderText = "Имя входа";
+            this.NameIn.Name = "NameIn";
+            this.NameIn.Width = 80;
+            // 
+            // RadixIn
+            // 
+            this.RadixIn.HeaderText = "Разрядность";
+            this.RadixIn.Name = "RadixIn";
+            this.RadixIn.Width = 80;
+            // 
+            // DefaultIn
+            // 
+            this.DefaultIn.HeaderText = "Стандартное значение";
+            this.DefaultIn.Name = "DefaultIn";
+            this.DefaultIn.Width = 80;
             // 
             // bAddIn
             // 
@@ -264,37 +296,6 @@
             this.label3.Size = new System.Drawing.Size(61, 13);
             this.label3.TabIndex = 25;
             this.label3.Text = "Имя фона:";
-            // 
-            // NameIn
-            // 
-            this.NameIn.DataPropertyName = "nn";
-            this.NameIn.HeaderText = "Имя входа";
-            this.NameIn.Name = "NameIn";
-            this.NameIn.Width = 80;
-            // 
-            // RadixIn
-            // 
-            this.RadixIn.HeaderText = "Разрядность";
-            this.RadixIn.Name = "RadixIn";
-            this.RadixIn.Width = 80;
-            // 
-            // DefaultIn
-            // 
-            this.DefaultIn.HeaderText = "Стандартное значение";
-            this.DefaultIn.Name = "DefaultIn";
-            this.DefaultIn.Width = 80;
-            // 
-            // NameOut
-            // 
-            this.NameOut.HeaderText = "Имя выхода";
-            this.NameOut.Name = "NameOut";
-            this.NameOut.Width = 80;
-            // 
-            // RadixOut
-            // 
-            this.RadixOut.HeaderText = "Разрядность";
-            this.RadixOut.Name = "RadixOut";
-            this.RadixOut.Width = 80;
             // 
             // NewElement
             // 

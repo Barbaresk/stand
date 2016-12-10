@@ -53,7 +53,7 @@ namespace VirtualStand
         private void newElement_Click(object sender, EventArgs e)
         {
             Form form = new NewElement();
-            form.ShowDialog();
+            form.Show();
         }
 
         private void openElement_Click(object sender, EventArgs e)
@@ -78,7 +78,7 @@ namespace VirtualStand
         private void newObject_Click(object sender, EventArgs e)
         {
             Form form = new NewObject();
-            form.ShowDialog();
+            form.Show();
         }
     }
 }

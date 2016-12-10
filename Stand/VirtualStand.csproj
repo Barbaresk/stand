@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Box.cs" />
     <Compile Include="Condition.cs" />
+    <Compile Include="Subject.cs" />
     <Compile Include="Value.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="Item.cs" />
