@@ -98,8 +98,10 @@
             this.pbBackground.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pbBackground.TabIndex = 8;
             this.pbBackground.TabStop = false;
-            this.pbBackground.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbBackground_MouseClick);
+            this.pbBackground.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbBackground_MouseDown);
+            this.pbBackground.MouseLeave += new System.EventHandler(this.pbBackground_MouseLeave);
             this.pbBackground.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbBackground_MouseMove);
+            this.pbBackground.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbBackground_MouseUp);
             // 
             // dgvOut
             // 

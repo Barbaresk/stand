@@ -14,46 +14,24 @@ namespace VirtualStand
 {
     public partial class MainForm : Form
     {
-        public string StandPath { get; set; }
-        public string StandName { get; set; }
-        public bool StandExist { get; set; }
-        //private Stand();
-        private Stand stand;
+
         public MainForm()
         {
             InitializeComponent();
-            StandPath = "";
-            StandName = "";
-        }
-
-        private void newStand_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog folder = new FolderBrowserDialog();
-            folder.Description = "Выбор директории для стенда";
-            if(folder.ShowDialog() == DialogResult.OK)
-            {
-                StandPath = folder.SelectedPath;
-            }
-            StandName = "Stand0";
-            Form form = new Request();
-            form.Owner = this;
-            form.ShowDialog();
-
-            stand = new Stand(StandPath + "\\" + StandName);
-            stand.Create();
-            Invalidate();
-        }
-
-        private void MainForm_Paint(object sender, PaintEventArgs e)
-        {
-            lDirectory.Text = StandPath;
-            lStand.Text = StandName;
+ 
         }
 
         private void newElement_Click(object sender, EventArgs e)
         {
-            Form form = new NewElement();
-            form.Show();
+            try
+            {
+                Form form = new NewElement();
+                form.Show();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Непредвиденная ошибка при создании формы: " + ex.Message);
+            }
         }
 
         private void openElement_Click(object sender, EventArgs e)
@@ -76,6 +54,58 @@ namespace VirtualStand
         }
 
         private void newObject_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Form form = new NewObject();
+                form.Show();
+                   
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Непредвиденная ошибка: " + ex.Message);
+            }
+        }
+
+        private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                AboutBox about = new AboutBox();
+                about.ShowDialog();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Непредвиденная ошибка: " + ex.Message);
+            }
+        }
+
+        private void bCreateElement_Click(object sender, EventArgs e)
+        {
+            Form form = new NewElement();
+            form.Show();
+        }
+
+        private void bOpenElement_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "Изображения |*.element";
+                dialog.Title = "Поиск элемента";
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    Form form = new NewElement(dialog.FileName);
+                    form.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка: " + ex.Message);
+            }
+        }
+
+        private void bCreateObject_Click(object sender, EventArgs e)
         {
             Form form = new NewObject();
             form.Show();

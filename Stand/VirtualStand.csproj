@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Box.cs" />
     <Compile Include="Condition.cs" />
     <Compile Include="Subject.cs" />
@@ -76,14 +82,10 @@
     <Compile Include="InPin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Request.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Request.Designer.cs">
-      <DependentUpon>Request.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Stand.cs" />
     <Compile Include="Term.cs" />
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewElement.resx">
       <DependentUpon>NewElement.cs</DependentUpon>
     </EmbeddedResource>
@@ -103,9 +105,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Request.resx">
-      <DependentUpon>Request.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

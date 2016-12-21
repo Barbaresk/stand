@@ -38,7 +38,8 @@ namespace VirtualStand
 
         public override void Write(XmlTextWriter writer)
         {
-            writer.WriteStartElement("out", Name);
+            writer.WriteStartElement("out");
+            writer.WriteAttributeString("name", Name);
             writer.WriteAttributeString("x", X.ToString());
             writer.WriteAttributeString("y", Y.ToString());
             writer.WriteAttributeString("type", type);

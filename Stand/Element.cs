@@ -56,14 +56,8 @@ namespace VirtualStand
                                                 MessageBox.Show("Ошибка при открытии файла:\n" + ex.Message);
                                             }
                                             break;
-                                        case "xmlns":
+                                        case "name":
                                             name = reader.Value;
-                                            break;
-                                        case "x":
-                                            X = Convert.ToInt32(reader.Value);
-                                            break;
-                                        case "y":
-                                            Y = Convert.ToInt32(reader.Value);
                                             break;
                                     }
                                 }
@@ -90,7 +84,7 @@ namespace VirtualStand
                                         case "radix":
                                             outRadix = Convert.ToInt32(reader.Value);
                                             break;
-                                        case "xmlns":
+                                        case "name":
                                             outName = reader.Value;
                                             break;
                                     }
@@ -108,7 +102,7 @@ namespace VirtualStand
                                         case "radix":
                                             inRadix = Convert.ToInt32(reader.Value);
                                             break;
-                                        case "xmlns":
+                                        case "name":
                                             inName = reader.Value;
                                             break;
                                         case "default":
@@ -162,21 +156,21 @@ namespace VirtualStand
             }
         }
 
-        public override void Draw(Graphics graphics, Value value, int x, int yED23EVN;)
+        public override void Draw(Graphics graphics, Value value, int x, int y)
         {
             if (background != null)
-                graphics.DrawImage(background, Location);
+                graphics.DrawImage(background, X + x, Y + y);
             foreach (Condition c in conditions)
-                c.Draw(graphics, Location, value);
+                c.Draw(graphics, new Point(X + x, Y + y), value);
             foreach (OutPin o in outPins)
-                o.Draw(graphics, Location);
+                o.Draw(graphics, new Point(X + x, Y + y));
         }
 
-        public override void DrawEditor(Graphics graphics, Value value)
+        public override void DrawEditor(Graphics graphics, Value value, int x, int y)
         {
-            Draw(graphics, value);
-            graphics.DrawRectangle(new Pen(new SolidBrush(Color.Red), 2), X, Y, Width, Height);
-            graphics.DrawString(Id, new Font("Arial black", 10), new SolidBrush(Color.Black), X, Y);
+            Draw(graphics, value, x, y);
+            graphics.DrawRectangle(new Pen(new SolidBrush(Color.Red), 2), X + x, Y + y, Width, Height);
+            graphics.DrawString(Id, new Font("Arial black", 10), new SolidBrush(Color.Black), X + x, Y + y);
         }
 
         public override Value GetDefault()
@@ -244,7 +238,8 @@ namespace VirtualStand
             writer.Formatting = Formatting.Indented;
             writer.Indentation = 4;
             writer.WriteStartDocument();
-            writer.WriteStartElement("element", name);
+            writer.WriteStartElement("element");
+            writer.WriteAttributeString("name", name);
             if (background != null)
             {
                 writer.WriteAttributeString("background", backgroundName);

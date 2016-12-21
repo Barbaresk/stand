@@ -58,6 +58,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.lWarnings = new System.Windows.Forms.Label();
             this.bAddObject = new System.Windows.Forms.Button();
+            this.cbLink = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOut)).BeginInit();
@@ -81,7 +82,7 @@
             this.pObject.BackColor = System.Drawing.Color.LightSalmon;
             this.pObject.Location = new System.Drawing.Point(354, 60);
             this.pObject.Name = "pObject";
-            this.pObject.Size = new System.Drawing.Size(846, 601);
+            this.pObject.Size = new System.Drawing.Size(851, 601);
             this.pObject.TabIndex = 2;
             this.pObject.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pObject_MouseDown);
             this.pObject.MouseLeave += new System.EventHandler(this.pObject_MouseLeave);
@@ -329,7 +330,7 @@
             this.panel2.Controls.Add(this.lWarnings);
             this.panel2.Location = new System.Drawing.Point(617, 667);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(583, 82);
+            this.panel2.Size = new System.Drawing.Size(588, 82);
             this.panel2.TabIndex = 22;
             // 
             // lWarnings
@@ -353,12 +354,26 @@
             this.bAddObject.UseVisualStyleBackColor = false;
             this.bAddObject.Click += new System.EventHandler(this.bAddObject_Click);
             // 
+            // cbLink
+            // 
+            this.cbLink.AutoSize = true;
+            this.cbLink.Checked = true;
+            this.cbLink.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbLink.Location = new System.Drawing.Point(1086, 20);
+            this.cbLink.Name = "cbLink";
+            this.cbLink.Size = new System.Drawing.Size(76, 17);
+            this.cbLink.TabIndex = 23;
+            this.cbLink.Text = "Привязка";
+            this.cbLink.UseVisualStyleBackColor = true;
+            this.cbLink.CheckedChanged += new System.EventHandler(this.cbLink_CheckedChanged);
+            // 
             // NewObject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Salmon;
             this.ClientSize = new System.Drawing.Size(1212, 761);
+            this.Controls.Add(this.cbLink);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.bCheck);
@@ -426,5 +441,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lWarnings;
         private System.Windows.Forms.Button bAddObject;
+        private System.Windows.Forms.CheckBox cbLink;
     }
 }

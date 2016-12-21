@@ -37,7 +37,7 @@ namespace VirtualStand
                     else
                         list.Insert(0, false);
             }
-            else if(s[0] == '0' && (s[1] == 'x' || s[2] == 'X'))
+            else if(s[0] == '0' && s.Length > 1 && (s[1] == 'x' || s[1] == 'X'))
             {
                 for (int i = s.Length - 1, j = 0; j < radix; --i)
                     for (int k = 3; k >= 0 && j < radix; --k, ++j)
@@ -49,8 +49,8 @@ namespace VirtualStand
             else
             {
                 long num = Convert.ToInt64(s);
-                for (int i = 0; i < radix; ++i, num >>= 2)
-                    list.Insert(0, (num & 1) != '0');
+                for (int i = 0; i < radix; ++i, num >>= 1)
+                    list.Insert(0, (num & 1) == 1);
             }
             return list;
         }

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -57,14 +55,8 @@ namespace VirtualStand
                                                 MessageBox.Show("Ошибка при открытии файла:\n" + ex.Message);
                                             }
                                             break;
-                                        case "xmlns":
+                                        case "name":
                                             name = reader.Value;
-                                            break;
-                                        case "x":
-                                            X = Convert.ToInt32(reader.Value);
-                                            break;
-                                        case "y":
-                                            Y = Convert.ToInt32(reader.Value);
                                             break;
                                     }
                                 }
@@ -79,7 +71,7 @@ namespace VirtualStand
                                         case "id":
                                             elementId = reader.Value;
                                             break;
-                                        case "xmlns":
+                                        case "name":
                                             elementName = reader.Value;
                                             break;
                                         case "x":
@@ -93,7 +85,7 @@ namespace VirtualStand
                                 last = new Element(folder + @"\" + elementName + @"\" + elementName + ".element", xk, yk, elementId);
                                 items.Add(last);
                                 break;
-                            case "item_subject":
+                            case "item_object":
                                 string subjectName = "";
                                 string subjectId = "";
 
@@ -104,7 +96,7 @@ namespace VirtualStand
                                         case "id":
                                             subjectId = reader.Value;
                                             break;
-                                        case "xmlns":
+                                        case "name":
                                             subjectName = reader.Value;
                                             break;
                                         case "x":
@@ -115,7 +107,7 @@ namespace VirtualStand
                                             break;
                                     }
                                 }
-                                last = new Subject(folder + @"\" + subjectName + @"\" + subjectName + ".subject", xk, yk, subjectId);
+                                last = new Subject(folder + @"\" + subjectName + @"\" + subjectName + ".object", xk, yk, subjectId);
                                 items.Add(last);
                                 break;
                             case "in":
@@ -125,10 +117,10 @@ namespace VirtualStand
                                 {
                                     switch (reader.Name)
                                     {
-                                        case "new":
+                                        case "newIn":
                                             newIn = reader.Value;
                                             break;
-                                        case "xmlns":
+                                        case "name":
                                             pinIn = reader.Value;
                                             break;
                                     }
@@ -148,10 +140,10 @@ namespace VirtualStand
                                 {
                                     switch (reader.Name)
                                     {
-                                        case "new":
+                                        case "newOut":
                                             newOut = reader.Value;
                                             break;
-                                        case "xmlns":
+                                        case "name":
                                             pinOut = reader.Value;
                                             break;
                                     }
@@ -172,22 +164,29 @@ namespace VirtualStand
 
         public override List<string> CheckSave(string path, string addition)
         {
-            throw new NotImplementedException();
+            return new List<string>();
         }
 
-        public override void Draw(Graphics graphics, Value value)
+        public override void Draw(Graphics graphics, Value value, int x, int y)
         {
             if (background != null)
-                graphics.DrawImage(background, Location);
-            foreach (Item i in items)
-                i.Draw(graphics, value);
+                graphics.DrawImage(background, X + x, Y + y);
+            DrawItems(graphics, value, x, y);
+
+        }
+         
+        public override void DrawEditor(Graphics graphics, Value value, int x, int y)
+        {
+            if (background != null)
+                graphics.DrawImage(background, X + x, Y + y);
+            DrawItems(graphics, value, x, y);
+ 
+            graphics.DrawRectangle(new Pen(new SolidBrush(Color.Red), 2), X + x, Y + y, Width, Height);
+            graphics.DrawString(Id, new Font("Arial black", 10), new SolidBrush(Color.Black), X + x, Y + y);
         }
 
-        public override void DrawEditor(Graphics graphics, Value value)
+        public void DrawItems(Graphics graphics, Value value, int x, int y)
         {
-            if (background != null)
-                graphics.DrawImage(background, Location);
-
             Dictionary<string, Value> d = new Dictionary<string, Value>();
             foreach (Item i in items)
                 d[i.Id] = new Value();
@@ -196,16 +195,11 @@ namespace VirtualStand
                 int k = 0;
                 foreach (InPin subip in ip.Pins)
                 {
-                
-                //    if (d[subip.Item.Id] == null)
-                 //       d[subip.Item.Id] = new Value();
                     d[subip.Item.Id][subip.Name] = value[ip.Name].GetRange(k, subip.Radix);
                 }
             }
             foreach (Item i in items)
-                i.Draw(graphics, d[i.Id]);
-            graphics.DrawRectangle(new Pen(new SolidBrush(Color.Red), 2), X, Y, Width, Height);
-            graphics.DrawString(Id, new Font("Arial black", 10), new SolidBrush(Color.Black), X, Y);
+                i.Draw(graphics, d[i.Id], X + x, Y + y);
         }
 
         public override Value GetDefault()
@@ -216,9 +210,55 @@ namespace VirtualStand
             return value;
         }
 
-        public override void Save(string path, string subPath)
+        public override void Save(string folderPath, string subPath)
         {
-            throw new NotImplementedException();
+            string path = folderPath + @"\" + subPath + @"\" + Name + @"\";
+            if (Directory.Exists(path))
+                return;
+            Directory.CreateDirectory(path);
+
+            XmlTextWriter writer = new XmlTextWriter(path + @"\" + Name + @".object", null);
+            writer.Formatting = Formatting.Indented;
+            writer.Indentation = 4;
+            writer.WriteStartDocument();
+            writer.WriteStartElement("object");
+            writer.WriteAttributeString("name", Name);
+            if (background != null)
+            {
+                writer.WriteAttributeString("background", backgroundName);
+                NewObject.WriteImage(path + @"\" + backgroundName, background);
+            }
+
+            foreach(Item i in items)
+            {
+                writer.WriteStartElement(i.GetItemType());
+                writer.WriteAttributeString("name", i.Name);
+                writer.WriteAttributeString("id", i.Id);
+                writer.WriteAttributeString("x", i.X.ToString());
+                writer.WriteAttributeString("y", i.Y.ToString());
+                foreach(InPin ip in i.InPins)
+                {
+                    InPin ipp = inPins.Find(x => x.Pins.Contains(ip));
+                    writer.WriteStartElement("in");
+                    writer.WriteAttributeString("name", ip.Name);
+                    writer.WriteAttributeString("newIn", ipp.Name);
+                    writer.WriteEndElement();
+                }
+                foreach(OutPin op in i.OutPins)
+                {
+                    OutPin opp = outPins.Find(x => x.Pins.Contains(op));
+                    writer.WriteStartElement("out");
+                    writer.WriteAttributeString("name", op.Name);
+                    writer.WriteAttributeString("newOut", opp.Name);
+                    writer.WriteEndElement();
+                }
+                writer.WriteEndElement();
+            }
+
+            writer.WriteEndElement();
+            writer.Close();
+            foreach (Item i in items)
+                i.Save(folderPath, subPath + @"\" + Name);
         }
 
         protected override Size GetSize()
@@ -234,21 +274,21 @@ namespace VirtualStand
             }
             foreach (Item i in items)
             {
-                if (i.X < left)
+                if (i.X + X < left)
                     left = i.X;
-                if (i.Y < top)
+                if (i.Y + Y < top)
                     top = i.Y;
-                if (i.X + i.Width > right)
-                    right = i.X + i.Width;
-                if (i.Y + i.Height > bottom)
-                    bottom = i.Y + i.Height;
+                if (i.X + X + i.Width > right)
+                    right = i.X + X + i.Width;
+                if (i.Y + Y + i.Height > bottom)
+                    bottom = i.Y + Y + i.Height;
             }
             return new Size(right - left, bottom - top);
         }
 
         public override string GetItemType()
         {
-            return "item_element";
+            return "item_object";
         }
     }
 }

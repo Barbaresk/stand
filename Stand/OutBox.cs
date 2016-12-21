@@ -91,7 +91,8 @@ namespace VirtualStand
 
         public void Write(XmlTextWriter writer)
         {
-            writer.WriteStartElement("out", name.Text);
+            writer.WriteStartElement("out");
+            writer.WriteAttributeString("name", name.Text);
             writer.WriteAttributeString("x", Location.X.ToString());
             writer.WriteAttributeString("y", Location.Y.ToString());
             writer.WriteAttributeString("type", variants.Text);

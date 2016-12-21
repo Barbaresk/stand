@@ -63,7 +63,7 @@ namespace VirtualStand
         virtual public void Write(XmlTextWriter writer)
         {
             writer.WriteStartElement("in");//, dgvr.Cells["NameIn"].Value.ToString());
-            writer.WriteAttributeString("xmlns", Name);
+            writer.WriteAttributeString("name", Name);
             writer.WriteAttributeString("radix", radix.ToString());
             writer.WriteAttributeString("default", defaultValue.ToString());
             writer.WriteEndElement();

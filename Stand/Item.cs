@@ -121,8 +121,8 @@ namespace VirtualStand
         abstract public string GetItemType();
         public void Move(int dx, int dy)
         {
-            X = X - dx;
-            Y = Y - dy;
+            X = X + dx;
+            Y = Y + dy;
         }
     }
 

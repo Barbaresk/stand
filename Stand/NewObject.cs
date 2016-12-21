@@ -13,14 +13,14 @@ namespace VirtualStand
         private List<Item> items;
         private Image background;
         private Item choice;
-        private int dx;            
-        private int dy;
+        private int fx;            
+        private int fy;
         private string oldValue;
         
         public NewObject()
         {
             choice = null;
-            dx = dy = 0;
+            fx = fy = 0;
             background = null;
             items = new List<Item>();
             oldValue = "";
@@ -116,10 +116,17 @@ namespace VirtualStand
         private void NewObject_Paint(object sender, PaintEventArgs e)
         {
             Image buf = new Bitmap(pObject.Width, pObject.Height);
-            Graphics gbuf = Graphics.FromImage(buf);
+            Graphics gbuf = /*Graphics.FromHwnd(pObjec5t.Handle);*/Graphics.FromImage(buf);
             gbuf.Clear(Color.White);
             if (background != null)
                 gbuf.DrawImage(background, 0, 0);
+            if (cbLink.Checked)
+            {
+                for (int i = 0; i < pObject.Width; i += 10)
+                    gbuf.DrawLine(new Pen(new SolidBrush(Color.Red), 1), i, 0, i, pObject.Height);
+                for (int i = 0; i < pObject.Height; i += 10)
+                    gbuf.DrawLine(new Pen(new SolidBrush(Color.Red), 1), 0, i, pObject.Width, i);
+            }
             foreach (Item i in items)
                 i.DrawEditor(gbuf, i.GetDefault(), 0, 0);
             Graphics.FromHwnd(pObject.Handle).DrawImageUnscaled(buf, 0, 0);
@@ -155,8 +162,8 @@ namespace VirtualStand
                    i.Y < e.Y && i.Y + i.Height > e.Y)
                 {
                     choice = i;
-                    dx = e.X - i.X;
-                    dy = e.Y - i.Y;
+                    fx = e.X;
+                    fy = e.Y;
                     return;
                 }
             }
@@ -166,9 +173,25 @@ namespace VirtualStand
         {
             if(choice != null)
             {
-                choice.Move(dx, dy);
-//                choice.X = e.X - dx;
-//                choice.Y = e.Y - dy;
+                if (cbLink.Checked)
+                {
+                    if (Math.Abs(e.X - fx) > 10)
+                    {
+                        choice.Move((e.X - fx) / 10 * 10, 0);
+                        fx += (e.X - fx) / 10 * 10;
+                    }
+                    if (Math.Abs(e.Y - fy) > 10)
+                    {
+                        choice.Move(0, (e.Y - fy) / 10 * 10);
+                        fy += (e.Y - fy) / 10 * 10;
+                    }
+                }
+                else
+                {
+                    choice.Move(e.X - fx, e.Y - fy);
+                    fx = e.X;
+                    fy = e.Y;
+                }
             }
             Invalidate();
         }
@@ -309,6 +332,7 @@ namespace VirtualStand
             else
             {
                 MessageBox.Show("Сохранение отменено");
+                return;
             }
 
             if (!Directory.Exists(path))
@@ -336,7 +360,8 @@ namespace VirtualStand
             writer.Formatting = Formatting.Indented;
             writer.Indentation = 4;
             writer.WriteStartDocument();
-            writer.WriteStartElement("object", subPath);
+            writer.WriteStartElement("object");
+            writer.WriteAttributeString("name", subPath);
             if (background != null)
             {
                 writer.WriteAttributeString("background", tbBackground.Text + ".png");
@@ -345,22 +370,25 @@ namespace VirtualStand
             foreach (DataGridViewRow r in dgvItems.Rows)
             {
                 Item i = items.Find(x => x.Id.Equals(r.Cells["ElementName"].Value.ToString()));
-                writer.WriteStartElement(i.GetItemType(), r.Cells["ElementType"].Value.ToString());
+                writer.WriteStartElement(i.GetItemType());
+                writer.WriteAttributeString("name", r.Cells["ElementType"].Value.ToString());
                 writer.WriteAttributeString("id", r.Cells["ElementName"].Value.ToString());
                 writer.WriteAttributeString("x", i.X.ToString());
                 writer.WriteAttributeString("y", i.Y.ToString());
                 foreach (DataGridViewRow row in dgvIn.Rows)
                     if (row.Cells["ElementIn"].Value.ToString().Equals(r.Cells["ElementName"].Value.ToString()))
                     {
-                        writer.WriteStartElement("in", row.Cells["Input"].Value.ToString());
-                        writer.WriteAttributeString("new", row.Cells["NewIn"].Value.ToString());
+                        writer.WriteStartElement("in");
+                        writer.WriteAttributeString("name", row.Cells["Input"].Value.ToString());
+                        writer.WriteAttributeString("newIn", row.Cells["NewIn"].Value.ToString());
                         writer.WriteEndElement();
                     }
                 foreach (DataGridViewRow row in dgvOut.Rows)
                     if (row.Cells["ElementOut"].Value.ToString().Equals(r.Cells["ElementName"].Value.ToString()))
                     {
-                        writer.WriteStartElement("out", row.Cells["Output"].Value.ToString());
-                        writer.WriteAttributeString("new", row.Cells["NewOut"].Value.ToString());
+                        writer.WriteStartElement("out");
+                        writer.WriteAttributeString("name", row.Cells["Output"].Value.ToString());
+                        writer.WriteAttributeString("newOut", row.Cells["NewOut"].Value.ToString());
                         writer.WriteEndElement();
                     }
                 writer.WriteEndElement();
@@ -483,6 +511,11 @@ namespace VirtualStand
             for (int i = dgvOut.RowCount - 1; i >= 0; --i)
                 if (dgvOut["ElementOut", i].Value.ToString().Equals(id))
                     dgvOut.Rows.RemoveAt(i);
+        }
+
+        private void cbLink_CheckedChanged(object sender, EventArgs e)
+        {
+            Invalidate();
         }
     }
 }

@@ -135,7 +135,7 @@ namespace VirtualStand
             Panel p = new Panel();
             p.Size = new Size(240, 40);
             p.Location = new Point(140 + boxes.Count * 240, 0);
-            p.BackColor = boxes.Count % 2 == 1 ? Color.Black : Color.Yellow;
+            p.BackColor = Color.FromArgb(170, 255, 255);
             boxes.Add(new Box(p, dgv, this));
             panel.Controls.Add(p);
         }

@@ -54,7 +54,7 @@ namespace VirtualStand
         {
             int v = 0;
             foreach (bool b in list)
-                v = (v + (b ? 1 : 0)) * 10;
+                v = v * 2 + (b ? 1 : 0);
 
             string con = new string(this.value.ToLower().ToCharArray());
             Regex con16 = new Regex("^0[xX][0-9a-fA-FuU]+$");
