@@ -110,5 +110,11 @@ namespace VirtualStand
             Form form = new NewObject();
             form.Show();
         }
+
+        private void bStand_Click(object sender, EventArgs e)
+        {
+            Form form = new StandRun();
+            form.Show();
+        }
     }
 }

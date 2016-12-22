@@ -116,7 +116,7 @@ namespace VirtualStand
         private void NewObject_Paint(object sender, PaintEventArgs e)
         {
             Image buf = new Bitmap(pObject.Width, pObject.Height);
-            Graphics gbuf = /*Graphics.FromHwnd(pObjec5t.Handle);*/Graphics.FromImage(buf);
+            Graphics gbuf = /*Graphics.FromHwnd(pObject.Handle);*/Graphics.FromImage(buf);
             gbuf.Clear(Color.White);
             if (background != null)
                 gbuf.DrawImage(background, 0, 0);

@@ -254,7 +254,7 @@ namespace VirtualStand
 
             writer.WriteEndElement();
             writer.Close();
-            MessageBox.Show("Элемент успешно сохранён");
+            //MessageBox.Show("Элемент успешно сохранён");
         }
 
         public static void WriteImage(string name, Image image)

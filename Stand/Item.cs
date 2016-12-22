@@ -111,6 +111,22 @@ namespace VirtualStand
             inPins = new List<InPin>();
         }
 
+        public int RadixIn
+        {
+            get
+            {
+                return GetRadixInCount();
+            }
+        }
+
+        public int RadixOut
+        {
+            get
+            {
+                return GetRadixOutCount();
+            }
+        }
+
         abstract protected Size GetSize();
         abstract public Value GetDefault();
         abstract public void Draw(Graphics graphics, Value value, int X, int Y);
@@ -119,6 +135,20 @@ namespace VirtualStand
         abstract public void Save(string path, string subPath);
         abstract public void Read();
         abstract public string GetItemType();
+        private int GetRadixInCount()
+        {
+            int radix = 0;
+            foreach (InPin i in InPins)
+                radix += i.Radix;
+            return radix;
+        }
+        private int GetRadixOutCount()
+        {
+            int radix = 0;
+            foreach (OutPin o in OutPins)
+                radix += o.Radix;
+            return radix;
+        }
         public void Move(int dx, int dy)
         {
             X = X + dx;

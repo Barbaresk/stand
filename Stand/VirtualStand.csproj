@@ -54,7 +54,14 @@
     </Compile>
     <Compile Include="Box.cs" />
     <Compile Include="Condition.cs" />
+    <Compile Include="StandRun.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StandRun.Designer.cs">
+      <DependentUpon>StandRun.cs</DependentUpon>
+    </Compile>
     <Compile Include="Subject.cs" />
+    <Compile Include="Tcl.cs" />
     <Compile Include="Value.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="Item.cs" />
@@ -105,6 +112,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="StandRun.resx">
+      <DependentUpon>StandRun.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
