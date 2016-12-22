@@ -66,8 +66,7 @@ namespace VirtualStand
             
             while (true)
             {
-                foreach (Item i in items)
-                    mas.set()
+                
             }
         }
 
@@ -77,7 +76,7 @@ namespace VirtualStand
             foreach (Item i in items)
                 capacity += i.RadixIn + i.RadixOut;
             List<bool> bits = new List<bool>(capacity);
-            
+            return bits;
         }
 
         private List<string> getNames(List<bool> bits)
