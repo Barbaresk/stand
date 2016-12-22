@@ -76,6 +76,7 @@ namespace VirtualStand
             foreach (Item i in items)
                 capacity += i.RadixIn + i.RadixOut;
             List<bool> bits = new List<bool>(capacity);
+
             return bits;
         }
 

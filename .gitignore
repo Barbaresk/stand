@@ -40,9 +40,14 @@ tmp/
 *.xmsgs
 *.cgc
 *.schbak
+*.xwbt
+*.ncd
+*.symlog
+*.spl
 ipcore_dir/*/
 coregen_lock
 sch2HdlBatchFile
+
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
