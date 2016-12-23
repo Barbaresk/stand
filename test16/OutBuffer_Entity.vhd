@@ -86,7 +86,8 @@ begin
 							len := conv_integer(unsigned(len_bits));
 							state_i := init;
 							i := 0;
-							depth := 0;
+							depth := 1;
+							bufin(0) <= data_in;
 							bufdepth <= 0;
 						end if;
 							
@@ -182,7 +183,7 @@ begin
 					
 					when load1 =>  --выгрузка 01
 						if state_in = "10" then
-							if i >= depth then
+							if i > depth then
 								state_o := waitoff;
 								state_out <= "00";
 								data_out <= (others => '0');
@@ -197,7 +198,7 @@ begin
 						
 					when load2 =>  --выгрузка 10
 						if state_in = "01" then
-							if i >= depth then
+							if i > depth then
 								state_o := waitoff;
 								state_out <= "00";
 								data_out <= (others => '0');
