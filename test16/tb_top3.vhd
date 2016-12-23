@@ -83,9 +83,9 @@ BEGIN
 		i <= 0;
 		tcl_buf <= (others => (others => '0'));
 		clr <= '1';
-		wait for c_t * 5;
+		wait for c_t;
 		clr <= '0';
-		wait for c_t * 10;
+		wait for c_t;
 		
 		--инициализация старт
 		from_tcl(5 downto 4) <= "11"; --Информация - init

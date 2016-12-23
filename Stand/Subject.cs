@@ -172,9 +172,27 @@ namespace VirtualStand
             if (background != null)
                 graphics.DrawImage(background, X + x, Y + y);
             DrawItems(graphics, value, x, y);
-
         }
-         
+
+        public override void DrawPanel(Graphics graphics, Value value, int x, int y, PictureBox picture)
+        {
+            if (background != null)
+                graphics.DrawImage(background, X + x, Y + y);
+            Dictionary<string, Value> d = new Dictionary<string, Value>();
+            foreach (Item i in items)
+                d[i.Id] = new Value();
+            foreach (InPin ip in InPins)
+            {
+                int k = 0;
+                foreach (InPin subip in ip.Pins)
+                {
+                    d[subip.Item.Id][subip.Name] = value[ip.Name].GetRange(k, subip.Radix);
+                }
+            }
+            foreach (Item i in items)
+                i.DrawPanel(graphics, d[i.Id], X + x, Y + y, picture);
+        }
+
         public override void DrawEditor(Graphics graphics, Value value, int x, int y)
         {
             if (background != null)

@@ -173,6 +173,17 @@ namespace VirtualStand
             graphics.DrawString(Id, new Font("Arial black", 10), new SolidBrush(Color.Black), X + x, Y + y);
         }
 
+        public override void DrawPanel(Graphics graphics, Value value, int x, int y, PictureBox picture)
+        {
+            if (background != null)
+                graphics.DrawImage(background, X + x, Y + y);
+            foreach (Condition c in conditions)
+                c.Draw(graphics, new Point(X + x, Y + y), value);
+            foreach (OutPin o in outPins)
+                o.DrawPanel(graphics, new Point(X + x, Y + y), picture);
+
+        }
+
         public override Value GetDefault()
         {
             return defaultValue;
@@ -254,7 +265,6 @@ namespace VirtualStand
 
             writer.WriteEndElement();
             writer.Close();
-            //MessageBox.Show("Элемент успешно сохранён");
         }
 
         public static void WriteImage(string name, Image image)

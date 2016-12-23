@@ -70,33 +70,5 @@ namespace VirtualStand
                 t.Write(writer);
             writer.WriteEndElement();
         }
-
-        //public List<string> CheckSave(string folderPath, string subPath)
-        //{
-        //    try
-        //    {
-        //        string path = folderPath + @"\" + subPath;
-        //        if (File.Exists(path + @"\" + imageName))
-        //        {
-        //            Bitmap bFile = new Bitmap(Image.FromFile(path + @"\" + imageName));
-        //            Bitmap bThis = new Bitmap(Image);
-        //            if (!bFile.Size.Equals(bThis.Size))
-        //                return new List<string>(new string[] { subPath + @"\" + imageName });
-        //            else
-        //            {
-        //                for (int i = 0; i < bFile.Width; i += 3)
-        //                    for (int j = 0; j < bFile.Height; j += 3)
-        //                        if (!bFile.GetPixel(i, j).Equals(bThis.GetPixel(i, j)))
-        //                            return new List<string>(new string[] { subPath + @"\" + imageName });
-        //            }
-        //            return new List<string>();
-        //        }
-        //        return new List<string>();
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return new List<string>();
-        //    }
-        //}
     }
 }

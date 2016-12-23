@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="Box.cs" />
     <Compile Include="Condition.cs" />
+    <Compile Include="Field.cs" />
     <Compile Include="StandRun.cs">
       <SubType>Form</SubType>
     </Compile>

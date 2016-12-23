@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace VirtualStand
@@ -12,6 +13,7 @@ namespace VirtualStand
     {
         private int X { get; set; }
         private int Y { get; set; }
+        private Field field;
 
         private string type;
 
@@ -20,6 +22,7 @@ namespace VirtualStand
             X = x;
             Y = y;
             this.type = type;
+            field = new Field(type, radix);
         }
 
         public OutPin(string name) : this(0, name, 0, 0, null) { }
@@ -34,6 +37,21 @@ namespace VirtualStand
                         graphics.DrawImage(VirtualStand.Properties.Resources.buttonBuffer, new Point(location.X + X + i * 20, Y + location.Y));
                     else
                         graphics.DrawImage(VirtualStand.Properties.Resources.checkboxBuffer, new Point(location.X + X + i * 20, Y + location.Y));
+        }
+
+        public void DrawPanel(Graphics graphics, Point location, PictureBox picture)
+        {
+            field.Draw(location, picture);
+        }
+
+        public List<bool> GetValue()
+        {
+            if (pins.Count == 0)
+                return field.GetValue();
+            List<bool> list = new List<bool>();
+            foreach (OutPin i in pins)
+                list.AddRange(i.GetValue());
+            return list;
         }
 
         public override void Write(XmlTextWriter writer)

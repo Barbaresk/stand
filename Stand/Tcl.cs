@@ -297,6 +297,8 @@ namespace VirtualStand
         public List<bool> getarraybool()
         {
             List<bool> list = new List<bool>();
+            for (int i = 0; i < 64; ++i)
+                list.Add(false);
             string str = "run";
             foreach (char c in str)
                 for (UInt16 i = 0, k = Convert.ToUInt16(c); i < 16; i++, k /= 2)

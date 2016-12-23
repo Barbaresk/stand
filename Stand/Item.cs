@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace VirtualStand
 {
@@ -131,10 +132,18 @@ namespace VirtualStand
         abstract public Value GetDefault();
         abstract public void Draw(Graphics graphics, Value value, int X, int Y);
         abstract public void DrawEditor(Graphics graphics, Value value, int X, int Y);
+        abstract public void DrawPanel(Graphics graphics, Value value, int X, int Y, PictureBox picture);
         abstract public List<string> CheckSave(string path, string addition);
         abstract public void Save(string path, string subPath);
         abstract public void Read();
         abstract public string GetItemType();
+        public List<bool> GetValue()
+        {
+            List<bool> value = new List<bool>();
+            foreach (OutPin o in outPins)
+                value.AddRange(o.GetValue());
+            return value;
+        }
         private int GetRadixInCount()
         {
             int radix = 0;

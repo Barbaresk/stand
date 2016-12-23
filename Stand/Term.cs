@@ -50,6 +50,20 @@ namespace VirtualStand
             }
         }
 
+        public static bool Check(string name)
+        {
+            Regex con16 = new Regex("^0[xX][0-9a-fA-F]+$");
+            Regex con10 = new Regex("^[0-9]+$");
+            Regex con2 = new Regex("^[01]+b$");
+            if (con16.IsMatch(name))
+                return true;
+            if (con10.IsMatch(name))
+                return true;
+            if (con2.IsMatch(name))
+                return true;
+            return false;
+        }
+
         public bool Correct(List<bool> list)
         {
             int v = 0;

@@ -26,7 +26,7 @@ namespace VirtualStand
 
         protected int radix;
         private string defaultValue;
-        private List<InPin> pins;
+        protected List<InPin> pins;
         public Item Item { get; private set; }
         public List<InPin> Pins
         {
@@ -74,5 +74,7 @@ namespace VirtualStand
             pins.Add(pin);
             radix += pin.radix;
         }
+
+
     }
 }
