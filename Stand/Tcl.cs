@@ -12,7 +12,8 @@ namespace VirtualStand
             List<bool> arraybool;
             List<int> arrayint;
             string arrayhex;
-
+        bool b1;
+        bool b2;
         public
         tclwithc()
         {
@@ -47,12 +48,15 @@ namespace VirtualStand
 
         public bool set(List<bool> l)
         {
+            b1 = l[64 + 4];
+            b2 = l[64 + 5];
             return true;
         }
 
         public List<bool> get()
         {
             List<bool> list = new List<bool>();
+            list.AddRange(new bool[]{ !b1 && !b2, b1 && !b2, !b1 && b2, b1 && b2, false, false, true, false, false, true});
             return list;
         }
 

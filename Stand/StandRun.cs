@@ -79,9 +79,28 @@ namespace VirtualStand
                     send.AddRange(StandRun.GetEmptyList(s.RadixIn));
                     send.AddRange(s.GetValue());
                 }
+                Program.logger.Info("write");
                 mas.set(send);
                 Thread.Sleep(50);
-
+                List<bool> recive = mas.get();
+                if(recive.Count != 0)
+                {
+                    int pos = 0;
+                    foreach(Subject s in items)
+                    {
+                        Value v = new Value();
+                        int k = 0;
+                        foreach (InPin i in s.InPins)
+                        {
+                            bool[] port = new bool[i.Radix];
+                            recive.CopyTo(pos + k, port, 0, i.Radix); 
+                            v[i.Name] = new List<bool>(port);
+                            k += s.RadixIn;
+                        }
+                        pos += s.RadixIn + s.RadixOut;
+                        s.SetDefault(v);
+                    }
+                }
             }
         }
 
@@ -146,7 +165,6 @@ namespace VirtualStand
             foreach (Item i in items)
             {
                 i.DrawPanel(gbuf, i.GetDefault(), 0, 0, pbStand);
-                //i.Draw(gbuf, i.GetDefault(), 0, 0);
             }
             Graphics.FromHwnd(pbStand.Handle).DrawImageUnscaled(buf, 0, 0);
             gbuf.Dispose();

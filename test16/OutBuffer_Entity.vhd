@@ -55,7 +55,7 @@ architecture Behavioral of OutBuffer_Entity is
 	);
 
 	
-	signal len_bits : std_logic_vector(47 downto 32);
+	signal len_bits : std_logic_vector(31 downto 16);
 	signal cop      : std_logic_vector(1 downto 0);
 	signal getting  : boolean;
 	signal bufdepth : integer;
@@ -78,7 +78,7 @@ begin
 				i     := 0;
 				len   := 0;
 				bufdepth <= 0;
-				bufin <= (others => (others => '0'));
+				bufin <= (others => (others => '1'));
 			else
 				case state_i is
 					when idle =>         --самое стартовое состояние
@@ -120,7 +120,7 @@ begin
 					when waiting =>      
 						if cop = "01" or cop = "10" then
 							bufin <= (others => (others => '0'));
-							len := conv_integer(unsigned(len_bits));
+							len := conv_integer(data_in(31 downto 16));
 							i := 0;
 							state_i := rw;
 						end if;						
@@ -150,7 +150,7 @@ begin
 				state_o := idle;
 				state_out <= "11";
 				i := 0;
-				bufout <= (others => (others => '0'));
+				bufout <= (others => (others => '1'));
 			else
 				case state_o is
 					when idle =>  --самый старт, ожидаем, когда проинициализируется буфер
@@ -183,7 +183,7 @@ begin
 					
 					when load1 =>  --выгрузка 01
 						if state_in = "10" then
-							if i > depth then
+							if i >= depth then
 								state_o := waitoff;
 								state_out <= "00";
 								data_out <= (others => '0');
@@ -198,7 +198,7 @@ begin
 						
 					when load2 =>  --выгрузка 10
 						if state_in = "01" then
-							if i > depth then
+							if i >= depth then
 								state_o := waitoff;
 								state_out <= "00";
 								data_out <= (others => '0');
@@ -220,6 +220,7 @@ begin
 					when waiting =>  --ожидание начала выгрузки
 						bufout <= bufin;
 						i := 0;
+						depth := bufdepth;
 						case state_in is
 							when "01" => 
 								state_o := load1;

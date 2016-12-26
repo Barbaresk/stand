@@ -12,6 +12,8 @@ namespace VirtualStand
     {
         private List<Item> items;
 
+        private Value val;
+
         public Subject(string path) : this(path, 0, 0, "") { }
 
         public Subject(string path, int x, int y, string id) : base(path, x, y, id)
@@ -187,6 +189,7 @@ namespace VirtualStand
                 foreach (InPin subip in ip.Pins)
                 {
                     d[subip.Item.Id][subip.Name] = value[ip.Name].GetRange(k, subip.Radix);
+                    k += subip.Radix;
                 }
             }
             foreach (Item i in items)
@@ -222,10 +225,20 @@ namespace VirtualStand
 
         public override Value GetDefault()
         {
-            Value value = new Value();
-            foreach (InPin i in inPins)
-                value[i.Name] = i.Default;
-            return value;
+            if (val == null)
+            {
+                Value value = new Value();
+                foreach (InPin i in inPins)
+                    value[i.Name] = i.Default;
+                return value;
+            }
+            else
+                return val;
+        }
+
+        public void SetDefault(Value val)
+        {
+            this.val = val;
         }
 
         public override void Save(string folderPath, string subPath)

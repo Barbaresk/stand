@@ -39,7 +39,7 @@ entity OutBuffer is
            DATA_IN  : in  STD_LOGIC_VECTOR (63 downto 0));
 end OutBuffer;
 
-architecture Behavioral of OutBuffer is
+ architecture Behavioral of OutBuffer is
 	constant buf_sz : integer := 3;
 	type matrix is array (buf_sz downto 0) of std_logic_vector(63 downto 0); --память для запоминания того, что пришло
 	signal bufin  : matrix;

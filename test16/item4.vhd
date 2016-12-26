@@ -43,7 +43,7 @@ architecture Behavioral of item4 is
 ------------------------------------------------------------------
 	constant len  : integer := 53 + 12 + 21; --суммарная разрядность сигнала
 	constant rwc  : integer := 21;           --из них на чтение
-	constant name : integer := 4 * 16; --длина имени
+	constant name : integer := 4 * 16;       --длина имени
 	signal   info : std_logic_vector(name - 1 downto 0) := x"AAAABBBBCCCC0000"; --имя 16-битные символы UTF
 ------------------------------------------------------------------
 	constant rd   : integer := len - rwc;
@@ -191,7 +191,7 @@ begin
 					when waiting =>
 						if cop = "01" or cop = "10" then
 							state    := rw;
-							endstr   := conv_integer(unsigned(data_in(47 downto 32)));
+							endstr   := conv_integer(unsigned(data_in(31 downto 16)));
 							pos      := 0;
 							i        := 0;
 							data_out <= data_in;

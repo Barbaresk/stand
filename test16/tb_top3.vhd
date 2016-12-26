@@ -110,7 +110,7 @@ BEGIN
 		
 		tcl_buf(i) <= to_tcl(67 downto 4);
 		i <= i + 1;
-		len <= to_tcl(47 downto 32); --запомили число разрядов
+		len <= to_tcl(35 downto 20); --запомили число разрядов
 		
 		while to_tcl(1 downto 0) /= "00" loop
 			
@@ -145,7 +145,7 @@ BEGIN
 
 		--запускаем операцию записи (первая операция, которая обязательно должна быть после инициализации)
 		from_tcl <= (others => '0');
-		from_tcl(47 downto 32) <= len;
+		from_tcl(35 downto 20) <= len;
 		from_tcl(5 downto 4) <= "01";  --сигнал об операции чтения (задаётся мной из программы)
 		from_tcl(3 downto 2) <= "01";
 		

@@ -17,8 +17,11 @@ namespace VirtualStand
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            logger.Info("Application Start");
             Application.Run(new MainForm());
         }
+
+        public static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         public static string GetFile(string title, string filter)
         {
