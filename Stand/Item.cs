@@ -8,6 +8,9 @@ using System.Windows.Forms;
 
 namespace VirtualStand
 {
+    /// <summary>
+    /// Абстрактный базовый класс для элементов и объектов из элементов.
+    /// </summary>
     abstract class Item
     {
         protected Image background;

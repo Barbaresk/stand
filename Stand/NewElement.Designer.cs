@@ -72,7 +72,7 @@
             // 
             // tbName
             // 
-            this.tbName.BackColor = System.Drawing.Color.LightCyan;
+            this.tbName.BackColor = System.Drawing.Color.WhiteSmoke;
             this.tbName.Location = new System.Drawing.Point(9, 28);
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(174, 20);
@@ -80,7 +80,7 @@
             // 
             // bBackground
             // 
-            this.bBackground.BackColor = System.Drawing.Color.PowderBlue;
+            this.bBackground.BackColor = System.Drawing.Color.Gainsboro;
             this.bBackground.Location = new System.Drawing.Point(457, 258);
             this.bBackground.Name = "bBackground";
             this.bBackground.Size = new System.Drawing.Size(101, 39);
@@ -91,7 +91,7 @@
             // 
             // pbBackground
             // 
-            this.pbBackground.BackColor = System.Drawing.Color.LightCyan;
+            this.pbBackground.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pbBackground.Location = new System.Drawing.Point(727, 2);
             this.pbBackground.Name = "pbBackground";
             this.pbBackground.Size = new System.Drawing.Size(565, 295);
@@ -105,7 +105,7 @@
             // 
             // dgvOut
             // 
-            this.dgvOut.BackgroundColor = System.Drawing.Color.LightCyan;
+            this.dgvOut.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.dgvOut.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOut.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NameOut,
@@ -131,7 +131,7 @@
             // 
             // dgvIn
             // 
-            this.dgvIn.BackgroundColor = System.Drawing.Color.LightCyan;
+            this.dgvIn.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.dgvIn.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvIn.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NameIn,
@@ -165,7 +165,7 @@
             // 
             // bAddIn
             // 
-            this.bAddIn.BackColor = System.Drawing.Color.PowderBlue;
+            this.bAddIn.BackColor = System.Drawing.Color.Gainsboro;
             this.bAddIn.Location = new System.Drawing.Point(9, 258);
             this.bAddIn.Name = "bAddIn";
             this.bAddIn.Size = new System.Drawing.Size(174, 39);
@@ -177,7 +177,7 @@
             // pLines
             // 
             this.pLines.AutoSize = true;
-            this.pLines.BackColor = System.Drawing.Color.LightCyan;
+            this.pLines.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pLines.Location = new System.Drawing.Point(100, 3);
             this.pLines.Name = "pLines";
             this.pLines.Size = new System.Drawing.Size(854, 233);
@@ -186,7 +186,7 @@
             // pButtons
             // 
             this.pButtons.AutoSize = true;
-            this.pButtons.BackColor = System.Drawing.Color.LightCyan;
+            this.pButtons.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pButtons.Location = new System.Drawing.Point(3, 3);
             this.pButtons.Name = "pButtons";
             this.pButtons.Size = new System.Drawing.Size(91, 233);
@@ -195,7 +195,7 @@
             // pMain
             // 
             this.pMain.AutoScroll = true;
-            this.pMain.BackColor = System.Drawing.Color.LightCyan;
+            this.pMain.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pMain.Controls.Add(this.pLines);
             this.pMain.Controls.Add(this.pButtons);
             this.pMain.Location = new System.Drawing.Point(9, 303);
@@ -206,7 +206,7 @@
             // pOut
             // 
             this.pOut.AutoScroll = true;
-            this.pOut.BackColor = System.Drawing.Color.LightCyan;
+            this.pOut.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pOut.Location = new System.Drawing.Point(12, 161);
             this.pOut.Name = "pOut";
             this.pOut.Size = new System.Drawing.Size(709, 91);
@@ -223,7 +223,7 @@
             // 
             // bCheck
             // 
-            this.bCheck.BackColor = System.Drawing.Color.PowderBlue;
+            this.bCheck.BackColor = System.Drawing.Color.Gainsboro;
             this.bCheck.Location = new System.Drawing.Point(9, 83);
             this.bCheck.Name = "bCheck";
             this.bCheck.Size = new System.Drawing.Size(174, 23);
@@ -234,7 +234,7 @@
             // 
             // bSave
             // 
-            this.bSave.BackColor = System.Drawing.Color.PowderBlue;
+            this.bSave.BackColor = System.Drawing.Color.Gainsboro;
             this.bSave.Location = new System.Drawing.Point(9, 112);
             this.bSave.Name = "bSave";
             this.bSave.Size = new System.Drawing.Size(174, 23);
@@ -246,7 +246,7 @@
             // panel2
             // 
             this.panel2.AutoScroll = true;
-            this.panel2.BackColor = System.Drawing.Color.LightCyan;
+            this.panel2.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel2.Controls.Add(this.lErrors);
             this.panel2.Location = new System.Drawing.Point(9, 545);
             this.panel2.Name = "panel2";
@@ -265,7 +265,7 @@
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.Color.LightCyan;
+            this.panel3.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel3.Controls.Add(this.lWarnings);
             this.panel3.Location = new System.Drawing.Point(491, 545);
             this.panel3.Name = "panel3";
@@ -284,7 +284,7 @@
             // 
             // tbBackground
             // 
-            this.tbBackground.BackColor = System.Drawing.Color.LightCyan;
+            this.tbBackground.BackColor = System.Drawing.Color.WhiteSmoke;
             this.tbBackground.Location = new System.Drawing.Point(628, 268);
             this.tbBackground.Name = "tbBackground";
             this.tbBackground.Size = new System.Drawing.Size(93, 20);
@@ -303,7 +303,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1426, 653);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tbBackground);

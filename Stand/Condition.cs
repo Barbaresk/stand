@@ -6,6 +6,10 @@ using System.Xml;
 
 namespace VirtualStand
 {
+    /// <summary>
+    /// Условие отображения одного из слоёв элемента.
+    /// Необхожим при использовании.
+    /// </summary>
     class Condition
     {
         private Image Image { get; set; }

@@ -9,6 +9,9 @@ using System.Xml;
 
 namespace VirtualStand
 {
+    /// <summary>
+    /// Класс - элемент. Является наименьшим возможным самостоятлеьным элементом стенда.
+    /// </summary>
     class Element : Item
     {
         private List<Condition> conditions;

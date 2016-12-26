@@ -8,6 +8,9 @@ using System.Xml;
 
 namespace VirtualStand
 {
+    /// <summary>
+    /// Объект - набор элементов. Может быть сам частью другого объекта.
+    /// </summary>
     class Subject : Item
     {
         private List<Item> items;

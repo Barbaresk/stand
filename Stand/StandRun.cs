@@ -12,6 +12,9 @@ using System.Windows.Forms;
 
 namespace VirtualStand
 {
+    /// <summary>
+    /// Форма - непосредственно стенд. Именно на этой форме отображаются элементы, используемы в стенде.
+    /// </summary>
     public partial class StandRun : Form
     {
         private List<Subject> items;
@@ -71,7 +74,7 @@ namespace VirtualStand
             List<bool> base64 = GetEmptySend();
             while (true)
             {
-                Thread.Sleep(50);
+                Thread.Sleep(10);
                 List<bool> send = new List<bool>();
                 send.AddRange(base64);
                 foreach (Subject s in items)
@@ -81,7 +84,7 @@ namespace VirtualStand
                 }
                 Program.logger.Info("write");
                 mas.set(send);
-                Thread.Sleep(50);
+                Thread.Sleep(10);
                 List<bool> recive = mas.get();
                 if(recive.Count != 0)
                 {
@@ -101,6 +104,7 @@ namespace VirtualStand
                         s.SetDefault(v);
                     }
                 }
+                //Invalidate();
             }
         }
 

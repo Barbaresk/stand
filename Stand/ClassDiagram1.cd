@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="VirtualStand.AboutBox" Collapsed="true">
+    <Position X="11.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kIAAAAgAACAgCAUAAACAAAADAAAAEIAAAAAAAAAAAAA=</HashCode>
+      <FileName>AboutBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.Box" Collapsed="true">
+    <Position X="8.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAVAAAgAAIAQCAAAAAAAAAIAAAIAAAABAAAgAQGBAAQ=</HashCode>
+      <FileName>Box.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.Condition" Collapsed="true">
+    <Position X="4.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAABAgAAgAAAAAAAEAEAAAAABAAAAAAAAEAAAA=</HashCode>
+      <FileName>Condition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.Element" Collapsed="true">
+    <Position X="2.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AKAAAIAAAAAAEgCAAAAQAAAgAAAAAABgQAAAAAAIAAA=</HashCode>
+      <FileName>Element.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.Field" Collapsed="true">
+    <Position X="2" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAhAAAIAAAAAEAAABAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Field.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.InPin" Collapsed="true">
+    <Position X="1.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAABAQAIAQEAAAAAAAAQAAAAAEAAAA=</HashCode>
+      <FileName>InPin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.Item" Collapsed="true">
+    <Position X="1.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIACAIAAJMAAggLAAIISAESgAAgEAAB0QAAAAEAIaAA=</HashCode>
+      <FileName>Item.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.Line" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAABIIASAAAAAAQBEcBAAAEBBACAAAAAQEAAAA=</HashCode>
+      <FileName>Line.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.MainForm" Collapsed="true">
+    <Position X="11.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACgAAACAACAAgAEBAAmAEQgCAABgBAAAADEAAAACIEA=</HashCode>
+      <FileName>MainForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.NewElement" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QKgMQCiBAKjNhhyQACOYADErQgYAFCkQCABAASEALQA=</HashCode>
+      <FileName>NewElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.NewObject" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CCACBIgkBqAEABCTAGmaAjAL1CQBAmAUEAIgAWAQNUg=</HashCode>
+      <FileName>NewObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.OutBox" Collapsed="true">
+    <Position X="6.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQggAEAAYAAAQAAAAEAAABAQAAAAEAAAA=</HashCode>
+      <FileName>OutBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.OutPin" Collapsed="true">
+    <Position X="2" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAIAAAAgAAAAAAAAAAAAABAABAAAAAAAEAYAA=</HashCode>
+      <FileName>OutPin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.Program" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAACAAAAAAAAAAAAAAAAAAAEBAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.StandRun" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAFAAAECIAAAAQAIiCAAgqACQAAAIAEAAAAAgAUAI=</HashCode>
+      <FileName>StandRun.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.Subject" Collapsed="true">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAIAAAAAAAgCAAEgQAAAgAAAAAABgAAAAAAAIAAA=</HashCode>
+      <FileName>Subject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.tclwithc" Collapsed="true">
+    <Position X="8" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAIAAAAAAAAACCAAQAQAgAAgBAQAoAAAAgAAAAAAg=</HashCode>
+      <FileName>Tcl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.Term" Collapsed="true">
+    <Position X="4.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAgAAAAIAAIAAAAAAAQACAAAACAAAAAAAAEIAAA=</HashCode>
+      <FileName>Term.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.Value" Collapsed="true">
+    <Position X="4.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAACAAACAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Value.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.Properties.Resources" Collapsed="true">
+    <Position X="11.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQQAAAAAAACAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualStand.Properties.Settings" Collapsed="true">
+    <Position X="11.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

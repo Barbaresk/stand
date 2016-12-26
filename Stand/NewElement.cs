@@ -13,6 +13,9 @@ using System.Xml;
 
 namespace VirtualStand
 {
+    /// <summary>
+    /// Класс - форма создания новых элементов.
+    /// </summary>
     public partial class NewElement : Form
     {
         private Image background;         //фоновое изображение
@@ -373,7 +376,7 @@ namespace VirtualStand
                 Panel p = new Panel();
                 p.Location = new Point(0, panels.Count * height);
                 p.Size = new Size(pLines.Width - 10, height - 2);
-                p.BackColor = Color.FromArgb(200, 0xff, 0xff);
+                p.BackColor = Color.WhiteSmoke;
                 p.AutoScroll = false;
                 p.AutoSize = true;
                 panels.Add(p);

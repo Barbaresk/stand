@@ -11,6 +11,9 @@ namespace VirtualStand
 {
     class OutPin : InPin
     {
+        /// <summary>
+        /// Выходной порт элемента.
+        /// </summary>
         private int X { get; set; }
         private int Y { get; set; }
         private Field field;

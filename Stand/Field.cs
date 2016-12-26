@@ -4,6 +4,9 @@ using System.Windows.Forms;
 
 namespace VirtualStand
 {
+    /// <summary>
+    /// Класс для хранения типа переключателя внутри элемента (кнопка, тумблер, поле).
+    /// </summary>
     internal class Field
     {
 

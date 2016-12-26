@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace VirtualStand
 {
+    /// <summary>
+    /// Класс для передачи значений на портах внутрь элементов.
+    /// Содержит Dictionary из пар название порта - значение.
+    /// </summary>
     class Value
     {
         Dictionary<string, List<bool>> values;

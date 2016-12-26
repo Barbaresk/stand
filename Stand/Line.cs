@@ -9,6 +9,10 @@ using System.Xml;
 
 namespace VirtualStand
 {
+    /// <summary>
+    /// Класс - набор условий возникновения изображения-слоя в элементе.
+    /// Нужен при создании элемента.
+    /// </summary>
     internal class Line
     {
         private Panel panel;
@@ -135,7 +139,7 @@ namespace VirtualStand
             Panel p = new Panel();
             p.Size = new Size(240, 40);
             p.Location = new Point(140 + boxes.Count * 240, 0);
-            p.BackColor = Color.FromArgb(170, 255, 255);
+            p.BackColor = Color.Gainsboro;
             boxes.Add(new Box(p, dgv, this));
             panel.Controls.Add(p);
         }

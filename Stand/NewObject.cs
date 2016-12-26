@@ -10,6 +10,9 @@ namespace VirtualStand
 {
     public partial class NewObject : Form
     {
+        /// <summary>
+        /// Класс - форма создания новых объектов на основе существующи элементов.
+        /// </summary>
         private List<Item> items;
         private Image background;
         private Item choice;
@@ -123,9 +126,9 @@ namespace VirtualStand
             if (cbLink.Checked)
             {
                 for (int i = 0; i < pObject.Width; i += 10)
-                    gbuf.DrawLine(new Pen(new SolidBrush(Color.Red), 1), i, 0, i, pObject.Height);
+                    gbuf.DrawLine(new Pen(new SolidBrush(Color.LightGray), 1), i, 0, i, pObject.Height);
                 for (int i = 0; i < pObject.Height; i += 10)
-                    gbuf.DrawLine(new Pen(new SolidBrush(Color.Red), 1), 0, i, pObject.Width, i);
+                    gbuf.DrawLine(new Pen(new SolidBrush(Color.LightGray), 1), 0, i, pObject.Width, i);
             }
             foreach (Item i in items)
                 i.DrawEditor(gbuf, i.GetDefault(), 0, 0);

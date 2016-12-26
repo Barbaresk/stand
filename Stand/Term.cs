@@ -5,6 +5,9 @@ using System.Xml;
 
 namespace VirtualStand
 {
+    /// <summary>
+    /// Терм условия появления слоя изображения на элементе.
+    /// </summary>
     class Term
     {
         public enum Actions { Equal, More, Less, Undefined }

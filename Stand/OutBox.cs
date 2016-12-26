@@ -6,6 +6,10 @@ namespace VirtualStand
 {
     internal class OutBox
     {
+        /// <summary>
+        /// Поле, хранящее значение терма условия. 
+        /// Используется при создании элемента.
+        /// </summary>
         Label name;
         ComboBox variants;
         public Panel Panel { get; private set; }
@@ -50,7 +54,7 @@ namespace VirtualStand
         {
             Panel = new Panel();
             Panel.Height = 45;
-            Panel.BackColor = Color.GreenYellow;
+            Panel.BackColor = Color.Gainsboro;
 
             Radix = radix;
             Location = new Point(0, 0);

@@ -8,6 +8,9 @@ using System.Xml;
 
 namespace VirtualStand
 {
+    /// <summary>
+    /// Входной порт в элемент.
+    /// </summary>
     class InPin
     {
         public string Name { get; private set; }

@@ -6,6 +6,10 @@ using System.Text;
 
 namespace VirtualStand
 {
+    /// <summary>
+    /// Класс для отладки программы. 
+    /// Вместо этого класс может быть любой другой класс, связывающий программу с цифровым устройством.
+    /// </summary>
     public class tclwithc 
     {
         private
@@ -56,7 +60,7 @@ namespace VirtualStand
         public List<bool> get()
         {
             List<bool> list = new List<bool>();
-            list.AddRange(new bool[]{ !b1 && !b2, b1 && !b2, !b1 && b2, b1 && b2, false, false, true, false, false, true});
+            list.AddRange(new bool[]{ !b1 && !b2, b1 && !b2, !b1 && b2, b1 && b2, false, false, !(!b1 && !b2), !(b1 && !b2), !(!b1 && b2), !(b1 && b2) });
             return list;
         }
 

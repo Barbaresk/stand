@@ -68,7 +68,7 @@
             // 
             // bAddElement
             // 
-            this.bAddElement.BackColor = System.Drawing.Color.DarkSalmon;
+            this.bAddElement.BackColor = System.Drawing.Color.Gainsboro;
             this.bAddElement.Location = new System.Drawing.Point(12, 12);
             this.bAddElement.Name = "bAddElement";
             this.bAddElement.Size = new System.Drawing.Size(127, 30);
@@ -79,7 +79,7 @@
             // 
             // pObject
             // 
-            this.pObject.BackColor = System.Drawing.Color.LightSalmon;
+            this.pObject.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pObject.Location = new System.Drawing.Point(354, 60);
             this.pObject.Name = "pObject";
             this.pObject.Size = new System.Drawing.Size(851, 601);
@@ -91,7 +91,7 @@
             // 
             // bBackground
             // 
-            this.bBackground.BackColor = System.Drawing.Color.DarkSalmon;
+            this.bBackground.BackColor = System.Drawing.Color.Gainsboro;
             this.bBackground.Location = new System.Drawing.Point(278, 12);
             this.bBackground.Name = "bBackground";
             this.bBackground.Size = new System.Drawing.Size(127, 30);
@@ -111,7 +111,7 @@
             // 
             // tbBackground
             // 
-            this.tbBackground.BackColor = System.Drawing.Color.LightSalmon;
+            this.tbBackground.BackColor = System.Drawing.Color.Gainsboro;
             this.tbBackground.Location = new System.Drawing.Point(475, 18);
             this.tbBackground.Name = "tbBackground";
             this.tbBackground.Size = new System.Drawing.Size(100, 20);
@@ -120,7 +120,7 @@
             // dgvItems
             // 
             this.dgvItems.AllowUserToAddRows = false;
-            this.dgvItems.BackgroundColor = System.Drawing.Color.LightSalmon;
+            this.dgvItems.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.dgvItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvItems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ElementType,
@@ -151,7 +151,7 @@
             // 
             this.dgvIn.AllowUserToAddRows = false;
             this.dgvIn.AllowUserToDeleteRows = false;
-            this.dgvIn.BackgroundColor = System.Drawing.Color.LightSalmon;
+            this.dgvIn.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.dgvIn.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvIn.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ElementIn,
@@ -186,7 +186,7 @@
             // 
             this.dgvOut.AllowUserToAddRows = false;
             this.dgvOut.AllowUserToDeleteRows = false;
-            this.dgvOut.BackgroundColor = System.Drawing.Color.LightSalmon;
+            this.dgvOut.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.dgvOut.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOut.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ElementOut,
@@ -275,7 +275,7 @@
             // 
             // tbName
             // 
-            this.tbName.BackColor = System.Drawing.Color.LightSalmon;
+            this.tbName.BackColor = System.Drawing.Color.Gainsboro;
             this.tbName.Location = new System.Drawing.Point(714, 18);
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(100, 20);
@@ -283,7 +283,7 @@
             // 
             // bSave
             // 
-            this.bSave.BackColor = System.Drawing.Color.DarkSalmon;
+            this.bSave.BackColor = System.Drawing.Color.Gainsboro;
             this.bSave.Location = new System.Drawing.Point(820, 12);
             this.bSave.Name = "bSave";
             this.bSave.Size = new System.Drawing.Size(127, 30);
@@ -294,7 +294,7 @@
             // 
             // bCheck
             // 
-            this.bCheck.BackColor = System.Drawing.Color.DarkSalmon;
+            this.bCheck.BackColor = System.Drawing.Color.Gainsboro;
             this.bCheck.Location = new System.Drawing.Point(953, 12);
             this.bCheck.Name = "bCheck";
             this.bCheck.Size = new System.Drawing.Size(127, 30);
@@ -306,7 +306,7 @@
             // panel1
             // 
             this.panel1.AutoScroll = true;
-            this.panel1.BackColor = System.Drawing.Color.LightSalmon;
+            this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel1.Controls.Add(this.lErrors);
             this.panel1.Location = new System.Drawing.Point(12, 667);
             this.panel1.Name = "panel1";
@@ -326,7 +326,7 @@
             // panel2
             // 
             this.panel2.AutoScroll = true;
-            this.panel2.BackColor = System.Drawing.Color.LightSalmon;
+            this.panel2.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel2.Controls.Add(this.lWarnings);
             this.panel2.Location = new System.Drawing.Point(617, 667);
             this.panel2.Name = "panel2";
@@ -345,7 +345,7 @@
             // 
             // bAddObject
             // 
-            this.bAddObject.BackColor = System.Drawing.Color.DarkSalmon;
+            this.bAddObject.BackColor = System.Drawing.Color.Gainsboro;
             this.bAddObject.Location = new System.Drawing.Point(145, 12);
             this.bAddObject.Name = "bAddObject";
             this.bAddObject.Size = new System.Drawing.Size(127, 30);
@@ -371,7 +371,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Salmon;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1212, 761);
             this.Controls.Add(this.cbLink);
             this.Controls.Add(this.panel2);
@@ -395,7 +395,7 @@
             this.Controls.Add(this.bAddObject);
             this.Controls.Add(this.bAddElement);
             this.Name = "NewObject";
-            this.Text = "NewObject";
+            this.Text = "Создание нового объекта";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.NewObject_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIn)).EndInit();
