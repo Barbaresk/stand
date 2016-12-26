@@ -38,8 +38,18 @@ namespace VirtualStand
             {
                 flag = false;
                 Thread myThread = new Thread(init); //Создаем новый объект потока (Thread)
-                
+                Thread updateThread = new Thread(update);
+                updateThread.Start();
                 myThread.Start(); //запускаем поток
+            }
+        }
+
+        private void update()
+        {
+            while (true)
+            {
+                Thread.Sleep(25);
+                Invalidate();
             }
         }
 
@@ -74,7 +84,7 @@ namespace VirtualStand
             List<bool> base64 = GetEmptySend();
             while (true)
             {
-                Thread.Sleep(10);
+                Thread.Sleep(500);
                 List<bool> send = new List<bool>();
                 send.AddRange(base64);
                 foreach (Subject s in items)
@@ -82,9 +92,8 @@ namespace VirtualStand
                     send.AddRange(StandRun.GetEmptyList(s.RadixIn));
                     send.AddRange(s.GetValue());
                 }
-                Program.logger.Info("write");
                 mas.set(send);
-                Thread.Sleep(10);
+                Thread.Sleep(500);
                 List<bool> recive = mas.get();
                 if(recive.Count != 0)
                 {
@@ -98,13 +107,12 @@ namespace VirtualStand
                             bool[] port = new bool[i.Radix];
                             recive.CopyTo(pos + k, port, 0, i.Radix); 
                             v[i.Name] = new List<bool>(port);
-                            k += s.RadixIn;
+                            k += i.Radix;
                         }
                         pos += s.RadixIn + s.RadixOut;
                         s.SetDefault(v);
                     }
                 }
-                //Invalidate();
             }
         }
 
@@ -163,16 +171,20 @@ namespace VirtualStand
 
         private void StandRun_Paint(object sender, PaintEventArgs e)
         {
-            Image buf = new Bitmap(pbStand.Width, pbStand.Height);
-            Graphics gbuf = Graphics.FromImage(buf);
-            gbuf.Clear(Color.White);
-            foreach (Item i in items)
+            try
             {
-                i.DrawPanel(gbuf, i.GetDefault(), 0, 0, pbStand);
+                Image buf = new Bitmap(pbStand.Width, pbStand.Height);
+                Graphics gbuf = Graphics.FromImage(buf);
+                gbuf.Clear(Color.White);
+                foreach (Item i in items)
+                {
+                    i.DrawPanel(gbuf, i.GetDefault(), 0, 0, pbStand);
+                }
+                Graphics.FromHwnd(pbStand.Handle).DrawImageUnscaled(buf, 0, 0);
+                gbuf.Dispose();
+                buf.Dispose();
             }
-            Graphics.FromHwnd(pbStand.Handle).DrawImageUnscaled(buf, 0, 0);
-            gbuf.Dispose();
-            buf.Dispose();
+            catch { }
         }
 
         private void pbStand_MouseDown(object sender, MouseEventArgs e)

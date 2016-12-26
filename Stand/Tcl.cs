@@ -18,10 +18,18 @@ namespace VirtualStand
             string arrayhex;
         bool b1;
         bool b2;
+        bool b;
         public
         tclwithc()
         {
             arraybool= new List<bool>();
+            b = true;
+            lst1 = new List<bool>();
+            for (int i = 0; i < 10; ++i)
+                lst1.Add(false);
+            lst2 = new List<bool>();
+            for (int i = 0; i < 10; ++i)
+                lst2.Add(false);
         }
 
         public bool init()
@@ -52,15 +60,35 @@ namespace VirtualStand
 
         public bool set(List<bool> l)
         {
-            b1 = l[64 + 4];
-            b2 = l[64 + 5];
+            b1 = l[64 + 8];
+            b2 = l[64 + 9];
             return true;
         }
-
+        private List<bool> lst1;
+        private List<bool> lst2;
         public List<bool> get()
         {
+            
             List<bool> list = new List<bool>();
-            list.AddRange(new bool[]{ !b1 && !b2, b1 && !b2, !b1 && b2, b1 && b2, false, false, !(!b1 && !b2), !(b1 && !b2), !(!b1 && b2), !(b1 && b2) });
+            if(b1)
+            {
+                lst1[3] = lst1[3] ^ (lst1[2] && lst1[1] && lst1[0]);
+                lst1[2] = lst1[2] ^ (lst1[1] && lst1[0]);
+                lst1[1] = lst1[1] ^ lst1[0];
+                lst1[0] = !lst1[0];
+                if (lst1[3] && !lst1[2] && lst1[1] && !lst1[0])
+                    lst1[0] = lst1[1] = lst1[2] = lst1[3] = false;
+            }
+            if (b2)
+            {
+                lst2[3] = lst2[3] ^ (lst2[2] && lst2[1] && lst2[0]);
+                lst2[2] = lst2[2] ^ (lst2[1] && lst2[0]);
+                lst2[1] = lst2[1] ^ lst2[0];
+                lst2[0] = !lst2[0];
+                if (lst2[3] && !lst2[2] && lst2[1] && !lst2[0])
+                    lst2[0] = lst2[1] = lst2[2] = lst2[3] = false;
+            }
+            list.AddRange(new bool[]{ lst1[3], lst1[2], lst1[1], lst1[0], lst2[3], lst2[2], lst2[1], lst2[0], false, false,  });
             return list;
         }
 
@@ -307,18 +335,18 @@ namespace VirtualStand
             List<bool> list = new List<bool>();
             for (int i = 0; i < 64; ++i)
                 list.Add(false);
-            string str = "run";
+            string str = "tl";
             foreach (char c in str)
                 for (UInt16 i = 0, k = Convert.ToUInt16(c); i < 16; i++, k /= 2)
                     list.Add(k % 2 == 1);
-            for (int i = 0; i < 16; ++i)
-                list.Add(false);
-            str = "diod_panel";
-            foreach (char c in str)
-                for (UInt16 i = 0, k = Convert.ToUInt16(c); i < 16; i++, k /= 2)
-                    list.Add(k % 2 == 1);
-            for (int i = 0; i < 16; ++i)
-                list.Add(false);
+            //for (int i = 0; i < 16; ++i)
+            //    list.Add(false);
+            //str = "diod_panel";
+            //foreach (char c in str)
+            //    for (UInt16 i = 0, k = Convert.ToUInt16(c); i < 16; i++, k /= 2)
+            //        list.Add(k % 2 == 1);
+            //for (int i = 0; i < 16; ++i)
+            //    list.Add(false);
             return list;
             //return arraybool;
         }

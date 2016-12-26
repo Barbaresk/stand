@@ -59,6 +59,7 @@ namespace VirtualStand
                         b[i].Location = new Point(location.X + i * sizeButton, location.Y);
                         if (!flag)
                             picture.Controls.Add(b[i]);
+                        b[i].Invalidate();
                     }
                         break;
                 case "Тумблеры":
@@ -67,6 +68,7 @@ namespace VirtualStand
                         cb[i].Location = new Point(location.X + i * sizeButton, location.Y);
                         if (!flag)
                             picture.Controls.Add(cb[i]);
+                        cb[i].Invalidate();
                     }
                     break;
                 case "Поле":
@@ -74,6 +76,7 @@ namespace VirtualStand
                     if (!flag)
                         picture.Controls.Add(tb);
                     break;
+                    tb.Invalidate();
             }
             flag = true;
         }

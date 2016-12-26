@@ -5,6 +5,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
+using VirtualStand.Properties;
 
 namespace VirtualStand
 {
@@ -119,7 +120,7 @@ namespace VirtualStand
         private void NewObject_Paint(object sender, PaintEventArgs e)
         {
             Image buf = new Bitmap(pObject.Width, pObject.Height);
-            Graphics gbuf = /*Graphics.FromHwnd(pObject.Handle);*/Graphics.FromImage(buf);
+            Graphics gbuf = Graphics.FromImage(buf);
             gbuf.Clear(Color.White);
             if (background != null)
                 gbuf.DrawImage(background, 0, 0);
@@ -342,10 +343,102 @@ namespace VirtualStand
             {
                 Directory.CreateDirectory(path);
             }
-            Save(folderPath, subPath);
+            if (SaveXml(folderPath, subPath))
+                SaveVhd(folderPath, subPath);
         }
 
-        private void Save(string folderPath, string subPath)
+        private void SaveVhd(string folderPath, string subPath)
+        {
+            StreamWriter writer = new StreamWriter(folderPath + @"\" + subPath + @"\" + tbName.Text + ".vhd");
+            writer.WriteLine(Resources.vhd0);
+            writer.WriteLine("entity " + tbName.Text + " is");
+            writer.WriteLine(Resources.vhd1);
+            Dictionary<string, int> dici = new Dictionary<string, int>();
+            int ri = 0;
+            foreach (DataGridViewRow row in dgvIn.Rows)
+            {
+                string pin = row.Cells["NewIn"].Value.ToString();
+                Item i = items.Find(x => x.Id.Equals(row.Cells["ElementIn"].Value.ToString()));
+                InPin ip = i.InPins.Find(x => x.Name.Equals(row.Cells["Input"].Value.ToString()));
+                ri += ip.Radix;
+                if (dici.ContainsKey(pin))
+                    dici[pin] = dici[pin] + ip.Radix;
+                else
+                    dici[pin] = ip.Radix;
+            }
+            foreach (KeyValuePair<string, int> p in dici)
+                writer.WriteLine("\t\t" + p.Key + " : in  " + (p.Value == 1 ? "std_logic;" : ("std_logic_vector(" + (p.Value - 1).ToString() + " downto 0);")));
+
+            int ro = 0;
+            Dictionary<string, int> dico = new Dictionary<string, int>();
+            foreach (DataGridViewRow row in dgvOut.Rows)
+            {
+                string pin = row.Cells["NewOut"].Value.ToString();
+                string item = row.Cells["ElementOut"].Value.ToString(); ;
+                Item i = items.Find(x => x.Id.Equals(item));
+                OutPin op = i.OutPins.Find(x => x.Name.Equals(row.Cells["Output"].Value.ToString()));
+                ro += op.Radix;
+                if (dico.ContainsKey(pin))
+                    dico[pin] = dico[pin] + op.Radix;
+                else
+                    dico[pin] = op.Radix;
+            }
+            foreach (KeyValuePair<string, int> p in dico)
+                writer.WriteLine("\t\t" + p.Key + " : out " + (p.Value == 1 ? "std_logic;" : ("std_logic_vector(" + (p.Value - 1).ToString() + " downto 0);")));
+            writer.WriteLine(Resources.vhd2);
+            writer.WriteLine("end " + subPath + ";");
+            writer.WriteLine("architecture Behavioral of " + tbName.Text + " is");
+            writer.WriteLine("\t constant len  : integer := " + (ro + ri) + " ;");
+            writer.WriteLine("\t constant rwc  : integer := " + ri + " ;");
+            writer.WriteLine("\t constant name : integer := " + (tbName.Text.Length + 1) + " * 16;");
+            writer.WriteLine("\t signal   info : std_logic_vector(name - 1 downto 0) := x\"" + "0000" + ToStr(tbName.Text) + "\";");
+            writer.WriteLine(Resources.vhd3);
+            if (ri != 0)
+            {
+                string inp = "";
+                foreach (KeyValuePair<string, int> p in dici)
+                    inp = p.Key + " & " + inp;
+               
+                inp = inp.Substring(0, inp.Length - 3);
+                writer.WriteLine("\tvalue(rwc - 1 downto 0) <= " + inp + ";");
+            }
+            int pos = ri;
+            foreach (KeyValuePair<string, int> p in dico)
+            {
+                writer.WriteLine(p.Key + " <= value(" + (pos - 1 + p.Value) + " downto " + pos + ");");
+                pos += p.Value;
+
+                }
+            
+            writer.WriteLine(Resources.vhd4);
+            writer.Close();
+        }
+
+        public static string ToStr(string s)
+        {
+            string result = "";
+            foreach(char c in s)
+            {
+                UInt16 k = Convert.ToUInt16(c);
+                result = ToSym((Convert.ToUInt32(c) & 0xF000) >> 12 ) + result;
+                result = ToSym((Convert.ToUInt32(c) & 0x0F00) >> 8) + result;
+                result = ToSym((Convert.ToUInt32(c) & 0x00F0) >> 4) + result;
+                result = ToSym((Convert.ToUInt32(c) & 0x000F)) + result;
+            }
+            return result;
+        }
+
+        public static char ToSym(UInt32 ui)
+        {
+            ui = ((ui & 1) << 3) | ((ui & 2) << 1) | ((ui & 4) >> 1) | ((ui & 8) >> 3);
+            if (ui >= 10)
+                return Convert.ToChar(Convert.ToUInt16('A') - 10 + ui);
+            else
+                return Convert.ToChar(Convert.ToUInt16('0') + ui);
+        }
+
+
+        private bool SaveXml(string folderPath, string subPath)
         {
             List<string> errors = CheckSave(folderPath, subPath);
             if (errors.Count != 0)
@@ -356,7 +449,7 @@ namespace VirtualStand
                 if (MessageBox.Show(message, "Предупреждение о перезаписи", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.Cancel)
                 {
                     MessageBox.Show("Сохранение отменено");
-                    return;
+                    return false;
                 }
             }
             XmlTextWriter writer = new XmlTextWriter(folderPath + @"\" + subPath + @"\" + tbName.Text + ".object", null);
@@ -401,6 +494,7 @@ namespace VirtualStand
             foreach (Item i in items)
                 i.Save(folderPath, subPath);
             MessageBox.Show("Элемент успешно сохранён");
+            return true;
         }
 
         public static void WriteImage(string name, Image image)

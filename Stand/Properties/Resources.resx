@@ -127,4 +127,183 @@
   <data name="textboxBuffer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\textboxbuffer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="vhd0" xml:space="preserve">
+    <value>library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use ieee.std_logic_arith.all;
+use ieee.std_logic_unsigned.all;</value>
+  </data>
+  <data name="vhd1" xml:space="preserve">
+    <value>
+    Port ( CLK   : in  STD_LOGIC;
+           CLR   : in  STD_LOGIC;
+           CLR_O : out STD_LOGIC;</value>
+  </data>
+  <data name="vhd2" xml:space="preserve">
+    <value>DATA_IN  : in   STD_LOGIC_VECTOR (63 downto 0);
+           DATA_OUT : out  STD_LOGIC_VECTOR (63 downto 0));</value>
+  </data>
+  <data name="vhd3" xml:space="preserve">
+    <value>constant rd   : integer := len - rwc;
+	signal value  : std_logic_vector(len - 1 downto 0); --массив для сопоставления
+	signal rvalue : std_logic_vector(len - rwc - 1 downto 0);
+	type state_type is (
+		idle,     --до инициализации 00
+		init,     --инициализации    11
+		rw,       --чтение/запись    01
+		waiting   --ожидание         00
+	);
+
+	
+	signal cop   : std_logic_vector(1 downto 0);
+	signal arg   : std_logic_vector(15 downto 0);
+begin</value>
+  </data>
+  <data name="vhd4" xml:space="preserve">
+    <value>clr_o &lt;= clr;
+	value(len - 1 downto rwc) &lt;= rvalue;
+	cop &lt;= data_in(1 downto 0);
+	arg &lt;= data_in(31 downto 16);
+
+	process (CLK)
+		variable state  : state_type; --состояния элемента
+		variable offset : integer;   
+		variable endstr : integer;
+		variable offr   : integer;
+		variable pos    : integer;
+		variable i      : integer;
+	begin
+		if clk = '1' and clk'event then
+			if clr = '1' then
+				rvalue &lt;= (others =&gt; '0');
+				data_out &lt;= (others =&gt; '0');
+
+				state  := idle;
+				offset := 0;
+				endstr := 0;
+				pos    := 0;
+				i      := 0;
+			else
+				case state is
+					when idle =&gt; 
+						if cop = "11" then
+							offset := conv_integer(unsigned(arg));
+							offr   := offset + rwc;
+							state  := init;
+							endstr := conv_integer(unsigned(data_in(47 downto 32)));
+							pos    := 0;
+							i      := 0;
+							data_out(1 downto 0)   &lt;= "11";
+							data_out(31 downto 16) &lt;= arg + len;
+							data_out(47 downto 32) &lt;= data_in(47 downto 32) + name;
+						end if;
+						
+					when init =&gt;
+						
+						data_out &lt;= data_in;
+						if pos &gt;= endstr + name then
+							state    := waiting;
+							data_out &lt;= (others =&gt; '0');
+						else
+							if pos &lt; endstr then
+								if pos + 64 &gt; endstr then
+									if pos + 64 &lt;= endstr + name then -- pos &lt; endsrt &lt; pos + 64 &lt;= endstr + name
+										i := pos + 64 - endstr;
+										data_out(63 downto endstr - pos) &lt;= info(i - 1 downto 0);
+									else                              -- pos &lt; endstr &lt; endstr + name &lt; pos + 64
+										data_out(endstr + name - 1 - pos downto endstr - pos) &lt;= info(name - 1 downto 0);
+									end if;
+								end if;
+							else
+								if pos &lt; endstr + name then
+									if pos + 64 &lt;= endstr + name then -- endstr &lt;= pos &lt; pos + 64 &lt;= endstr + name
+										i := i + 64;
+										data_out &lt;= info(i - 1 downto i - 64);
+									else                              -- endstr &lt;= pos &lt; endstr + name &lt; pos + 64
+										data_out(endstr + name - pos - 1 downto 0) &lt;= info(name - 1 downto i);
+									end if;
+								end if;
+							end if;
+							pos := pos + 64;
+						end if;
+						
+					when rw =&gt;
+						
+						data_out &lt;= data_in;
+						if pos &gt;= endstr then
+							state    := waiting;
+							data_out &lt;= (others =&gt; '0');
+						else
+							--пишем из схемы в cs
+							if pos &lt; offset then
+								if pos + 64 &gt; offset then
+									if pos + 64 &lt;= offset + rwc then -- pos &lt; offset &lt; pos + 64 &lt;= offset + rw
+										i := pos + 64 - offset;
+										data_out(63 downto offset - pos) &lt;= value(i - 1 downto 0);
+									else                            -- pos &lt; offset &lt; offset + rw &lt; pos + 64
+										i := rwc;
+										data_out(offset + rwc - 1 - pos downto offset - pos) &lt;= value(rwc - 1 downto 0);
+									end if;
+								end if;
+							else
+								if pos &lt; offset + rwc then
+									if pos + 64 &lt;= offset + rwc then -- offset &lt;= pos &lt; pos + 64 &lt;= offset + rw
+										i := i + 64;
+										data_out &lt;= value(i - 1 downto i - 64);
+									else                            -- offset &lt;= pos &lt; offset + rw &lt; pos + 64
+										data_out(offset + rwc - pos - 1 downto 0) &lt;= value(rwc - 1 downto i);
+										i := rwc;
+									end if;
+								end if;
+							end if;
+							
+							--пишем из cs в схему
+							if pos &lt; offr then
+								if pos + 64 &gt; offr then
+									if pos + 64 &lt;= offr + rd then -- pos &lt; offr &lt; pos + 64 &lt;= offr + rd
+										i := pos + 64 - offr;
+										rvalue(i - 1 downto 0) &lt;= data_in(63 downto offr - pos);
+									else                            -- pos &lt; offr &lt; offr + rd &lt; pos + 64
+										rvalue(rd - 1 downto 0) &lt;= data_in(offr + rd - 1 - pos downto offr - pos);
+									end if;
+								end if;
+							else
+								if pos &lt; offr + rd then
+									if pos + 64 &lt;= offr + rd then -- offr &lt;= pos &lt; pos + 64 &lt;= offr + rd
+										i := i + 64;
+										rvalue(i - 1 downto i - 64) &lt;= data_in;
+									else                            -- offr &lt;= pos &lt; offr + rd &lt; pos + 64
+										rvalue(rd - 1 downto i) &lt;= data_in(offr + rd - pos - 1 downto 0);
+									end if;
+								end if;
+							end if;
+							
+							if pos &gt; offr + rd then
+								data_out &lt;= data_in;
+							else
+								if pos + 64 &gt; offr + rd then
+									data_out(63 downto offr + rd - pos) &lt;= data_in(63 downto offr + rd - pos);
+								end if;
+							end if;
+							
+							pos := pos + 64;
+						end if;
+						
+					when waiting =&gt;
+						if cop = "01" or cop = "10" then
+							state    := rw;
+							endstr   := conv_integer(unsigned(data_in(31 downto 16)));
+							pos      := 0;
+							i        := 0;
+							data_out &lt;= data_in;
+						end if;
+				end case;
+			end if;
+		end if;
+	
+	
+	end process;
+
+end Behavioral;</value>
+  </data>
 </root>
