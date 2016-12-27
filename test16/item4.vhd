@@ -137,7 +137,7 @@ begin
 					when rw =>
 						
 						data_out <= data_in;
-						if pos >= offset + len then
+						if pos >= endstr then
 							state    := waiting;
 							data_out <= (others => '0');
 						else
@@ -182,6 +182,14 @@ begin
 									else                            -- offr <= pos < offr + rd < pos + 64
 										rvalue(rd - 1 downto i) <= data_in(offr + rd - pos - 1 downto 0);
 									end if;
+								end if;
+							end if;
+							
+							if pos > offr + rd then
+								data_out <= data_in;
+							else
+								if pos + 64 > offr + rd then
+									data_out(63 downto offr + rd - pos) <= data_in(63 downto offr + rd - pos);
 								end if;
 							end if;
 							

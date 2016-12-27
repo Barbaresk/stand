@@ -23,26 +23,27 @@ use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
 
 entity item3 is
-    Port ( CLK : in  STD_LOGIC;
-           CLR : in  STD_LOGIC;
+    Port ( CLK   : in  STD_LOGIC;
+           CLR   : in  STD_LOGIC;
+           CLR_O : out STD_LOGIC;
 ------------------------------------------------------------------
 -- Генерируемая часть                                           --
 ------------------------------------------------------------------
-			  D : in  std_logic_vector(3 downto 0);
-			  L : in  std_logic;
-			  E : in  std_logic;
-			  Q : out std_logic_vector(7 downto 0);
-			  U : out std_logic_vector(5 downto 0);
+           D : in  std_logic_vector(3 downto 0);
+           L : in  std_logic;
+           E : in  std_logic;
+           Q : out std_logic_vector(7 downto 0);
+           U : out std_logic_vector(5 downto 0);
 ------------------------------------------------------------------			  
            DATA_IN  : in   STD_LOGIC_VECTOR (63 downto 0);
            DATA_OUT : out  STD_LOGIC_VECTOR (63 downto 0));
+			  
+------------------------------------------------------------------
+-- Генерируемая часть                                           --
+------------------------------------------------------------------
 end item3;
 
 architecture Behavioral of item3 is
-
-------------------------------------------------------------------
---Генерируемая часть                                            --
-------------------------------------------------------------------
 	constant len  : integer := 20;     --суммарная разрядность сигнала
 	constant rwc  : integer := 6;      --из них на чтение
 	constant name : integer := 9 * 16; --длина имени
@@ -67,9 +68,10 @@ begin
 ------------------------------------------------------------------
 	Q <= value(13 downto 6);
 	U <= value(19 downto 14);
+	value(rwc - 1 downto 0) <= E & L & D;
 ------------------------------------------------------------------
 	
-	value(rwc - 1 downto 0) <= E & L & D;
+	clr_o <= clr;
 	value(len - 1 downto rwc) <= rvalue;
 	cop <= data_in(1 downto 0);
 	arg <= data_in(31 downto 16);

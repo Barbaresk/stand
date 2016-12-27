@@ -1,0 +1,113 @@
+warning: LF will be replaced by CRLF in test16/item3.vhd.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in test16/item4.vhd.
+The file will have its original line endings in your working directory.
+[1mdiff --git a/test16/item3.vhd b/test16/item3.vhd[m
+[1mindex d935854..a0da6ee 100644[m
+[1m--- a/test16/item3.vhd[m
+[1m+++ b/test16/item3.vhd[m
+[36m@@ -23,26 +23,27 @@[m [muse ieee.std_logic_arith.all;[m
+ use ieee.std_logic_unsigned.all;[m
+ [m
+ entity item3 is[m
+[31m-    Port ( CLK : in  STD_LOGIC;[m
+[31m-           CLR : in  STD_LOGIC;[m
+[32m+[m[32m    Port ( CLK   : in  STD_LOGIC;[m
+[32m+[m[32m           CLR   : in  STD_LOGIC;[m
+[32m+[m[32m           CLR_O : out STD_LOGIC;[m
+ ------------------------------------------------------------------[m
+ -- Генерируемая часть                                           --[m
+ ------------------------------------------------------------------[m
+[31m-			  D : in  std_logic_vector(3 downto 0);[m
+[31m-			  L : in  std_logic;[m
+[31m-			  E : in  std_logic;[m
+[31m-			  Q : out std_logic_vector(7 downto 0);[m
+[31m-			  U : out std_logic_vector(5 downto 0);[m
+[32m+[m[32m           D : in  std_logic_vector(3 downto 0);[m
+[32m+[m[32m           L : in  std_logic;[m
+[32m+[m[32m           E : in  std_logic;[m
+[32m+[m[32m           Q : out std_logic_vector(7 downto 0);[m
+[32m+[m[32m           U : out std_logic_vector(5 downto 0);[m
+ ------------------------------------------------------------------			  [m
+            DATA_IN  : in   STD_LOGIC_VECTOR (63 downto 0);[m
+            DATA_OUT : out  STD_LOGIC_VECTOR (63 downto 0));[m
+[32m+[m[41m			  [m
+[32m+[m[32m------------------------------------------------------------------[m
+[32m+[m[32m-- Генерируемая часть                                           --[m
+[32m+[m[32m------------------------------------------------------------------[m
+ end item3;[m
+ [m
+ architecture Behavioral of item3 is[m
+[31m-[m
+[31m-------------------------------------------------------------------[m
+[31m---Генерируемая часть                                            --[m
+[31m-------------------------------------------------------------------[m
+ 	constant len  : integer := 20;     --суммарная разрядность сигнала[m
+ 	constant rwc  : integer := 6;      --из них на чтение[m
+ 	constant name : integer := 9 * 16; --длина имени[m
+[36m@@ -67,9 +68,10 @@[m [mbegin[m
+ ------------------------------------------------------------------[m
+ 	Q <= value(13 downto 6);[m
+ 	U <= value(19 downto 14);[m
+[32m+[m	[32mvalue(rwc - 1 downto 0) <= E & L & D;[m
+ ------------------------------------------------------------------[m
+ 	[m
+[31m-	value(rwc - 1 downto 0) <= E & L & D;[m
+[32m+[m	[32mclr_o <= clr;[m
+ 	value(len - 1 downto rwc) <= rvalue;[m
+ 	cop <= data_in(1 downto 0);[m
+ 	arg <= data_in(31 downto 16);[m
+[1mdiff --git a/test16/item4.vhd b/test16/item4.vhd[m
+[1mindex c30a74c..a919751 100644[m
+[1m--- a/test16/item4.vhd[m
+[1m+++ b/test16/item4.vhd[m
+[36m@@ -137,7 +137,7 @@[m [mbegin[m
+ 					when rw =>[m
+ 						[m
+ 						data_out <= data_in;[m
+[31m-						if pos >= offset + len then[m
+[32m+[m						[32mif pos >= endstr then[m
+ 							state    := waiting;[m
+ 							data_out <= (others => '0');[m
+ 						else[m
+[36m@@ -185,6 +185,14 @@[m [mbegin[m
+ 								end if;[m
+ 							end if;[m
+ 							[m
+[32m+[m							[32mif pos > offr + rd then[m
+[32m+[m								[32mdata_out <= data_in;[m
+[32m+[m							[32melse[m
+[32m+[m								[32mif pos + 64 > offr + rd then[m
+[32m+[m									[32mdata_out(63 downto offr + rd - pos) <= data_in(63 downto offr + rd - pos);[m
+[32m+[m								[32mend if;[m
+[32m+[m							[32mend if;[m
+[32m+[m[41m							[m
+ 							pos := pos + 64;[m
+ 						end if;[m
+ 						[m
+[1mdiff --git a/test16/test16.xise b/test16/test16.xise[m
+[1mindex c148625..130089a 100644[m
+[1m--- a/test16/test16.xise[m
+[1m+++ b/test16/test16.xise[m
+[36m@@ -353,8 +353,8 @@[m
+     <property xil_pn:name="Run for Specified Time Translate" xil_pn:value="true" xil_pn:valueState="default"/>[m
+     <property xil_pn:name="Safe Implementation" xil_pn:value="No" xil_pn:valueState="default"/>[m
+     <property xil_pn:name="Security" xil_pn:value="Enable Readback and Reconfiguration" xil_pn:valueState="default"/>[m
+[31m-    <property xil_pn:name="Selected Module Instance Name" xil_pn:value="/top3_top3_sch_tb" xil_pn:valueState="non-default"/>[m
+[31m-    <property xil_pn:name="Selected Simulation Root Source Node Behavioral" xil_pn:value="work.top3_top3_sch_tb" xil_pn:valueState="non-default"/>[m
+[32m+[m[32m    <property xil_pn:name="Selected Module Instance Name" xil_pn:value="/top3_top3_sch_tb/UUT/XLXI_14" xil_pn:valueState="non-default"/>[m
+[32m+[m[32m    <property xil_pn:name="Selected Simulation Root Source Node Behavioral" xil_pn:value="work.OutBuffer_Entity" xil_pn:valueState="non-default"/>[m
+     <property xil_pn:name="Selected Simulation Root Source Node Post-Map" xil_pn:value="" xil_pn:valueState="default"/>[m
+     <property xil_pn:name="Selected Simulation Root Source Node Post-Route" xil_pn:value="" xil_pn:valueState="default"/>[m
+     <property xil_pn:name="Selected Simulation Root Source Node Post-Translate" xil_pn:value="" xil_pn:valueState="default"/>[m
+[36m@@ -372,7 +372,7 @@[m
+     <property xil_pn:name="Simulator" xil_pn:value="ISim (VHDL/Verilog)" xil_pn:valueState="default"/>[m
+     <property xil_pn:name="Slice Utilization Ratio" xil_pn:value="100" xil_pn:valueState="default"/>[m
+     <property xil_pn:name="Specify 'define Macro Name and Value" xil_pn:value="" xil_pn:valueState="default"/>[m
+[31m-    <property xil_pn:name="Specify Top Level Instance Names Behavioral" xil_pn:value="work.top3_top3_sch_tb" xil_pn:valueState="default"/>[m
+[32m+[m[32m    <property xil_pn:name="Specify Top Level Instance Names Behavioral" xil_pn:value="work.OutBuffer_Entity" xil_pn:valueState="default"/>[m
+     <property xil_pn:name="Specify Top Level Instance Names Post-Map" xil_pn:value="Default" xil_pn:valueState="default"/>[m
+     <property xil_pn:name="Specify Top Level Instance Names Post-Route" xil_pn:value="Default" xil_pn:valueState="default"/>[m
+     <property xil_pn:name="Specify Top Level Instance Names Post-Translate" xil_pn:value="Default" xil_pn:valueState="default"/>[m
+warning: LF will be replaced by CRLF in test16/test16.xise.
+The file will have its original line endings in your working directory.
