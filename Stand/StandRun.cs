@@ -13,7 +13,7 @@ using System.Windows.Forms;
 namespace VirtualStand
 {
     /// <summary>
-    /// Форма - непосредственно стенд. Именно на этой форме отображаются элементы, используемы в стенде.
+    /// Форма - непосредственно стенд. Именно на этой форме отображаются элементы, используемые в стенде.
     /// </summary>
     public partial class StandRun : Form
     {
@@ -38,8 +38,6 @@ namespace VirtualStand
             {
                 flag = false;
                 Thread myThread = new Thread(init); //Создаем новый объект потока (Thread)
-                Thread updateThread = new Thread(update);
-                updateThread.Start();
                 myThread.Start(); //запускаем поток
             }
         }
@@ -113,6 +111,7 @@ namespace VirtualStand
                         s.SetDefault(v);
                     }
                 }
+                Invalidate();
             }
         }
 
@@ -123,7 +122,11 @@ namespace VirtualStand
                 list.Add(false);
             return list;
         }
-
+        /// <summary>
+        /// функция, которая возвращает заготовку для отправки. 
+        /// массив состоит из 1, 31 нуля, количества разрядов (1
+        /// </summary>
+        /// <returns></returns>
         private List<bool> GetEmptySend()
         {
             int capacity = 0;
@@ -132,7 +135,7 @@ namespace VirtualStand
             List<bool> bits = new List<bool>(64 + capacity);
             bits.Add(true);
             bits.AddRange(StandRun.GetEmptyList(31));
-            for (int i = 32, j = capacity; i <= 47; ++i, capacity >>= 1)
+            for (int i = 32, j = capacity; i <= 47; ++i, j >>= 1)
                 bits.Add(Convert.ToBoolean(j & 1));
             bits.AddRange(StandRun.GetEmptyList(16));
             return bits;

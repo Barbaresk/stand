@@ -51,7 +51,7 @@ architecture Behavioral of OutBuffer_Entity is
 		idle,     --до инициализации 00
 		init,     --инициализации    11
 		rw,       --чтение/запись    01
-		waiting  --ожидание         00
+		waiting   --ожидание         00
 	);
 
 	
