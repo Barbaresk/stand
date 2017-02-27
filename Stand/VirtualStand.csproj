@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="Subject.cs" />
     <Compile Include="Tcl.cs" />
+    <Compile Include="Tcl2.cs" />
     <Compile Include="Value.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="Item.cs" />

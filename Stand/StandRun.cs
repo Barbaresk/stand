@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CA;
 
 namespace VirtualStand
 {
@@ -68,7 +69,7 @@ namespace VirtualStand
             else tbError.Text = "Инициализация прошла успешно";
 
             List<bool> names = new List<bool>();
-            while ((names = mas.getarraybool()).Count == 0)
+            while ((names = mas.gethex()).Count == 0)
                 Thread.Sleep(1000);
             tbError.Invoke(new Action<string>(s => tbError.Text = s), "Инициализация прошла успешно\nДанные успешно получены.");
             List<string> strNames = getNames(names);
@@ -90,9 +91,9 @@ namespace VirtualStand
                     send.AddRange(StandRun.GetEmptyList(s.RadixIn));
                     send.AddRange(s.GetValue());
                 }
-                mas.set(send);
+                mas.sethex(send);
                 Thread.Sleep(500);
-                List<bool> recive = mas.get();
+                List<bool> recive = mas.gethex();
                 if(recive.Count != 0)
                 {
                     int pos = 0;
