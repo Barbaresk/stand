@@ -96,9 +96,11 @@ namespace VirtualStand
                     break;
                 case "Поле":
                     if (Term.Check(tb.Text))
-                        value.AddRange(Value.StrToArray(tb.Text, radix));
+                        value.AddRange(Value.StrToArray(tb.Text, radix)); 
                     break;
             }
+            for (int i = value.Count; i < radix; ++i)
+                value.Add(false);
             return value;
         }
     }

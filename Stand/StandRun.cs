@@ -74,7 +74,14 @@ namespace VirtualStand
             tbError.Invoke(new Action<string>(s => tbError.Text = s), "Инициализация прошла успешно\nДанные успешно получены.");
             List<string> strNames = getNames(names);
             foreach (string s in strNames)
-                items.Add(new Subject(s + @"\" + s + ".object"));
+                try
+                {
+                    items.Add(new Subject(s + @"\" + s + ".object"));
+                }
+                catch(System.IO.DirectoryNotFoundException e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             Run();
         }
 
@@ -91,6 +98,7 @@ namespace VirtualStand
                     send.AddRange(StandRun.GetEmptyList(s.RadixIn));
                     send.AddRange(s.GetValue());
                 }
+                
                 mas.sethex(send);
                 Thread.Sleep(500);
                 List<bool> recive = mas.gethex();
@@ -135,10 +143,11 @@ namespace VirtualStand
                 capacity += i.RadixIn + i.RadixOut;
             List<bool> bits = new List<bool>(64 + capacity);
             bits.Add(true);
-            bits.AddRange(StandRun.GetEmptyList(31));
-            for (int i = 32, j = capacity; i <= 47; ++i, j >>= 1)
+            bits.AddRange(StandRun.GetEmptyList(15));
+            for (int i = 32, j = capacity; i < 48; ++i, j >>= 1)
                 bits.Add(Convert.ToBoolean(j & 1));
-            bits.AddRange(StandRun.GetEmptyList(16));
+            bits.AddRange(StandRun.GetEmptyList(32));
+            bits.Reverse();
             return bits;
         }
 
@@ -146,6 +155,17 @@ namespace VirtualStand
         {
             List<string> names = new List<string>();
             bool create = true;
+
+            for (int pos = 0; pos < bits.Count; pos += 64)
+                for(int i = 0; i < 2; ++i)
+                    for(int j = 0; j < 16; ++j)
+                    {
+                        bool buf = bits[pos + i * 16 + j];
+                        bits[pos + i * 16 + j] = bits[pos + (3 - i) * 16 + j];
+                        bits[pos + (3 - i) * 16 + j] = buf;
+                    }
+
+
             for (int i = 64; i < bits.Count; i += 16)
             {
                 UInt16 k = 0;
@@ -170,6 +190,8 @@ namespace VirtualStand
                     }
                 }
             }
+            
+            //names[0] = "inc";
             return names;   
         }
 
