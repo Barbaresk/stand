@@ -202,10 +202,9 @@ namespace CA
                 process.Start();
                 process.WaitForExit();
                 process.Close();
-
+              //  Thread.Sleep(1000);
                 //Console.WriteLine("7777777777777777777777777777777777");
                 //Console.ReadLine();
-              
                 modebit = "0";
                 if (correctbit == "4" || correctbit == "5" || correctbit == "6" || correctbit == "7")
                     while (true)
@@ -272,7 +271,7 @@ namespace CA
 
           //  Console.WriteLine("7777777777777777777777777777777777");
            // Console.ReadLine();
-
+           
             write_string = "000000000000000000";
             argument = "";
             argument += "cs_tcl.tcl ";
@@ -294,21 +293,29 @@ namespace CA
 
         public List<bool> gethex()
         {
-            char modernbit = '0';
-            System.IO.StreamReader file = new System.IO.StreamReader(@"C:\xilinx\14.7\ISE_DS\ISE\bin\nt\test");
+            char modernbit = '1';
+            System.IO.StreamReader file = new System.IO.StreamReader(@"C:\xilinx\14.7\ISE_DS\ISE\bin\nt\check_line.txt");
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.WorkingDirectory =@"C:\xilinx\14.7\ISE_DS\ISE\bin\nt";
             startInfo.FileName = "xtclsh.exe";
             string str="", read_string,correct_read_string="";
-            startInfo.Arguments = "cs_tcl.tcl " + "-dig " + "null" + " " + modernbit;
+            startInfo.Arguments = "cs_tcl.tcl " + "-dig " + "000000000000000002" + " " + modernbit;
             process.StartInfo = startInfo;
+            process.Start();
+            process.Close();
+            modernbit = '0';
+            startInfo.Arguments = "cs_tcl.tcl " + "-dig " + "000000000000000002" + " " + modernbit;
+            process.StartInfo = startInfo;
+            process.Start();
+            process.Close();
             read_string = file.ReadLine();
-            str = read_string.Substring(16, 1);
+            str = read_string.Substring(17, 1);
             if (str != "0" && str != "4" && str != "8" && str != "C")
             {
                 arraybool.Clear();
+                file.Close();
                 return arraybool;
             }
             else
@@ -320,12 +327,12 @@ namespace CA
                    
                     process.Start();
                     read_string = file.ReadLine();
-                    str = read_string.Substring(16, 1);
+                    str = read_string.Substring(17, 1);
                     while (true)
                     {
                         process.Start();
                         read_string = file.ReadLine();
-                        str = read_string.Substring(16, 16);
+                        str = read_string.Substring(17, 1);
                         if (str == "0" || str == "4" || str == "8" || str == "C")
                             break;
                         if (correct_read_string=="1")
@@ -492,10 +499,10 @@ namespace CA
                     process.Start();
                     process.WaitForExit();
                     process.Close();
-                    //process.Start();
-                    System.IO.StreamReader fileid = new System.IO.StreamReader(@"C:\\xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\check_line.txt");
-                    str = fileid.ReadLine();
-                    fileid.Close();
+                   // process.Start();
+                    //System.IO.StreamReader fileid = new System.IO.StreamReader(@"C:\\xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\check_line.txt");
+                    //str = fileid.ReadLine();
+                    //fileid.Close();
                    // Console.WriteLine("0000000000000000000000000000000000");
                     //Console.WriteLine(str);
                     //Console.WriteLine("0000000000000000000000000000000000");
@@ -508,30 +515,29 @@ namespace CA
                     process.Start();
                     process.WaitForExit();
                     process.Close();
-                    process.Dispose();
                     //process.Start();
-                    fileid = new System.IO.StreamReader(@"C:\\xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\check_line.txt");
-                    str = fileid.ReadLine();
-                    fileid.Close();
+                    //fileid = new System.IO.StreamReader(@"C:\\xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\check_line.txt");
+                    //str = fileid.ReadLine();
+                    //fileid.Close();
                     //Console.WriteLine("1111111111111111111111111111111111");
                     //Console.WriteLine(str);
                     //Console.WriteLine("1111111111111111111111111111111111");
                     //Console.ReadLine();
-                    List<bool> spisok = new List<bool>();
-                    for (int i = 0; i < 64; i++)
-                        if (i != 62 && i != 63)
-                            spisok.Add(false);
-                        else
-                        {
-                            spisok.Add(true);
-                        }
-                   // Console.WriteLine("7777777777777777777777777777777777");
+                    startInfo.WorkingDirectory = @"C:\xilinx\14.7\ISE_DS\ISE\bin\nt";
+                    startInfo.FileName = "xtclsh.exe";
+                    startInfo.Arguments = " cs_tcl.tcl -dig 000000000000000034 1";
+                    process.StartInfo = startInfo;
+                    process.StartInfo.UseShellExecute = true;
+                    process.Start();
+                    process.WaitForExit();
+                    process.Close();
+                    process.Dispose();
+                    // Console.WriteLine("7777777777777777777777777777777777");
                     //Console.ReadLine();
-                    sethex(spisok);
                     //Console.WriteLine("2222222222222222222222222222222222");
-                    fileid = new System.IO.StreamReader(@"C:\\xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\check_line.txt");
-                    str = fileid.ReadLine();
-                    fileid.Close();
+                    //fileid = new System.IO.StreamReader(@"C:\\xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\check_line.txt");
+                    //str = fileid.ReadLine();
+                    //fileid.Close();
                     //Console.WriteLine("2222222222222222222222222222222222");
                     //Console.WriteLine("YOU WIN");
                     //Console.ReadLine();

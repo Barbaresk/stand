@@ -37,6 +37,7 @@ entity OutBuffer_Entity is
 			  STATE_OUT : out STD_LOGIC_VECTOR (1 downto 0);
            DATA_OUT  : out STD_LOGIC_VECTOR (63 downto 0);
 			  STATE_IN  : in  STD_LOGIC_VECTOR (1 downto 0);
+			 -- state_buf_out : out std_logic_vector (2 downto 0);
            DATA_IN   : in  STD_LOGIC_VECTOR (63 downto 0));
 end OutBuffer_Entity;
 
@@ -71,7 +72,7 @@ begin
 		variable i     : integer;
 		variable depth : integer;
 	begin
-		if clk = '1' then
+		if clk = '1' and clk'event then
 			if clr = '1' then
 				state_i := idle;
 				depth := 0;
@@ -143,8 +144,9 @@ begin
 		variable i : integer;
 		variable depth : integer;
 	begin
-		if CLK = '1' then
+		if CLK = '1' and clk'event then
 			if clr = '1' then
+			--	state_buf_out <= "001";
 				getting <= false;
 				data_out <= (others => '0');
 				state_o := idle;
@@ -154,11 +156,12 @@ begin
 			else
 				case state_o is
 					when idle =>  --самый старт, ожидаем, когда проинициализируется буфер
+		--		state_buf_out <= "010";
 						state_out <= "11";
 						if bufdepth /= 0 then
-							for i in 0 to bufdepth loop
-								bufout(i) <= bufin(i);
-							end loop;
+			--				for i in 0 to bufdepth loop
+								bufout <= bufin;
+			--				end loop;
 							depth := bufdepth;
 							state_o := init;
 							state_out <= "00";
@@ -166,6 +169,8 @@ begin
 						end if;
 						
 					when init =>  --инициализация, лжидаем, когда начнётся чтение
+					
+			--	state_buf_out <= "011";
 						i := 0;
 						case state_in is
 							when "01" =>
@@ -182,6 +187,8 @@ begin
 						end case;
 					
 					when load1 =>  --выгрузка 01
+					
+			--	state_buf_out <= "100";
 						if state_in = "10" then
 							if i >= depth then
 								state_o := waitoff;
@@ -197,6 +204,8 @@ begin
 						end if;
 						
 					when load2 =>  --выгрузка 10
+					
+		--		state_buf_out <= "101";
 						if state_in = "01" then
 							if i >= depth then
 								state_o := waitoff;
@@ -212,12 +221,16 @@ begin
 						end if;
 						
 					when waitoff =>  --ожидание 00 от cs
+					
+		--		state_buf_out <= "110";
 						bufout <= bufin;
 						if state_in = "00" then
 							state_o := waiting;
 						end if;
 					
-					when waiting =>  --ожидание начала выгрузки
+					when waiting =>  --ожидание начала выгрузки\
+					
+		--		state_buf_out <= "111";
 						bufout <= bufin;
 						i := 0;
 						depth := bufdepth;

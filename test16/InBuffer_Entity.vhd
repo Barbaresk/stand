@@ -35,6 +35,7 @@ entity InBuffer_Entity is
 			  STATE_IN  : in  STD_LOGIC_VECTOR (1 downto 0);
            DATA_IN   : in  STD_LOGIC_VECTOR (63 downto 0);
            STATE_OUT : out STD_LOGIC_VECTOR (1 downto 0);
+		--	  state_buffer_in: out std_logic_vector(2 downto 0);
            DATA_OUT  : out STD_LOGIC_VECTOR (63 downto 0));
 end InBuffer_Entity;
 
@@ -59,6 +60,7 @@ begin
 		
 		if CLK = '1' and CLK'event then
 			if CLR = '1' then
+			--	state_buffer_in<="001";
 				state := free;
 				depth := 0;
 				i := 0;
@@ -70,6 +72,7 @@ begin
 			else
 				case state is
 					when free => 
+				--	state_buffer_in<="010";
 						case state_in is
 							when "01" =>
 								state := load1;
@@ -82,6 +85,7 @@ begin
 							when others => null;	
 						end case;
 					when load1 =>
+				--		state_buffer_in<="011";
 						case state_in is
 							when "00" =>
 								state := unload;
@@ -93,6 +97,7 @@ begin
 							when others => null;
 						end case;				
 					when load2 =>
+				--		state_buffer_in<="100";
 						case state_in is
 							when "00" =>
 								state := unload;
@@ -104,6 +109,7 @@ begin
 							when others => null;
 						end case;				
 					when unload =>
+				--	state_buffer_in<="101";
 						if i /= depth then
 							data_out <= reg(i);
 							reg(i) <= (others => '0');

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <symbol version="7" name="InBuffer_Entity">
     <symboltype>BLOCK</symboltype>
-    <timestamp>2016-12-23T0:3:39</timestamp>
+    <timestamp>2017-3-7T13:49:27</timestamp>
     <pin polarity="Input" x="0" y="-160" name="CLK" />
     <pin polarity="Input" x="0" y="-96" name="CLR" />
     <pin polarity="Input" x="0" y="32" name="STATE_IN(1:0)" />
@@ -26,6 +26,6 @@
         <line x2="480" y1="-96" y2="-96" x1="416" />
         <rect width="64" x="416" y="-44" height="24" />
         <line x2="480" y1="-32" y2="-32" x1="416" />
-        <rect width="352" x="64" y="-192" height="256" />
+        <rect width="352" x="64" y="-192" height="320" />
     </graph>
 </symbol>
