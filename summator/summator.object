@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<object name="summator" background="back.png">
+    <item_element name="plus" id="plus" x="70" y="50" />
+    <item_element name="equal" id="equal" x="160" y="50" />
+    <item_element name="digit" id="a" x="10" y="10">
+        <in name="q" newIn="a" />
+    </item_element>
+    <item_element name="digit" id="b" x="100" y="10">
+        <in name="q" newIn="b" />
+    </item_element>
+    <item_element name="digit" id="p1" x="190" y="10">
+        <in name="q" newIn="p1" />
+    </item_element>
+    <item_element name="digit" id="p2" x="250" y="10">
+        <in name="q" newIn="p2" />
+    </item_element>
+    <item_element name="numin" id="ain" x="10" y="120">
+        <out name="num" newOut="aout" />
+    </item_element>
+    <item_element name="numin" id="bin" x="10" y="150">
+        <out name="num" newOut="bout" />
+    </item_element>
+    <item_element name="plus" id="plus2" x="120" y="140" />
+</object>

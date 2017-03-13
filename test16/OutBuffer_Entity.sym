@@ -8,6 +8,7 @@
     <pin polarity="Input" x="0" y="-32" name="DATA_IN(63:0)" />
     <pin polarity="Output" x="480" y="-224" name="STATE_OUT(1:0)" />
     <pin polarity="Output" x="480" y="-32" name="DATA_OUT(63:0)" />
+    <pin polarity="Output" x="480" y="32" name="state_buf_out(2:0)" />
     <graph>
         <attrtext style="alignment:BCENTER;fontsize:56;fontname:Arial" attrname="SymbolName" x="240" y="-264" type="symbol" />
         <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-224" type="pin CLK" />

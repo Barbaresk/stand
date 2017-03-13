@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<element name="numin" background="ssb.png">
+    <out name="num" x="5" y="4" type="Поле" radix="4" />
+</element>

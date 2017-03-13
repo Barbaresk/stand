@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<element name="digit">
+    <in name="q" radix="4" default="3" />
+    <line image="n0.png">
+        <condition name="q" value="0" action="=" />
+    </line>
+    <line image="n1.png">
+        <condition name="q" value="1" action="=" />
+    </line>
+    <line image="n2.png">
+        <condition name="q" value="2" action="=" />
+    </line>
+    <line image="n3.png">
+        <condition name="q" value="3" action="=" />
+    </line>
+    <line image="n4.png">
+        <condition name="q" value="4" action="=" />
+    </line>
+    <line image="n5.png">
+        <condition name="q" value="5" action="=" />
+    </line>
+    <line image="n6.png">
+        <condition name="q" value="6" action="=" />
+    </line>
+    <line image="n7.png">
+        <condition name="q" value="7" action="=" />
+    </line>
+    <line image="n8.png">
+        <condition name="q" value="8" action="=" />
+    </line>
+    <line image="n9.png">
+        <condition name="q" value="9" action="=" />
+    </line>
+</element>

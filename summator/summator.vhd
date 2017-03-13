@@ -2,44 +2,49 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
-entity inc is
+entity summator is
 
     Port ( CLK   : in  STD_LOGIC;
            CLR   : in  STD_LOGIC;
            CLR_O : out STD_LOGIC;
-		d : in  std_logic_vector(3 downto 0);
-		q : out std_logic_vector(3 downto 0);
+		a : in  std_logic_vector(3 downto 0);
+		b : in  std_logic_vector(3 downto 0);
+		p1 : in  std_logic_vector(3 downto 0);
+		p2 : in  std_logic_vector(3 downto 0);
+		aout : out std_logic_vector(3 downto 0);
+		bout : out std_logic_vector(3 downto 0);
 DATA_IN  : in   STD_LOGIC_VECTOR (63 downto 0);
            DATA_OUT : out  STD_LOGIC_VECTOR (63 downto 0));
-end inc;
-architecture Behavioral of inc is
-	 constant len  : integer := 8 ;
-	 constant rwc  : integer := 4 ;
-	 constant name : integer := 4 * 16;
-	 signal   info : std_logic_vector(name - 1 downto 0) := x"0000C60076009600";
+end summator;
+architecture Behavioral of summator is
+	 constant len  : integer := 24 ;
+	 constant rwc  : integer := 16 ;
+	 constant name : integer := 9 * 16;
+	 signal   info : std_logic_vector(name - 1 downto 0) := x"00004E00F6002E008600B600B600AE00CE00";
 constant rd   : integer := len - rwc;
-	signal value  : std_logic_vector(len - 1 downto 0); --массив для сопоставления
+	signal value  : std_logic_vector(len - 1 downto 0); --РјР°СЃСЃРёРІ РґР»СЏ СЃРѕРїРѕСЃС‚Р°РІР»РµРЅРёСЏ
 	signal rvalue : std_logic_vector(len - rwc - 1 downto 0);
 	type state_type is (
-		idle,     --до инициализации 00
-		init,     --инициализации    11
-		rw,       --чтение/запись    01
-		waiting   --ожидание         00
+		idle,     --РґРѕ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё 00
+		init,     --РёРЅРёС†РёР°Р»РёР·Р°С†РёРё    11
+		rw,       --С‡С‚РµРЅРёРµ/Р·Р°РїРёСЃСЊ    01
+		waiting   --РѕР¶РёРґР°РЅРёРµ         00
 	);
 
 	
 	signal cop   : std_logic_vector(1 downto 0);
 	signal arg   : std_logic_vector(15 downto 0);
 begin
-	value(rwc - 1 downto 0) <= d;
-q <= value(7 downto 4);
+	value(rwc - 1 downto 0) <= p2 & p1 & b & a;
+aout <= value(19 downto 16);
+bout <= value(23 downto 20);
 clr_o <= clr;
 	value(len - 1 downto rwc) <= rvalue;
 	cop <= data_in(1 downto 0);
 	arg <= data_in(31 downto 16);
 
 	process (CLK)
-		variable state  : state_type; --состояния элемента
+		variable state  : state_type; --СЃРѕСЃС‚РѕСЏРЅРёСЏ СЌР»РµРјРµРЅС‚Р°
 		variable offset : integer;   
 		variable endstr : integer;
 		variable offr   : integer;
@@ -107,7 +112,7 @@ clr_o <= clr;
 							state    := waiting;
 							data_out <= (others => '0');
 						else
-							--пишем из схемы в cs
+							--РїРёС€РµРј РёР· СЃС…РµРјС‹ РІ cs
 							if pos < offset then
 								if pos + 64 > offset then
 									if pos + 64 <= offset + rwc then -- pos < offset < pos + 64 <= offset + rw
@@ -130,7 +135,7 @@ clr_o <= clr;
 								end if;
 							end if;
 							
-							--пишем из cs в схему
+							--РїРёС€РµРј РёР· cs РІ СЃС…РµРјСѓ
 							if pos < offr then
 								if pos + 64 > offr then
 									if pos + 64 <= offr + rd then -- pos < offr < pos + 64 <= offr + rd

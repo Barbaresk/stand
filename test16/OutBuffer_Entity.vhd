@@ -168,7 +168,6 @@ begin
 						end if;
 						
 					when init =>  --инициализация, лжидаем, когда начнётся чтение
-					
 			--	state_buf_out <= "011";
 						i := 0;
 						case state_in is
@@ -186,7 +185,6 @@ begin
 						end case;
 					
 					when load1 =>  --выгрузка 01
-					
 			--	state_buf_out <= "100";
 						if state_in = "10" then
 							if i >= depth then
@@ -203,7 +201,6 @@ begin
 						end if;
 						
 					when load2 =>  --выгрузка 10
-					
 		--		state_buf_out <= "101";
 						if state_in = "01" then
 							if i >= depth then
@@ -220,7 +217,6 @@ begin
 						end if;
 						
 					when waitoff =>  --ожидание 00 от cs
-					
 		--		state_buf_out <= "110";
 						bufout <= bufin;
 						if state_in = "00" then

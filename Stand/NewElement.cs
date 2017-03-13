@@ -603,6 +603,8 @@ namespace VirtualStand
             List<string> warnings = new List<string>();
             if (background == null)
                 warnings.Add("Фон отсутствует.");
+            if (dgvOut.RowCount == 1 && dgvIn.RowCount == 1)
+                warnings.Add("Таблицы входов и выходов пустые.");
             for (int i = 0; i < lines.Count; ++i)
                 warnings.AddRange(lines[i].CheckWarnings(i + 1, background));
             return warnings;
@@ -614,8 +616,6 @@ namespace VirtualStand
             List<string> errors = new List<string>();
             if (tbName.Text == "")
                 errors.Add("Имя элемента пустое.");
-            if (dgvOut.RowCount == 1 && dgvIn.RowCount == 1)
-                errors.Add("Таблицы входов и выходов пустые.");
             errors.AddRange(CheckIn());
             errors.AddRange(CheckOut());
             errors.AddRange(CheckCondtions());

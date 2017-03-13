@@ -1,4 +1,4 @@
--- Vhdl test bench created from schematic C:\Users\Barbaresk\Documents\xilinx\test16\top3.sch - Fri Dec 23 03:24:53 2016
+-- Vhdl test bench created from schematic C:\Users\Barbaresk\Documents\Visual Studio 2015\Projects\Stand\test16\top4.sch - Mon Feb 27 13:20:12 2017
 --
 -- Notes: 
 -- 1) This testbench template has been automatically generated using types
@@ -17,39 +17,21 @@ USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 LIBRARY UNISIM;
 USE UNISIM.Vcomponents.ALL;
-ENTITY top3_top3_sch_tb IS
-END top3_top3_sch_tb;
-ARCHITECTURE behavioral OF top3_top3_sch_tb IS 
+ENTITY top4_top4_sch_tb IS
+END top4_top4_sch_tb;
+ARCHITECTURE behavioral OF top4_top4_sch_tb IS 
 
-   COMPONENT top3
-   PORT( TO_TCL	 	:	OUT	STD_LOGIC_VECTOR (67 DOWNTO 0); 
-          FROM_TCL	:	IN		STD_LOGIC_VECTOR (67 DOWNTO 0); 
-          C		:	IN		STD_LOGIC; 
-          CLR	:	IN		STD_LOGIC; 
-          T3_L	:	IN		STD_LOGIC; 
-          T3_E	:	IN		STD_LOGIC; 
-          T3_D	:	IN		STD_LOGIC_VECTOR (3 DOWNTO 0); 
-          T3_Q	:	OUT	STD_LOGIC_VECTOR (7 DOWNTO 0); 
-          T3_U	:	OUT	STD_LOGIC_VECTOR (5 DOWNTO 0); 
-          T4_D	:	IN		STD_LOGIC_VECTOR (20 DOWNTO 0); 
-          T4_Q	:	OUT	STD_LOGIC_VECTOR (11 DOWNTO 0); 
-          T4_U	:	OUT	STD_LOGIC_VECTOR (52 DOWNTO 0));
+   COMPONENT top4
+   PORT( TO_TCL	:	OUT	STD_LOGIC_VECTOR (67 DOWNTO 0); 
+          FROM_TCL	:	IN	STD_LOGIC_VECTOR (67 DOWNTO 0); 
+          C	:	IN	STD_LOGIC; 
+          CLR	:	IN	STD_LOGIC);
    END COMPONENT;
 
-   SIGNAL TO_TCL		:	STD_LOGIC_VECTOR (67 DOWNTO 0);
+   SIGNAL TO_TCL	:	STD_LOGIC_VECTOR (67 DOWNTO 0);
    SIGNAL FROM_TCL	:	STD_LOGIC_VECTOR (67 DOWNTO 0) := (others => '0');
-   SIGNAL C				:	STD_LOGIC := '0';
-   SIGNAL CLR			:	STD_LOGIC;
-	
-	--интерфейс пользователя
-   SIGNAL T3_L	:	STD_LOGIC := '0';
-   SIGNAL T3_E	:	STD_LOGIC := '1';
-   SIGNAL T3_D	:	STD_LOGIC_VECTOR (3 DOWNTO 0)  := "1101";
-   SIGNAL T3_Q	:	STD_LOGIC_VECTOR (7 DOWNTO 0);
-   SIGNAL T3_U	:	STD_LOGIC_VECTOR (5 DOWNTO 0);
-   SIGNAL T4_D	:	STD_LOGIC_VECTOR (20 DOWNTO 0) := '0' & x"ABCDE";
-   SIGNAL T4_Q	:	STD_LOGIC_VECTOR (11 DOWNTO 0);
-   SIGNAL T4_U	:	STD_LOGIC_VECTOR (52 DOWNTO 0);
+   SIGNAL C	:	STD_LOGIC := '0';
+   SIGNAL CLR	:	STD_LOGIC;
 
 	constant buf_sz : integer := 5;
 	type matrix is array (buf_sz downto 0) of std_logic_vector(63 downto 0); --память для запоминания того, что пришло
@@ -59,23 +41,16 @@ ARCHITECTURE behavioral OF top3_top3_sch_tb IS
 	signal len : std_logic_vector(47 downto 32);
 
 	CONSTANT c_t : TIME := 10 ns;
+
 BEGIN
 
-   UUT: top3 PORT MAP(
+   UUT: top4 PORT MAP(
 		TO_TCL => TO_TCL, 
 		FROM_TCL => FROM_TCL, 
 		C => C, 
-		CLR => CLR, 
-		T3_L => T3_L, 
-		T3_E => T3_E, 
-		T3_D => T3_D, 
-		T3_Q => T3_Q, 
-		T3_U => T3_U, 
-		T4_D => T4_D, 
-		T4_Q => T4_Q, 
-		T4_U => T4_U
+		CLR => CLR
    );
-	
+
 	c <= not c after c_t / 2;
 
 	process begin
@@ -231,5 +206,4 @@ BEGIN
 	
 	end process;
 
-	
 END;
