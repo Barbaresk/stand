@@ -54,6 +54,7 @@ tmp/
 *.xrpt
 *.ngr
 *.tcl
+!cs_tcl.tcl
 *.ini
 *.cmd
 *.exe
