@@ -54,7 +54,7 @@ namespace VirtualStand
 
         private void init()
         {
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
             mas = new tclwithc();
             for (int i = 0; !mas.init() && i < 10; ++i)
                 if (i == 9)
@@ -90,18 +90,22 @@ namespace VirtualStand
             List<bool> base64 = GetEmptySend();
             while (true)
             {
-                Thread.Sleep(500);
                 List<bool> send = new List<bool>();
                 send.AddRange(base64);
                 foreach (Subject s in items)
                 {
-                    send.AddRange(StandRun.GetEmptyList(s.RadixIn));
-                    send.AddRange(s.GetValue());
+                    var bufIn = StandRun.GetEmptyList(s.RadixIn);
+                    bufIn.Reverse();
+                    send.AddRange(bufIn);
+                    var bufOut = s.GetValue();
+                    bufOut.Reverse();
+                    send.AddRange(bufOut);
                 }
-                
+                reverse(send);
                 mas.sethex(send);
-                Thread.Sleep(500);
                 List<bool> recive = mas.gethex();
+                reverse(recive);
+                recive.Reverse();
                 if(recive.Count != 0)
                 {
                     int pos = 0;
@@ -112,7 +116,8 @@ namespace VirtualStand
                         foreach (InPin i in s.InPins)
                         {
                             bool[] port = new bool[i.Radix];
-                            recive.CopyTo(pos + k, port, 0, i.Radix); 
+                            recive.CopyTo(recive.Count - (pos + k) - i.Radix, port, 0, i.Radix);
+                            port.Reverse();
                             v[i.Name] = new List<bool>(port);
                             k += i.Radix;
                         }
@@ -147,8 +152,21 @@ namespace VirtualStand
             for (int i = 32, j = capacity; i < 48; ++i, j >>= 1)
                 bits.Add(Convert.ToBoolean(j & 1));
             bits.AddRange(StandRun.GetEmptyList(32));
-            bits.Reverse();
+            //bits.Reverse();
             return bits;
+        }
+
+        public void reverse(List<bool> list)
+        {
+            while (list.Count % 64 != 0)
+                list.Add(false);
+            for(int i = 0; i < list.Count; i+=64)
+                for(int j = 0; j < 32; ++j)
+                {
+                    bool buf = list[i + j];
+                    list[i + j] = list[i + 63 - j];
+                    list[i + 63 - j] = buf;
+                }
         }
 
         private List<string> getNames(List<bool> bits)

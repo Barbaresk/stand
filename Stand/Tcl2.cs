@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading;
+using System.Diagnostics;
 
 namespace CA
 {
@@ -14,6 +15,8 @@ namespace CA
             List<bool> arraybool;
             List<int> arrayint;
             string arrayhex;
+            string handle;
+        string coreRef;
         public
         tclwithc()
         {
@@ -48,6 +51,32 @@ namespace CA
             }
          return 1;
         }
+        //------------------------------------------------
+        public void gethandlefromfile()
+        {
+            System.IO.StreamReader file = new System.IO.StreamReader(@"C:\\xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\handle.txt");
+            handle = file.ReadLine();
+            file.Close();
+        }
+
+        public void getcoreReffromfile()
+        {
+            System.IO.StreamReader file = new System.IO.StreamReader(@"C:\\xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\coreRef.txt");
+            coreRef = "\""+file.ReadLine()+ "\"";
+            file.Close();
+        }
+
+        public string gethandle()
+        {
+            return handle;
+        }
+
+        public string getcoreRef()
+        {
+            return coreRef;
+        }
+
+        //-----------------------------------------------
         public int Hexstring()
         {
             string str="";
@@ -153,6 +182,7 @@ namespace CA
         }
         public int sethex( List<bool> listbool)
         {
+            
             arrayhex = "";
             string modebit ="1";
             string write_string, read_string = "", check_read_string = "", argument = " ";
@@ -161,38 +191,17 @@ namespace CA
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.CreateNoWindow = true;
-            //Console.WriteLine("7777777777777777777777777777777777");
-            //Console.ReadLine();
-
             startInfo.WorkingDirectory = @"C:\xilinx\14.7\ISE_DS\ISE\bin\nt";
             startInfo.FileName = "xtclsh.exe";
             arraybool = listbool;
-
-            //Console.WriteLine("7777777777777777777777777777777777");
-            //Console.ReadLine();
-
             for (int j = 0; listbool.Count % 64 !=0; j++)
                 listbool.Add(false);
-
-            //Console.WriteLine("111111111111111111111111111111111");
-            //Console.ReadLine();
-
             modern();
-
-            //Console.WriteLine("222222222222222222222222222222222222");
-            //Console.ReadLine();
-
             Hexstring();
-
-            //Console.WriteLine("33333333333333333333333333333333333");
-            //Console.ReadLine();
-            
             int i = 0;
             string correctbit = "4";
             while (i < arrayhex.Length)
-            {
-                //  Console.WriteLine("7777777777777777777777777777777777");
-                // Console.ReadLine();
+            {   
                 argument = "";
                 write_string = "0";//
                 write_string += arrayhex.Substring(i,16);
@@ -208,17 +217,12 @@ namespace CA
                 process.Start();
                 process.WaitForExit();
                 process.Close();
-              //  Thread.Sleep(1000);
-                //Console.WriteLine("7777777777777777777777777777777777");
-                //Console.ReadLine();
                 modebit = "0";
+                
                 if (correctbit == "4" || correctbit == "5" || correctbit == "6" || correctbit == "7")
                     while (true)
                     {
-                  //      Console.WriteLine("7777777777777777777777777777777777");
-                    //    Console.ReadLine();
-
-
+                        
                         argument = "";
                         argument += "cs_tcl.tcl ";
                         argument += "-dig ";
@@ -227,16 +231,16 @@ namespace CA
                         argument += modebit;
                         startInfo.Arguments = argument;
                         process.StartInfo = startInfo;
+                       
                         process.Start();
+                        process.WaitForExit();
                         process.Close();
+                       
                         file = new System.IO.StreamReader(@"C:\\xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\check_line.txt");
                         read_string = file.ReadLine();
                         file.Close();
                         check_read_string = read_string.Substring(17,1);
-                    
-                      //  Console.WriteLine("7777777777777777777777777777777777");
-                     //   Console.ReadLine();
-
+                       
                         if (check_read_string == "4" || check_read_string == "5" || check_read_string == "6" || check_read_string == "7")
                             break;
                     }
@@ -251,16 +255,13 @@ namespace CA
                         argument += modebit;
                         startInfo.Arguments = argument;
                         process.StartInfo = startInfo;
-                        process.StartInfo.UseShellExecute = true;
                         process.Start();
+                        process.WaitForExit();
                         process.Close();
                         file = new System.IO.StreamReader(@"C:\\xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\check_line.txt");
                         read_string = file.ReadLine();
                         file.Close();
                         check_read_string = read_string.Substring(17, 1);
-
-                       // Console.WriteLine("7777777777777777777777777777777777");
-                        //Console.ReadLine();
 
                         if (check_read_string == "8" || check_read_string == "9" || check_read_string == "A" || check_read_string == "B")
                             break;
@@ -275,10 +276,8 @@ namespace CA
                 i += 16;
                 modebit = "1";
             }
+            
             file.Close();
-
-            //  Console.WriteLine("7777777777777777777777777777777777");
-            // Console.ReadLine();
             modebit = "1";
             write_string = "000000000000000000";
             argument = "";
@@ -292,10 +291,6 @@ namespace CA
             process.StartInfo.UseShellExecute = true;
             process.Start();
             process.Close();
-
-            //Console.WriteLine("7777777777777777777777777777777777");
-            //Console.ReadLine();
-
             return 1;
         }
 
@@ -309,7 +304,7 @@ namespace CA
             startInfo.CreateNoWindow = true;
             startInfo.WorkingDirectory =@"C:\xilinx\14.7\ISE_DS\ISE\bin\nt";
             startInfo.FileName = "xtclsh.exe";
-            string str = "", read_string, correct_read_string = "", extra_arrayhex = "" ;
+            string str = "", read_string, correct_read_string = "";
             startInfo.Arguments = "cs_tcl.tcl " + "-dig " + "000000000000000002" + " " + modernbit;
             proces.StartInfo = startInfo;
             proces.StartInfo.UseShellExecute = true;
@@ -323,7 +318,6 @@ namespace CA
             str = read_string.Substring(17, 1);
             if (str == "0" && str == "4" && str == "8" && str == "C")
             {
-                //DecodeHexString();
                 return arraybool;
             }
             else
@@ -334,7 +328,6 @@ namespace CA
                 {
                      modernbit = '1';
                      startInfo.Arguments = "cs_tcl.tcl " + "-dig " + "00000000000000000"+correct_read_string + " " + modernbit;
-
                        proces.Start();
                    proces.WaitForExit();
                   proces.Close();
@@ -372,9 +365,7 @@ namespace CA
                             break;
                             }
                         }
-                        
-
-                    }
+                   }
                     if (str == "0" || str == "4" || str == "8" || str == "C")
                         break; 
                }
@@ -499,77 +490,47 @@ namespace CA
             check=File.Exists(file);
             if (check)
             {
-                Console.WriteLine("tcl exists :)");
-           //     Console.ReadLine();
                 file = @"c:\xilinx\14.7\ISE_DS\ISE\bin\nt\xtclsh.exe";
                 check = File.Exists(file);
                 if (check)
                 {
-                    Console.WriteLine("exe exists :)");
-                    Console.ReadLine();
-                    string str;
-                    System.Diagnostics.Process process = new System.Diagnostics.Process();
-                    System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-                    startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                    startInfo.CreateNoWindow = true;
-                    startInfo.WorkingDirectory = @"C:\xilinx\14.7\ISE_DS\ISE\bin\nt";
+                    
+                    Process process = new Process();
+                    ProcessStartInfo startInfo = new ProcessStartInfo();
+                    startInfo.WorkingDirectory = @"C:\xilinx\14.7\ISE_DS\ISE\bin\nt\";
+                    startInfo.FileName = "cmd.exe";
+                    startInfo.Arguments = "xtclsh.exe cs_tcl.tcl -dig";
+                    startInfo.RedirectStandardInput = false;
+                    startInfo.RedirectStandardOutput = false;
+                    startInfo.RedirectStandardError = false;
+                    startInfo.UseShellExecute = false;
+                    //startInfo.CreateNoWindow = true;
+                    process.StartInfo = startInfo;
+                    process.Start();
+                    //process.StandardInput.WriteLine("800000000000000000 1 3");
+                    /*startInfo.WorkingDirectory = @"C:\xilinx\14.7\ISE_DS\ISE\bin\nt";
                     startInfo.FileName = "xtclsh.exe";
-                    startInfo.Arguments =" cs_tcl.tcl -dig 800000000000000000 1";
+                    startInfo.Arguments = " cs_tcl.tcl -dig 000000000000000000 1 " + handle + " " + coreRef;
                     process.StartInfo = startInfo;
                     process.StartInfo.UseShellExecute = true;
-                    str = startInfo.Arguments;
-                    process.Start();
-                    process.WaitForExit();
+                    process.Start();                 
                     process.Close();
-                   // process.Start();
-                    //System.IO.StreamReader fileid = new System.IO.StreamReader(@"C:\\xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\check_line.txt");
-                    //str = fileid.ReadLine();
-                    //fileid.Close();
-                   // Console.WriteLine("0000000000000000000000000000000000");
-                    //Console.WriteLine(str);
-                    //Console.WriteLine("0000000000000000000000000000000000");
-                    //Console.ReadLine();
+                    
                     startInfo.WorkingDirectory = @"C:\xilinx\14.7\ISE_DS\ISE\bin\nt";
                     startInfo.FileName = "xtclsh.exe";
-                    startInfo.Arguments = " cs_tcl.tcl -dig 000000000000000000 1";
+                    startInfo.Arguments = " cs_tcl.tcl -dig 000000000000000034 1 " + handle + " " + coreRef;
                     process.StartInfo = startInfo;
                     process.StartInfo.UseShellExecute = true;
                     process.Start();
-                    process.WaitForExit();
                     process.Close();
-                    //process.Start();
-                    //fileid = new System.IO.StreamReader(@"C:\\xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\check_line.txt");
-                    //str = fileid.ReadLine();
-                    //fileid.Close();
-                    //Console.WriteLine("1111111111111111111111111111111111");
-                    //Console.WriteLine(str);
-                    //Console.WriteLine("1111111111111111111111111111111111");
-                    //Console.ReadLine();
                     startInfo.WorkingDirectory = @"C:\xilinx\14.7\ISE_DS\ISE\bin\nt";
                     startInfo.FileName = "xtclsh.exe";
-                    startInfo.Arguments = " cs_tcl.tcl -dig 000000000000000034 1";
+                    startInfo.Arguments = " cs_tcl.tcl -dig 000000000000000000 1 " + handle + " " + coreRef;
                     process.StartInfo = startInfo;
                     process.StartInfo.UseShellExecute = true;
                     process.Start();
                     process.WaitForExit();
-                    process.Close();
-                    // Console.WriteLine("7777777777777777777777777777777777");
-                    //Console.ReadLine();
-                    //Console.WriteLine("2222222222222222222222222222222222");
-                    //fileid = new System.IO.StreamReader(@"C:\\xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\check_line.txt");
-                    //str = fileid.ReadLine();+
-                    startInfo.WorkingDirectory = @"C:\xilinx\14.7\ISE_DS\ISE\bin\nt";
-                    startInfo.FileName = "xtclsh.exe";
-                    startInfo.Arguments = " cs_tcl.tcl -dig 000000000000000000 1";
-                    process.StartInfo = startInfo;
-                    process.StartInfo.UseShellExecute = true;
-                    process.Start();
-                    process.WaitForExit();
-                    process.Close();
-                    //fileid.Close();
-                    //Console.WriteLine("2222222222222222222222222222222222");
-                    //Console.WriteLine("YOU WIN");
-                    //Console.ReadLine();
+                    process.Close();*/
                     return true;
                 }
                 else

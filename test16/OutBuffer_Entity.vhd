@@ -117,10 +117,9 @@ begin
 							depth := 0;
 							state_i := waiting;
 						end if;
-					
 					when waiting =>      
 						if cop = "01" or cop = "10" then
-							bufin <= (others => (others => '0'));
+						--	bufin <= (others => (others => '0'));
 							len := conv_integer(data_in(31 downto 16));
 							i := 0;
 							state_i := rw;
