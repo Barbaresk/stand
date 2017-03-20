@@ -6,6 +6,7 @@ using System.Text;
 using System.IO;
 using System.Threading;
 using System.Diagnostics;
+using System.ComponentModel;
 
 namespace CA
 {
@@ -16,7 +17,10 @@ namespace CA
             List<int> arrayint;
             string arrayhex;
             string handle;
-        string coreRef;
+            string coreRef;
+     public Process process;
+            ProcessStartInfo Startinfo ;
+           
         public
         tclwithc()
         {
@@ -27,6 +31,8 @@ namespace CA
                 arraybool.Add(false);
                 i++;
             }
+
+          
                   }
         public void setarrayhex(string s)
         {
@@ -186,13 +192,13 @@ namespace CA
             arrayhex = "";
             string modebit ="1";
             string write_string, read_string = "", check_read_string = "", argument = " ";
-            System.IO.StreamReader file = null;
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.CreateNoWindow = true;
-            startInfo.WorkingDirectory = @"C:\xilinx\14.7\ISE_DS\ISE\bin\nt";
-            startInfo.FileName = "xtclsh.exe";
+           // System.IO.StreamReader file = null;
+           // System.Diagnostics.Process process = new System.Diagnostics.Process();
+           // System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+           // startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+           // startInfo.CreateNoWindow = true;
+           // startInfo.WorkingDirectory = @"C:\xilinx\14.7\ISE_DS\ISE\bin\nt";
+          //  startInfo.FileName = "xtclsh.exe";
             arraybool = listbool;
             for (int j = 0; listbool.Count % 64 !=0; j++)
                 listbool.Add(false);
@@ -202,43 +208,47 @@ namespace CA
             string correctbit = "4";
             while (i < arrayhex.Length)
             {   
-                argument = "";
+                //argument = "";
                 write_string = "0";//
                 write_string += arrayhex.Substring(i,16);
                 write_string += correctbit;//----------------
-                argument += "cs_tcl.tcl ";
-                argument += "-dig ";
-                argument += write_string;
-                argument += " ";
-                argument += modebit;
-                startInfo.Arguments = argument;
-                process.StartInfo = startInfo;
-                process.StartInfo.UseShellExecute = true;
-                process.Start();
-                process.WaitForExit();
-                process.Close();
+                                           //  argument += "cs_tcl.tcl ";
+                                           //  argument += "-dig ";
+                                           //  argument += write_string;
+                                           //  argument += " ";
+                                           //  argument += modebit;
+                                           //  startInfo.Arguments = argument;
+                                           //  process.StartInfo = startInfo;
+                                           //  process.StartInfo.UseShellExecute = true;
+                Console.WriteLine(" Write: " + write_string);
+                process.StandardInput.WriteLine(write_string + " " + modebit+ " "+ "3");
+             //   process.Start();
+              //  process.WaitForExit();
+              //  process.Close();
                 modebit = "0";
-                
                 if (correctbit == "4" || correctbit == "5" || correctbit == "6" || correctbit == "7")
                     while (true)
                     {
                         
-                        argument = "";
-                        argument += "cs_tcl.tcl ";
-                        argument += "-dig ";
-                        argument += "null";//-----------------------------------------------
-                        argument += " ";
-                        argument += modebit;
-                        startInfo.Arguments = argument;
-                        process.StartInfo = startInfo;
-                       
-                        process.Start();
-                        process.WaitForExit();
-                        process.Close();
-                       
-                        file = new System.IO.StreamReader(@"C:\\xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\check_line.txt");
-                        read_string = file.ReadLine();
-                        file.Close();
+                      //  argument = "";
+                      //  argument += "cs_tcl.tcl ";
+                       // argument += "-dig ";
+                       // argument += "null";//-----------------------------------------------
+                       // argument += " ";
+                       // argument += modebit;
+                        process.StandardInput.WriteLine(write_string + " " + modebit + " " + "3");
+                       read_string = process.StandardOutput.ReadLine();
+                        //Console.WriteLine(" READ: " + read_string);
+                        // startInfo.Arguments = argument;
+                        // process.StartInfo = startInfo;
+
+                        // process.Start();
+                        // process.WaitForExit();
+                        // process.Close();
+
+                        //  file = new System.IO.StreamReader(@"C:\\xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\check_line.txt");
+                        // read_string = file.ReadLine();
+                        // file.Close();
                         check_read_string = read_string.Substring(17,1);
                        
                         if (check_read_string == "4" || check_read_string == "5" || check_read_string == "6" || check_read_string == "7")
@@ -247,20 +257,24 @@ namespace CA
                 else
                     while (true)
                     {
-                        argument = "";
-                        argument += "cs_tcl.tcl ";
-                        argument += "-dig ";
-                        argument += "null";//-----------------------------------------------
-                        argument += " ";
-                        argument += modebit;
-                        startInfo.Arguments = argument;
-                        process.StartInfo = startInfo;
-                        process.Start();
-                        process.WaitForExit();
-                        process.Close();
-                        file = new System.IO.StreamReader(@"C:\\xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\check_line.txt");
-                        read_string = file.ReadLine();
-                        file.Close();
+                        //  argument = "";
+                        //  argument += "cs_tcl.tcl ";
+                        //  argument += "-dig ";
+                        ////   argument += "null";//-----------------------------------------------
+                        //   argument += " ";
+                        //  argument += modebit;
+                        //  startInfo.Arguments = argument;
+                        //  process.StartInfo = startInfo;
+                        //  process.Start();
+                        // process.WaitForExit();
+                        //  process.Close();
+                       
+                        process.StandardInput.WriteLine(write_string + " " + modebit + " " + "3");
+                        read_string = process.StandardOutput.ReadLine();
+                 //       Console.WriteLine(" READ: " + read_string);
+                        //file = new System.IO.StreamReader(@"C:\\xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\check_line.txt");
+                        // read_string = file.ReadLine();
+                        //  file.Close();
                         check_read_string = read_string.Substring(17, 1);
 
                         if (check_read_string == "8" || check_read_string == "9" || check_read_string == "A" || check_read_string == "B")
@@ -277,20 +291,24 @@ namespace CA
                 modebit = "1";
             }
             
-            file.Close();
+         //   file.Close();
             modebit = "1";
             write_string = "000000000000000000";
-            argument = "";
-            argument += "cs_tcl.tcl ";
-            argument += "-dig ";
-            argument += write_string;
-            argument += " ";
-            argument += modebit;
-            startInfo.Arguments = argument;
-            process.StartInfo = startInfo;
-            process.StartInfo.UseShellExecute = true;
-            process.Start();
-            process.Close();
+          //  argument = "";
+          //  argument += "cs_tcl.tcl ";
+           // argument += "-dig ";
+           // argument += write_string;
+          //  argument += " ";
+           // argument += modebit;
+         //   startInfo.Arguments = argument;
+          //  process.StartInfo = startInfo;
+          //  process.StartInfo.UseShellExecute = true;
+            process.StandardInput.WriteLine(write_string + " " + modebit + " " + "3");
+                read_string = process.StandardOutput.ReadLine();
+             //   Console.WriteLine(" READEXIT: " + read_string);
+           
+            //  process.Start();
+            //  process.Close();
             return 1;
         }
 
@@ -298,23 +316,25 @@ namespace CA
         {
             arrayhex = "";
             char modernbit = '1';
-            System.Diagnostics.Process proces = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.CreateNoWindow = true;
-            startInfo.WorkingDirectory =@"C:\xilinx\14.7\ISE_DS\ISE\bin\nt";
-            startInfo.FileName = "xtclsh.exe";
+            //System.Diagnostics.Process proces = new System.Diagnostics.Process();
+           // System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+          //  startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+          //  startInfo.CreateNoWindow = true;
+          //  startInfo.WorkingDirectory =@"C:\xilinx\14.7\ISE_DS\ISE\bin\nt";
+          //  startInfo.FileName = "xtclsh.exe";
             string str = "", read_string, correct_read_string = "";
-            startInfo.Arguments = "cs_tcl.tcl " + "-dig " + "000000000000000002" + " " + modernbit;
-            proces.StartInfo = startInfo;
-            proces.StartInfo.UseShellExecute = true;
-            proces.Start();
-            proces.WaitForExit();
-            proces.Close();
+            //startInfo.Arguments = "cs_tcl.tcl " + "-dig " + "000000000000000002" + " " + modernbit;
+            process.StandardInput.WriteLine("000000000000000002 1 3");
+           // proces.StartInfo = startInfo;
+          //  proces.StartInfo.UseShellExecute = true;
+         //   proces.Start();
+         //   proces.WaitForExit();
+         //   proces.Close();
             modernbit = '0';
-            System.IO.StreamReader file = new System.IO.StreamReader(@"C:\xilinx\14.7\ISE_DS\ISE\bin\nt\check_line.txt");
-            read_string = file.ReadLine();
-            file.Close();
+            read_string = process.StandardOutput.ReadLine();
+           // System.IO.StreamReader file = new System.IO.StreamReader(@"C:\xilinx\14.7\ISE_DS\ISE\bin\nt\check_line.txt");
+           // read_string = file.ReadLine();
+          //  file.Close();
             str = read_string.Substring(17, 1);
             if (str == "0" && str == "4" && str == "8" && str == "C")
             {
@@ -327,23 +347,27 @@ namespace CA
                 while (true)
                 {
                      modernbit = '1';
-                     startInfo.Arguments = "cs_tcl.tcl " + "-dig " + "00000000000000000"+correct_read_string + " " + modernbit;
-                       proces.Start();
-                   proces.WaitForExit();
-                  proces.Close();
+                  //   startInfo.Arguments = "cs_tcl.tcl " + "-dig " + "00000000000000000"+correct_read_string + " " + modernbit;
+                     process.StandardInput.WriteLine("00000000000000000"+ correct_read_string +" " + modernbit+ " "+ "3");
+              //  proces.Start();
+              //     proces.WaitForExit();
+               //   proces.Close();
                 modernbit = '0';
-                file = new System.IO.StreamReader(@"C:\xilinx\14.7\ISE_DS\ISE\bin\nt\check_line.txt");
-                    read_string = file.ReadLine();
-                     file.Close();
+                read_string = process.StandardOutput.ReadLine();
+               // file = new System.IO.StreamReader(@"C:\xilinx\14.7\ISE_DS\ISE\bin\nt\check_line.txt");
+                 //   read_string = file.ReadLine();
+                //     file.Close();
                     str = read_string.Substring(17, 1);
                     while (true)
                     {
-                        proces.Start();
-                    proces.WaitForExit();
-                    proces.Close();
-                    file = new System.IO.StreamReader(@"C:\xilinx\14.7\ISE_DS\ISE\bin\nt\check_line.txt");
-                        read_string = file.ReadLine();
-                       file.Close();
+                    process.StandardInput.WriteLine("00000000000000000" + correct_read_string + " " + modernbit + " " + "3");
+                    // proces.Start();
+                    //  proces.WaitForExit();
+                    //  proces.Close();
+                    read_string = process.StandardOutput.ReadLine();
+                   // file = new System.IO.StreamReader(@"C:\xilinx\14.7\ISE_DS\ISE\bin\nt\check_line.txt");
+                    //    read_string = file.ReadLine();
+                    //   file.Close();
                         str = read_string.Substring(17, 1);
                         if (str == "0" || str == "4" || str == "8" || str == "C")
                             break;
@@ -370,7 +394,7 @@ namespace CA
                         break; 
                }
             DecodeHexString();
-            proces.Close();
+       //     proces.Close();
             return arraybool;
         }
 
@@ -494,43 +518,38 @@ namespace CA
                 check = File.Exists(file);
                 if (check)
                 {
+
+                    string otvet=""; 
+                    Startinfo = new ProcessStartInfo();
+                    Startinfo.FileName = "cmd";
+                    Startinfo.WorkingDirectory = @"C:\Xilinx\14.7\ISE_DS\ISE\bin\nt";
+                    Startinfo.UseShellExecute = false;
+                    Startinfo.RedirectStandardInput = true;
+                    Startinfo.RedirectStandardOutput = true;
+                    Startinfo.CreateNoWindow = true;
+                    Startinfo.Arguments = "/c xtclsh.exe cs_tcl.tcl -dig";
+
+                    process = new Process();
+                    try
+                    {
+                        process.StartInfo = Startinfo;
+                        process.Start();
+                    }
+                    catch (System.ComponentModel.Win32Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+                    for (int i=0;i<12; i++)
+                    otvet=process.StandardOutput.ReadLine();
+                    process.StandardInput.WriteLine("800000000000000000 1 3");
+                    otvet= process.StandardOutput.ReadLine();
+                    process.StandardInput.WriteLine("000000000000000000 1 3");
+                    otvet = process.StandardOutput.ReadLine();
+                    process.StandardInput.WriteLine("000000000000000034 1 3");
+                    otvet = process.StandardOutput.ReadLine();
+                    process.StandardInput.WriteLine("000000000000000000 1 3");
+                    otvet = process.StandardOutput.ReadLine();
                     
-                    Process process = new Process();
-                    ProcessStartInfo startInfo = new ProcessStartInfo();
-                    startInfo.WorkingDirectory = @"C:\xilinx\14.7\ISE_DS\ISE\bin\nt\";
-                    startInfo.FileName = "cmd.exe";
-                    startInfo.Arguments = "xtclsh.exe cs_tcl.tcl -dig";
-                    startInfo.RedirectStandardInput = false;
-                    startInfo.RedirectStandardOutput = false;
-                    startInfo.RedirectStandardError = false;
-                    startInfo.UseShellExecute = false;
-                    //startInfo.CreateNoWindow = true;
-                    process.StartInfo = startInfo;
-                    process.Start();
-                    //process.StandardInput.WriteLine("800000000000000000 1 3");
-                    /*startInfo.WorkingDirectory = @"C:\xilinx\14.7\ISE_DS\ISE\bin\nt";
-                    startInfo.FileName = "xtclsh.exe";
-                    startInfo.Arguments = " cs_tcl.tcl -dig 000000000000000000 1 " + handle + " " + coreRef;
-                    process.StartInfo = startInfo;
-                    process.StartInfo.UseShellExecute = true;
-                    process.Start();                 
-                    process.Close();
-                    
-                    startInfo.WorkingDirectory = @"C:\xilinx\14.7\ISE_DS\ISE\bin\nt";
-                    startInfo.FileName = "xtclsh.exe";
-                    startInfo.Arguments = " cs_tcl.tcl -dig 000000000000000034 1 " + handle + " " + coreRef;
-                    process.StartInfo = startInfo;
-                    process.StartInfo.UseShellExecute = true;
-                    process.Start();
-                    process.Close();
-                    startInfo.WorkingDirectory = @"C:\xilinx\14.7\ISE_DS\ISE\bin\nt";
-                    startInfo.FileName = "xtclsh.exe";
-                    startInfo.Arguments = " cs_tcl.tcl -dig 000000000000000000 1 " + handle + " " + coreRef;
-                    process.StartInfo = startInfo;
-                    process.StartInfo.UseShellExecute = true;
-                    process.Start();
-                    process.WaitForExit();
-                    process.Close();*/
                     return true;
                 }
                 else

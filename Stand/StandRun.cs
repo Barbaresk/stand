@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CA;
+using System.Diagnostics;
 
 namespace VirtualStand
 {
@@ -54,7 +55,8 @@ namespace VirtualStand
 
         private void init()
         {
-            //Thread.Sleep(2000);
+            
+           
             mas = new tclwithc();
             for (int i = 0; !mas.init() && i < 10; ++i)
                 if (i == 9)
@@ -102,8 +104,22 @@ namespace VirtualStand
                     send.AddRange(bufOut);
                 }
                 reverse(send);
+                Stopwatch stopWatch = new Stopwatch();
+                stopWatch.Start();
                 mas.sethex(send);
+                stopWatch.Stop();
+                TimeSpan ts = stopWatch.Elapsed;
+                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds);
+                Console.WriteLine("RunTime " + elapsedTime);
+                stopWatch.Reset();
+                Stopwatch stopWatch1 = new Stopwatch();
+                stopWatch1.Start();
                 List<bool> recive = mas.gethex();
+                stopWatch1.Stop();
+                ts = stopWatch1.Elapsed;
+                elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds);
+                Console.WriteLine("RunTimeRUN " + elapsedTime);
+                stopWatch.Reset();
                 reverse(recive);
                 recive.Reverse();
                 if(recive.Count != 0)
