@@ -125,6 +125,7 @@ begin
 	clk_gen_inst : clk_gen 
 	port map(
 	clk_in1 =>clk_p,
+
 	clk_out1 =>clk,
 	clk_out2=>clk_out,
 	clk_out2_ce=>ce

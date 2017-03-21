@@ -97,9 +97,6 @@ proc main {argc argv} {
     global CABLE_ARGS
     global CSE_MSG_INFO
     #global VVarray
-	set fileid13 [open "check_line11.txt" w]
-			puts $fileid13 "ffffffffff"
-			close $fileid13
     if {[expr ($argc > 0) && [string equal "-h" [lindex $argv 0]]]} {
         set scriptname [info script]
         writeMessage 0 $CSE_MSG_INFO "\
@@ -131,9 +128,7 @@ Usage: xtclsh $scriptname \[-usb\] \[-par\] \[-dig\]\
 
     # Scan the JTAG chain
     scanChain $handle	
-     set fileid14 [open "check_line11.txt" w]
-			puts $fileid14 "ffffffffff"
-			close $fileid14
+  
     csejtag_session destroy $handle    
 }
 
@@ -358,7 +353,7 @@ proc scanVIOCore { handle coreRef } {
 	#puts $coreInfoTclArray($CSEVIO_ASYNC_OUTPUT_COUNT)
 	#puts $coreInfoTclArray($CSEVIO_SYNC_OUTPUT_COUNT)
 	#puts ""
-	
+	set fileid [open "check_line5.txt" w]
 	
     global CSEVIO_SYNC_OUTPUT
     global CSEVIO_ASYNC_OUTPUT
@@ -368,43 +363,39 @@ proc scanVIOCore { handle coreRef } {
                      $coreRef
 	csevio_define_bus $handle $coreRef "data_in" $CSEVIO_ASYNC_OUTPUT [list 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71]
 	csevio_define_bus $handle $coreRef "data_out" $CSEVIO_ASYNC_INPUT [list 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71]
-	set fileid11 [open "check_line111.txt" w]
-			puts $fileid11 "ffffffffffaaaaaaaa"
-			close $fileid11
 	set x 1
 	while {$x < 5} {
 		set data [gets stdin]
-		set VVarray5 ""
-		set bit5 ""
-		append VVarray5 [string range $data 0 17]
-		append bit5 [string range $data 19 19]
+		puts $fileid $data
+	#	set VVarray5 ""
+	#	set bit5 ""
+		set VVarray5 [string range $data 0 17]
+		set bit5 [string range $data 19 19]
 		set x [string range $data 21 21]
-		set fileid121 [open "check_line121.txt" w]
-			puts $fileid121 "qqqqqqqffffaaaaaaaa"
-			close $fileid121
 		if {[expr $bit5==1]} then {	
-			
 			set STR_ING ""
 			set outputTclArray(data_in) $VVarray5
-			set fileid1 [open "check_line1.txt" w]
-			puts $fileid1 $outputTclArray(data_in)
+		#	set fileid1 [open "check_line1.txt" w]
+		#	puts $fileid1 $outputTclArray(data_in)
 			csevio_write_values $handle $coreRef outputTclArray
-			csevio_read_values $handle $coreRef inputTclArray
-			append STR_ING $inputTclArray(data_out.value)
-			set fileid [open "check_line.txt" w]
-			puts $fileid $STR_ING
-			puts $fileid1 $STR_ING
-			close $fileid
-			close $fileid1
+		#	csevio_read_values $handle $coreRef inputTclArray
+		#	append STR_ING $inputTclArray(data_out.value)
+		#	set fileid [open "check_line.txt" w]
+		#	puts $fileid $STR_ING
+		#	puts $STR_ING
+		#	puts $fileid1 $STR_ING
+		#	close $fileid
+		#	close $fileid1
 		} else {
-		puts "vvod"
 		set inputarray ""
 		csevio_read_values $handle $coreRef inputTclArray
 		append inputarray $inputTclArray(data_out.value)
-		set fileid [open "check_line.txt" w]
-		puts $fileid $inputarray
-		close $fileid
-		}	
+		#set fileid [open "check_line.txt" w]
+		#puts $fileid $inputarray
+		puts $inputarray
+		
+		#close $fileid
+		}
 	}
    # set outputTclArray(data_in) ffffccccaaaaeeee
 	#set outputTclArray(wr_en.pulsetrain) 0000110000000000

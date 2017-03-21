@@ -1,3 +1,2 @@
 NET "clk_p" TNM_NET = "CLK_IN1";
 Net "clk_p" LOC = "L15" ; 
-PIN "XLXI_23/clk_gen_inst/clkout1_buf.O" CLOCK_DEDICATED_ROUTE = FALSE; 

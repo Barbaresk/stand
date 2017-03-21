@@ -104,22 +104,8 @@ namespace VirtualStand
                     send.AddRange(bufOut);
                 }
                 reverse(send);
-                Stopwatch stopWatch = new Stopwatch();
-                stopWatch.Start();
-                mas.sethex(send);
-                stopWatch.Stop();
-                TimeSpan ts = stopWatch.Elapsed;
-                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds);
-                Console.WriteLine("RunTime " + elapsedTime);
-                stopWatch.Reset();
-                Stopwatch stopWatch1 = new Stopwatch();
-                stopWatch1.Start();
+                mas.sethex(send);            
                 List<bool> recive = mas.gethex();
-                stopWatch1.Stop();
-                ts = stopWatch1.Elapsed;
-                elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds);
-                Console.WriteLine("RunTimeRUN " + elapsedTime);
-                stopWatch.Reset();
                 reverse(recive);
                 recive.Reverse();
                 if(recive.Count != 0)

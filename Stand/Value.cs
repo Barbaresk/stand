@@ -33,23 +33,22 @@ namespace VirtualStand
         public static List<bool> StrToArray(string s, int radix)
         {
             List<bool> list = new List<bool>();
-            if (s[s.Length - 1] == 'b')
-            {
+            if (s == "")
+                for (int i = 0; i < 4; ++i)
+                    list.Add(false);
+            else if (s[s.Length - 1] == 'b')
                 for (int i = s.Length - 2, j = 0; j < radix; --i, ++j)
                     if (i >= 0)
                         list.Insert(0, s[i] == '1');
                     else
                         list.Insert(0, false);
-            }
             else if(s[0] == '0' && s.Length > 1 && (s[1] == 'x' || s[1] == 'X'))
-            {
                 for (int i = s.Length - 1, j = 0; j < radix; --i)
                     for (int k = 3; k >= 0 && j < radix; --k, ++j)
                         if (i >= 0)
                             list.Insert(0, CharToArray(s[i])[k]);
                         else
                             list.Insert(0, false);
-            }
             else
             {
                 long num = Convert.ToInt64(s);

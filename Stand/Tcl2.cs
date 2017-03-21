@@ -271,7 +271,7 @@ namespace CA
                        
                         process.StandardInput.WriteLine(write_string + " " + modebit + " " + "3");
                         read_string = process.StandardOutput.ReadLine();
-                 //       Console.WriteLine(" READ: " + read_string);
+                        //Console.WriteLine(" READ: " + read_string);
                         //file = new System.IO.StreamReader(@"C:\\xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\check_line.txt");
                         // read_string = file.ReadLine();
                         //  file.Close();
@@ -304,8 +304,15 @@ namespace CA
           //  process.StartInfo = startInfo;
           //  process.StartInfo.UseShellExecute = true;
             process.StandardInput.WriteLine(write_string + " " + modebit + " " + "3");
+           modebit = "0";
+            do
+            {
+                process.StandardInput.WriteLine(write_string + " " + modebit + " " + "3");
                 read_string = process.StandardOutput.ReadLine();
-             //   Console.WriteLine(" READEXIT: " + read_string);
+                check_read_string = read_string.Substring(17, 1);
+            } while (check_read_string != "0" && check_read_string != "1" && check_read_string != "2" && check_read_string != "3");
+
+          
            
             //  process.Start();
             //  process.Close();
@@ -330,13 +337,14 @@ namespace CA
          //   proces.Start();
          //   proces.WaitForExit();
          //   proces.Close();
-            modernbit = '0';
+            //modernbit = '0';
+            process.StandardInput.WriteLine("000000000000000002 0 3");
             read_string = process.StandardOutput.ReadLine();
            // System.IO.StreamReader file = new System.IO.StreamReader(@"C:\xilinx\14.7\ISE_DS\ISE\bin\nt\check_line.txt");
            // read_string = file.ReadLine();
           //  file.Close();
             str = read_string.Substring(17, 1);
-            if (str == "0" && str == "4" && str == "8" && str == "C")
+            if (str == "0" || str == "4" || str == "8" || str == "C")
             {
                 return arraybool;
             }
@@ -353,11 +361,13 @@ namespace CA
               //     proces.WaitForExit();
                //   proces.Close();
                 modernbit = '0';
-                read_string = process.StandardOutput.ReadLine();
-               // file = new System.IO.StreamReader(@"C:\xilinx\14.7\ISE_DS\ISE\bin\nt\check_line.txt");
-                 //   read_string = file.ReadLine();
+               // process.StandardInput.WriteLine("00000000000000000" + correct_read_string + " " + modernbit + " " + "3");
+               // read_string = process.StandardOutput.ReadLine();
+                //   read_string = process.StandardOutput.ReadLine();
+                // file = new System.IO.StreamReader(@"C:\xilinx\14.7\ISE_DS\ISE\bin\nt\check_line.txt");
+                //   read_string = file.ReadLine();
                 //     file.Close();
-                    str = read_string.Substring(17, 1);
+               // str = read_string.Substring(17, 1);
                     while (true)
                     {
                     process.StandardInput.WriteLine("00000000000000000" + correct_read_string + " " + modernbit + " " + "3");
@@ -542,13 +552,13 @@ namespace CA
                     for (int i=0;i<12; i++)
                     otvet=process.StandardOutput.ReadLine();
                     process.StandardInput.WriteLine("800000000000000000 1 3");
-                    otvet= process.StandardOutput.ReadLine();
+                  //  otvet= process.StandardOutput.ReadLine();
                     process.StandardInput.WriteLine("000000000000000000 1 3");
-                    otvet = process.StandardOutput.ReadLine();
+                  //  otvet = process.StandardOutput.ReadLine();
                     process.StandardInput.WriteLine("000000000000000034 1 3");
-                    otvet = process.StandardOutput.ReadLine();
+                  //  otvet = process.StandardOutput.ReadLine();
                     process.StandardInput.WriteLine("000000000000000000 1 3");
-                    otvet = process.StandardOutput.ReadLine();
+                  //  otvet = process.StandardOutput.ReadLine();
                     
                     return true;
                 }
