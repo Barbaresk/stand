@@ -43,6 +43,7 @@
             this.bOpenElement = new System.Windows.Forms.Button();
             this.bCreateObject = new System.Windows.Forms.Button();
             this.bStand = new System.Windows.Forms.Button();
+            this.bOpenObject = new System.Windows.Forms.Button();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,7 +56,7 @@
             this.справкаToolStripMenuItem});
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
-            this.menu.Size = new System.Drawing.Size(431, 24);
+            this.menu.Size = new System.Drawing.Size(452, 24);
             this.menu.TabIndex = 0;
             this.menu.Text = "menu";
             // 
@@ -87,6 +88,7 @@
             this.импортОбъектовToolStripMenuItem.Name = "импортОбъектовToolStripMenuItem";
             this.импортОбъектовToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.импортОбъектовToolStripMenuItem.Text = "Открыть объект";
+            this.импортОбъектовToolStripMenuItem.Click += new System.EventHandler(this.bOpenObject_Click);
             // 
             // создатьОбъектToolStripMenuItem
             // 
@@ -135,49 +137,105 @@
             // 
             // bCreateElement
             // 
-            this.bCreateElement.Location = new System.Drawing.Point(12, 27);
+            this.bCreateElement.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.bCreateElement.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.bCreateElement.FlatAppearance.BorderSize = 0;
+            this.bCreateElement.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightSteelBlue;
+            this.bCreateElement.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightSteelBlue;
+            this.bCreateElement.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
+            this.bCreateElement.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bCreateElement.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.bCreateElement.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.bCreateElement.Location = new System.Drawing.Point(74, 64);
             this.bCreateElement.Name = "bCreateElement";
-            this.bCreateElement.Size = new System.Drawing.Size(200, 200);
+            this.bCreateElement.Size = new System.Drawing.Size(300, 50);
             this.bCreateElement.TabIndex = 5;
-            this.bCreateElement.Text = "Создать элемент";
-            this.bCreateElement.UseVisualStyleBackColor = true;
+            this.bCreateElement.TabStop = false;
+            this.bCreateElement.Text = "СОЗДАТЬ ЭЛЕМЕНТ";
+            this.bCreateElement.UseVisualStyleBackColor = false;
             this.bCreateElement.Click += new System.EventHandler(this.bCreateElement_Click);
             // 
             // bOpenElement
             // 
-            this.bOpenElement.Location = new System.Drawing.Point(218, 27);
+            this.bOpenElement.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.bOpenElement.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.bOpenElement.FlatAppearance.BorderSize = 0;
+            this.bOpenElement.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightSteelBlue;
+            this.bOpenElement.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightSteelBlue;
+            this.bOpenElement.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
+            this.bOpenElement.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bOpenElement.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.bOpenElement.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.bOpenElement.Location = new System.Drawing.Point(74, 134);
             this.bOpenElement.Name = "bOpenElement";
-            this.bOpenElement.Size = new System.Drawing.Size(200, 200);
+            this.bOpenElement.Size = new System.Drawing.Size(300, 50);
             this.bOpenElement.TabIndex = 6;
-            this.bOpenElement.Text = "Открыть элемент";
-            this.bOpenElement.UseVisualStyleBackColor = true;
+            this.bOpenElement.TabStop = false;
+            this.bOpenElement.Text = "ОТКРЫТЬ ЭЛЕМЕНТ";
+            this.bOpenElement.UseVisualStyleBackColor = false;
             this.bOpenElement.Click += new System.EventHandler(this.bOpenElement_Click);
             // 
             // bCreateObject
             // 
-            this.bCreateObject.Location = new System.Drawing.Point(12, 233);
+            this.bCreateObject.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.bCreateObject.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.bCreateObject.FlatAppearance.BorderSize = 0;
+            this.bCreateObject.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightSteelBlue;
+            this.bCreateObject.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightSteelBlue;
+            this.bCreateObject.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
+            this.bCreateObject.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bCreateObject.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.bCreateObject.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.bCreateObject.Location = new System.Drawing.Point(74, 204);
             this.bCreateObject.Name = "bCreateObject";
-            this.bCreateObject.Size = new System.Drawing.Size(200, 200);
+            this.bCreateObject.Size = new System.Drawing.Size(300, 50);
             this.bCreateObject.TabIndex = 7;
-            this.bCreateObject.Text = "Создать объект";
-            this.bCreateObject.UseVisualStyleBackColor = true;
+            this.bCreateObject.TabStop = false;
+            this.bCreateObject.Text = "СОЗДАТЬ ОБЪЕКТ";
+            this.bCreateObject.UseVisualStyleBackColor = false;
             this.bCreateObject.Click += new System.EventHandler(this.bCreateObject_Click);
             // 
             // bStand
             // 
-            this.bStand.Location = new System.Drawing.Point(218, 233);
+            this.bStand.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.bStand.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.bStand.FlatAppearance.BorderSize = 0;
+            this.bStand.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightSteelBlue;
+            this.bStand.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightSteelBlue;
+            this.bStand.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
+            this.bStand.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bStand.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.bStand.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.bStand.Location = new System.Drawing.Point(74, 344);
             this.bStand.Name = "bStand";
-            this.bStand.Size = new System.Drawing.Size(200, 200);
+            this.bStand.Size = new System.Drawing.Size(300, 50);
             this.bStand.TabIndex = 8;
-            this.bStand.Text = "Стенд";
-            this.bStand.UseVisualStyleBackColor = true;
+            this.bStand.TabStop = false;
+            this.bStand.Text = "ЗАПУСТИТЬ СТЕНД";
+            this.bStand.UseVisualStyleBackColor = false;
             this.bStand.Click += new System.EventHandler(this.bStand_Click);
+            // 
+            // bOpenObject
+            // 
+            this.bOpenObject.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.bOpenObject.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bOpenObject.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.bOpenObject.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.bOpenObject.Location = new System.Drawing.Point(74, 274);
+            this.bOpenObject.Name = "bOpenObject";
+            this.bOpenObject.Size = new System.Drawing.Size(300, 50);
+            this.bOpenObject.TabIndex = 9;
+            this.bOpenObject.Text = "ОТКРЫТЬ ОБЪЕКТ";
+            this.bOpenObject.UseVisualStyleBackColor = false;
+            this.bOpenObject.Click += new System.EventHandler(this.bOpenObject_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(431, 445);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(452, 433);
+            this.Controls.Add(this.bOpenObject);
             this.Controls.Add(this.bStand);
             this.Controls.Add(this.bCreateObject);
             this.Controls.Add(this.bOpenElement);
@@ -211,6 +269,7 @@
         private System.Windows.Forms.Button bStand;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
+        private System.Windows.Forms.Button bOpenObject;
     }
 }
 

@@ -67,7 +67,7 @@
       <DependentUpon>StandRun.cs</DependentUpon>
     </Compile>
     <Compile Include="Subject.cs" />
-    <Compile Include="Tcl.cs" />
+    <Compile Include="TclTest.cs" />
     <Compile Include="Tcl2.cs" />
     <Compile Include="Value.cs" />
     <Compile Include="Element.cs" />

@@ -324,5 +324,11 @@ namespace VirtualStand
         {
             return "item_object";
         }
+
+        public override void Click(int x, int y)
+        {
+            foreach (var item in items)
+                item.Click(x - item.X, y - item.Y);
+        }
     }
 }

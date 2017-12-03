@@ -71,6 +71,10 @@ namespace VirtualStand
                                 int outRadix = 0;
                                 string type = "";
                                 string outName = "";
+                                Image on = null;
+                                Image off = null;
+                                string nameOn = "";
+                                string nameOff = "";
                                 while (reader.MoveToNextAttribute())
                                 {
                                     switch (reader.Name)
@@ -90,9 +94,25 @@ namespace VirtualStand
                                         case "name":
                                             outName = reader.Value;
                                             break;
+                                        case "on":
+                                            try
+                                            {
+                                                on = Image.FromFile(regexPath.Match(Path).Groups[1].Value + "\\" + reader.Value);
+                                                nameOn = reader.Value;
+                                            }
+                                            catch (Exception) { }
+                                            break;
+                                        case "off":
+                                            try
+                                            {
+                                                off = Image.FromFile(regexPath.Match(Path).Groups[1].Value + "\\" + reader.Value);
+                                                nameOff = reader.Value;
+                                            }
+                                            catch (Exception) { }
+                                            break;
                                     }
                                 }
-                                outPins.Add(new OutPin(outRadix, outName, x, y, type));
+                                outPins.Add(new OutPin(outRadix, outName, x, y, type, on, off, nameOn, nameOff));
                                 break;
                             case "in":
                                 int inRadix = 0;
@@ -208,6 +228,13 @@ namespace VirtualStand
                 if (c.Height > height)
                     height = c.Height;
             }
+            foreach (OutPin o in outPins)
+            {
+                if (o.Width + o.X > width)
+                    width = o.Width;
+                if (o.Height + o.Y > height)
+                    height = o.Height;
+            }
             return new Size(width, height);
         }
 
@@ -260,7 +287,7 @@ namespace VirtualStand
                 WriteImage(path + @"\" + backgroundName, background);
             }
             foreach (OutPin o in outPins)
-                o.Write(writer);
+                o.Write(path, writer);
             foreach (InPin i in inPins)
                 i.Write(writer);
             foreach (Condition c in conditions)
@@ -279,6 +306,12 @@ namespace VirtualStand
         public override string GetItemType()
         {
             return "item_element";
+        }
+
+        public override void Click(int x, int y)
+        {
+            foreach (OutPin o in outPins)
+                o.Click(x - o.X, y - o.Y);
         }
     }
 }

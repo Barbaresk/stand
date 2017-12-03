@@ -607,6 +607,9 @@ namespace VirtualStand
                 warnings.Add("Таблицы входов и выходов пустые.");
             for (int i = 0; i < lines.Count; ++i)
                 warnings.AddRange(lines[i].CheckWarnings(i + 1, background));
+            foreach (var o in outs)
+                if (o.ImageOff == null && o.ImageOn == null)
+                    warnings.Add("Выход " + o.Name + " не имеет изображений. Буду использованы изображения по умолчанию.");
             return warnings;
         }
 
@@ -694,6 +697,13 @@ namespace VirtualStand
                 for (int j = i + 1; j < lines.Count; ++j)
                     if (lines[i].Name.Equals(lines[j].Name) && lines[i].Hash != lines[j].Hash)
                         errors.Add("В " + (i + 1) + " и " + (j + 1) + " строках разные изображения с одинаковыми именами!");
+            foreach (var o in outs)
+            {
+                if (o.ImageOn != null && o.ImageOff == null || o.ImageOn == null && o.ImageOff != null)
+                    errors.Add("Выход " + o.Name + " имеет только одно изображение. Неоходимо добавить второе.");
+                if (o.ImageOn != null && o.ImageOff != null && !o.ImageOn.Size.Equals(o.ImageOff.Size))
+                    errors.Add("Изображения для " + o.Name + " выхода имеют разные размеры.");
+            }
             return errors;
         }
         
@@ -827,7 +837,7 @@ namespace VirtualStand
                         WriteImage(path + "\\" + tbBackground.Text + ".png", background);
                     }
                     foreach (OutBox box in outs)
-                        box.Write(writer);
+                        box.Write(path, writer);
                     foreach (DataGridViewRow dgvr in dgvIn.Rows)
                         if (dgvr.Cells["NameIn"].Value != null)
                         {
@@ -932,6 +942,11 @@ namespace VirtualStand
         {
             choice = null;
             dx = dy = 0;
+        }
+
+        private void tbName_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

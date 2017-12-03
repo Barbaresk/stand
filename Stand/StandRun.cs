@@ -24,12 +24,14 @@ namespace VirtualStand
         private int fx;
         private int fy;
         private bool flag;
+        private bool isMoved;
 
         public StandRun()
         {
             InitializeComponent();
             items = new List<Subject>();
             flag = true;
+            isMoved = false;
         }
 
         private tclwithc mas;
@@ -55,7 +57,6 @@ namespace VirtualStand
 
         private void init()
         {
-            
            
             mas = new tclwithc();
             for (int i = 0; !mas.init() && i < 10; ++i)
@@ -100,7 +101,7 @@ namespace VirtualStand
                     bufIn.Reverse();
                     send.AddRange(bufIn);
                     var bufOut = s.GetValue();
-                    bufOut.Reverse();
+                    //bufOut.Reverse();
                     send.AddRange(bufOut);
                 }
                 reverse(send);
@@ -211,7 +212,6 @@ namespace VirtualStand
                 }
             }
             
-            //names[0] = "inc";
             return names;   
         }
 
@@ -235,41 +235,72 @@ namespace VirtualStand
 
         private void pbStand_MouseDown(object sender, MouseEventArgs e)
         {
-            for (int k = items.Count - 1; k >= 0; k--)
+            //Console.WriteLine("Mouse down");
+            if (canMoved.Checked)
             {
-                Subject i = items[k];
-                if (i.X < e.X && i.X + i.Width > e.X &&
-                   i.Y < e.Y && i.Y + i.Height > e.Y)
+                for (int k = items.Count - 1; k >= 0; k--)
                 {
-                    choice = i;
-                    fx = e.X;
-                    fy = e.Y;
-                    return;
+                    Subject i = items[k];
+                    if (i.X < e.X && i.X + i.Width > e.X &&
+                       i.Y < e.Y && i.Y + i.Height > e.Y)
+                    {
+                        choice = i;
+                        fx = e.X;
+                        fy = e.Y;
+                        return;
+                    }
                 }
+                isMoved = false;
             }
         }
 
         private void pbStand_MouseLeave(object sender, EventArgs e)
         {
-            choice = null;
-            Invalidate();
+            //Console.WriteLine("Mouse leave");
+            if (canMoved.Checked)
+            {
+                choice = null;
+                Invalidate();
+            }
         }
 
         private void pbStand_MouseMove(object sender, MouseEventArgs e)
         {
-            if (choice != null)
+            //Console.WriteLine("Mouse move");
+            if (canMoved.Checked)
             {
-                choice.Move(e.X - fx, e.Y - fy);
-                fx = e.X;
-                fy = e.Y;
+                if (choice != null)
+                {
+                    choice.Move(e.X - fx, e.Y - fy);
+                    fx = e.X;
+                    fy = e.Y;
+                }
+                isMoved = true;
+                Invalidate();
             }
-            Invalidate();
         }
 
         private void pbStand_MouseUp(object sender, MouseEventArgs e)
         {
-            choice = null;
-            Invalidate();
+            //Console.WriteLine("Mouse up");
+            if (canMoved.Checked)
+            {
+                choice = null;
+                Invalidate();
+            }
+        }
+
+        private void pbStand_MouseClick(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine("Mouse click");
+            if (!canMoved.Checked)
+            {
+                if (isMoved == false && choice == null)
+                {
+                    foreach (var item in items)
+                        item.Click(e.X - item.X, e.Y - item.Y);
+                }
+            }
         }
     }
 }

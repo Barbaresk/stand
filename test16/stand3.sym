@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<symbol version="7" name="stand3">
+    <symboltype>BLOCK</symboltype>
+    <timestamp>2017-4-4T14:50:53</timestamp>
+    <pin polarity="Input" x="0" y="-736" name="CLK" />
+    <pin polarity="Input" x="0" y="-672" name="CLR" />
+    <pin polarity="Input" x="0" y="-608" name="diod_q" />
+    <pin polarity="Input" x="0" y="-544" name="diod2_q" />
+    <pin polarity="Input" x="0" y="-480" name="diod3_q" />
+    <pin polarity="Input" x="0" y="-416" name="q(3:0)" />
+    <pin polarity="Input" x="0" y="-352" name="digit2_q(3:0)" />
+    <pin polarity="Input" x="0" y="-288" name="digit3_q(3:0)" />
+    <pin polarity="Input" x="0" y="-224" name="digit4_q(3:0)" />
+    <pin polarity="Input" x="0" y="-160" name="panel4_q(3:0)" />
+    <pin polarity="Input" x="0" y="-96" name="panel42_q(3:0)" />
+    <pin polarity="Input" x="0" y="-32" name="DATA_IN(63:0)" />
+    <pin polarity="Output" x="480" y="-736" name="CLR_O" />
+    <pin polarity="Output" x="480" y="-640" name="redButton_d" />
+    <pin polarity="Output" x="480" y="-544" name="redButton2_d" />
+    <pin polarity="Output" x="480" y="-448" name="d(3:0)" />
+    <pin polarity="Output" x="480" y="-352" name="tumler42_d(3:0)" />
+    <pin polarity="Output" x="480" y="-256" name="tumler43_d(3:0)" />
+    <pin polarity="Output" x="480" y="-160" name="tumler44_d(3:0)" />
+    <pin polarity="Output" x="480" y="-64" name="DATA_OUT(63:0)" />
+    <graph>
+        <rect width="352" x="64" y="-768" height="768" />
+        <attrtext style="alignment:BCENTER;fontsize:56;fontname:Arial" attrname="SymbolName" x="240" y="-776" type="symbol" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-736" type="pin CLK" />
+        <line x2="0" y1="-736" y2="-736" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-672" type="pin CLR" />
+        <line x2="0" y1="-672" y2="-672" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-608" type="pin diod_q" />
+        <line x2="0" y1="-608" y2="-608" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-544" type="pin diod2_q" />
+        <line x2="0" y1="-544" y2="-544" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-480" type="pin diod3_q" />
+        <line x2="0" y1="-480" y2="-480" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-416" type="pin q(3:0)" />
+        <rect width="64" x="0" y="-428" height="24" />
+        <line x2="0" y1="-416" y2="-416" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-352" type="pin digit2_q(3:0)" />
+        <rect width="64" x="0" y="-364" height="24" />
+        <line x2="0" y1="-352" y2="-352" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-288" type="pin digit3_q(3:0)" />
+        <rect width="64" x="0" y="-300" height="24" />
+        <line x2="0" y1="-288" y2="-288" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-224" type="pin digit4_q(3:0)" />
+        <rect width="64" x="0" y="-236" height="24" />
+        <line x2="0" y1="-224" y2="-224" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-160" type="pin panel4_q(3:0)" />
+        <rect width="64" x="0" y="-172" height="24" />
+        <line x2="0" y1="-160" y2="-160" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-96" type="pin panel42_q(3:0)" />
+        <rect width="64" x="0" y="-108" height="24" />
+        <line x2="0" y1="-96" y2="-96" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-32" type="pin DATA_IN(63:0)" />
+        <rect width="64" x="0" y="-44" height="24" />
+        <line x2="0" y1="-32" y2="-32" x1="64" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-736" type="pin CLR_O" />
+        <line x2="480" y1="-736" y2="-736" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-640" type="pin redButton_d" />
+        <line x2="480" y1="-640" y2="-640" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-544" type="pin redButton2_d" />
+        <line x2="480" y1="-544" y2="-544" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-448" type="pin d(3:0)" />
+        <rect width="64" x="416" y="-460" height="24" />
+        <line x2="480" y1="-448" y2="-448" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-352" type="pin tumler42_d(3:0)" />
+        <rect width="64" x="416" y="-364" height="24" />
+        <line x2="480" y1="-352" y2="-352" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-256" type="pin tumler43_d(3:0)" />
+        <rect width="64" x="416" y="-268" height="24" />
+        <line x2="480" y1="-256" y2="-256" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-160" type="pin tumler44_d(3:0)" />
+        <rect width="64" x="416" y="-172" height="24" />
+        <line x2="480" y1="-160" y2="-160" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-64" type="pin DATA_OUT(63:0)" />
+        <rect width="64" x="416" y="-76" height="24" />
+        <line x2="480" y1="-64" y2="-64" x1="416" />
+    </graph>
+</symbol>

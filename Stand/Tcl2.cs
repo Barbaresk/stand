@@ -304,13 +304,13 @@ namespace CA
           //  process.StartInfo = startInfo;
           //  process.StartInfo.UseShellExecute = true;
             process.StandardInput.WriteLine(write_string + " " + modebit + " " + "3");
-           modebit = "0";
-            do
-            {
-                process.StandardInput.WriteLine(write_string + " " + modebit + " " + "3");
-                read_string = process.StandardOutput.ReadLine();
-                check_read_string = read_string.Substring(17, 1);
-            } while (check_read_string != "0" && check_read_string != "1" && check_read_string != "2" && check_read_string != "3");
+         //  modebit = "0";
+       //     do
+       //     {
+       //         process.StandardInput.WriteLine(write_string + " " + modebit + " " + "3");
+      ///          read_string = process.StandardOutput.ReadLine();
+      //          check_read_string = read_string.Substring(17, 1);
+       //     } while (check_read_string != "0" && check_read_string != "1" && check_read_string != "2" && check_read_string != "3");
 
           
            
@@ -407,6 +407,7 @@ namespace CA
        //     proces.Close();
             return arraybool;
         }
+
 
         public int DecodeHexString ()
         {

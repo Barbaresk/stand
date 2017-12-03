@@ -54,8 +54,6 @@ architecture Behavioral of OutBuffer_Entity is
 		rw,       --чтение/запись    01
 		waiting   --ожидание         00
 	);
-
-	
 	signal len_bits : std_logic_vector(31 downto 16);
 	signal cop      : std_logic_vector(1 downto 0);
 	signal getting  : boolean;

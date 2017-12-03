@@ -31,6 +31,11 @@ namespace VirtualStand
             InitializeComponent();
         }
 
+        public NewObject(string path) : this()
+        {
+
+        }
+
         private void bAddElement_Click(object sender, EventArgs e)
         {
             string path = Program.GetFile("Поиск элемента", "Элементы|*.element");

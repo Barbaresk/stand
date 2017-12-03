@@ -18,7 +18,7 @@ namespace VirtualStand
         public MainForm()
         {
             InitializeComponent();
- 
+    
         }
 
         private void newElement_Click(object sender, EventArgs e)
@@ -115,6 +115,25 @@ namespace VirtualStand
         {
             Form form = new StandRun();
             form.Show();
+        }
+
+        private void bOpenObject_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "Изображения |*.element";
+                dialog.Title = "Поиск элемента";
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    Form form = new NewObject(dialog.FileName);
+                    form.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка: " + ex.Message);
+            }
         }
     }
 }

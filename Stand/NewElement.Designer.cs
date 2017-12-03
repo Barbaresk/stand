@@ -77,6 +77,7 @@
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(174, 20);
             this.tbName.TabIndex = 1;
+            this.tbName.TextChanged += new System.EventHandler(this.tbName_TextChanged);
             // 
             // bBackground
             // 
@@ -304,7 +305,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1426, 653);
+            this.ClientSize = new System.Drawing.Size(1284, 653);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tbBackground);
             this.Controls.Add(this.panel3);

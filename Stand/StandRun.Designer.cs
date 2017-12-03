@@ -31,6 +31,7 @@
             this.bStart = new System.Windows.Forms.Button();
             this.pbStand = new System.Windows.Forms.PictureBox();
             this.tbError = new System.Windows.Forms.RichTextBox();
+            this.canMoved = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbStand)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,6 +52,7 @@
             this.pbStand.Size = new System.Drawing.Size(978, 451);
             this.pbStand.TabIndex = 1;
             this.pbStand.TabStop = false;
+            this.pbStand.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbStand_MouseClick);
             this.pbStand.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbStand_MouseDown);
             this.pbStand.MouseLeave += new System.EventHandler(this.pbStand_MouseLeave);
             this.pbStand.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbStand_MouseMove);
@@ -64,11 +66,22 @@
             this.tbError.TabIndex = 2;
             this.tbError.Text = "";
             // 
+            // canMoved
+            // 
+            this.canMoved.AutoSize = true;
+            this.canMoved.Location = new System.Drawing.Point(821, 18);
+            this.canMoved.Name = "canMoved";
+            this.canMoved.Size = new System.Drawing.Size(169, 17);
+            this.canMoved.TabIndex = 3;
+            this.canMoved.Text = "Перетаскивание элементов";
+            this.canMoved.UseVisualStyleBackColor = true;
+            // 
             // StandRun
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1002, 565);
+            this.Controls.Add(this.canMoved);
             this.Controls.Add(this.tbError);
             this.Controls.Add(this.pbStand);
             this.Controls.Add(this.bStart);
@@ -77,6 +90,7 @@
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.StandRun_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.pbStand)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -85,5 +99,6 @@
         private System.Windows.Forms.Button bStart;
         private System.Windows.Forms.PictureBox pbStand;
         private System.Windows.Forms.RichTextBox tbError;
+        private System.Windows.Forms.CheckBox canMoved;
     }
 }

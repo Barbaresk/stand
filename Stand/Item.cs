@@ -63,6 +63,15 @@ namespace VirtualStand
                 return size.Height;
             }
         }
+
+        public List<bool> Value
+        {
+            get
+            {
+                return GetValue();
+            }
+        }
+
         public Point Location { get; set; }
         public int X
         {
@@ -140,6 +149,8 @@ namespace VirtualStand
         abstract public void Save(string path, string subPath);
         abstract public void Read();
         abstract public string GetItemType();
+        abstract public void Click(int x, int y);
+
         public List<bool> GetValue()
         {
             List<bool> value = new List<bool>();
